@@ -1,0 +1,1572 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>All Nations Church – Notion Onboarding</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════
+     TOP BAR
+     ═══════════════════════════════════════════ -->
+<header class="top-bar">
+  <div class="top-bar-brand">
+    <div class="n-logo"><img src="anlogo.png" alt="All Nations" style="width:100%;height:100%;object-fit:contain;border-radius:5px;padding:4px;"></div>
+    <div class="brand-label">
+      <span class="brand-name">All Nations Church</span>
+      <span class="brand-sub">Notion Onboarding</span>
+    </div>
+  </div>
+  <span class="slide-counter">
+    <span class="current" id="currentNum">1</span> / 16
+  </span>
+</header>
+
+<!-- Progress Bar -->
+<div class="progress-track">
+  <div class="progress-fill" id="progressFill" style="width:6.25%"></div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     SLIDES
+     ═══════════════════════════════════════════ -->
+<div class="slides-wrap">
+
+  <!-- ────────────────────────────────────────
+       SLIDE 1 — HERO
+       ──────────────────────────────────────── -->
+  <section class="slide active" id="slide-0">
+    <div class="slide-inner">
+      <div class="s1-layout">
+        <!-- Decorative scribbles -->
+        <img class="s1-decor s1-decor-tl" src="Slide 1/scribble final version-02.svg" alt="">
+        <img class="s1-decor s1-decor-tr" src="Slide 1/scribble final version-08.svg" alt="">
+        <img class="s1-decor s1-decor-bl" src="Slide 1/scribble final version-14.svg" alt="">
+        <img class="s1-decor s1-decor-br" src="Slide 1/scribble final version-15.svg" alt="">
+
+        <div class="anim-1">
+          <div class="s1-badge">
+            <span class="badge-dot"></span>
+            All Nations Church Staff Onboarding
+          </div>
+        </div>
+
+        <h1 class="s1-hero-title anim-2">
+          Welcome to<br><em>Notion.</em>
+        </h1>
+
+        <p class="s1-sub anim-3">
+          Your new digital workspace — one place for everything your team creates, plans, and needs to know.
+        </p>
+
+        <div class="s1-actions anim-4">
+          <button class="btn btn-dark" id="getStarted">
+            Get Started &nbsp;→
+          </button>
+          <button class="btn btn-ghost" data-open-modal="what-is-notion">
+            What is Notion? ℹ
+          </button>
+        </div>
+
+        <div class="s1-stats anim-5">
+          <div class="s1-stat">
+            <strong>16</strong>
+            <span>Slides</span>
+          </div>
+          <div class="s1-divider"></div>
+          <div class="s1-stat">
+            <strong>10</strong>
+            <span>Departments</span>
+          </div>
+          <div class="s1-divider"></div>
+          <div class="s1-stat">
+            <strong>1</strong>
+            <span>Workspace</span>
+          </div>
+          <div class="s1-divider"></div>
+          <div class="s1-stat">
+            <strong>∞</strong>
+            <span>Possibilities</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ────────────────────────────────────────
+       SLIDE 2 — AGENDA
+       ──────────────────────────────────────── -->
+  <section class="slide" id="slide-1">
+    <div class="slide-inner">
+      <div class="s2-layout">
+        <div class="s2-heading">
+          <span class="eyebrow">Today's session</span>
+          <h2 class="slide-title anim-1">What will this cover?</h2>
+          <p class="slide-subtitle anim-2">
+            Five areas — from the big picture down to how Notion fits your specific role.
+          </p>
+          <button class="btn btn-ghost anim-3" data-open-modal="session-tips">
+            <img src="Slide 2/bulb.svg" alt="" style="width:20px;height:20px;display:inline-block;vertical-align:middle;margin-right:2px;"> Tips for today
+          </button>
+        </div>
+
+        <div class="agenda-cards">
+          <div class="agenda-card" data-slide="2">
+            <span class="ag-num">01</span>
+            <img src="Slide 2/What is notion.svg" alt="What is Notion">
+            <span class="ag-label">What is Notion</span>
+            <span class="ag-arrow">→</span>
+          </div>
+          <div class="agenda-card" data-slide="6">
+            <span class="ag-num">02</span>
+            <img src="Slide 2/Your department.svg" alt="Building blocks">
+            <span class="ag-label">The Building Blocks</span>
+            <span class="ag-arrow">→</span>
+          </div>
+          <div class="agenda-card" data-slide="4">
+            <span class="ag-num">03</span>
+            <img src="Slide 2/The Building blocks.svg" alt="Why We're Moving">
+            <span class="ag-label">Why We're Moving</span>
+            <span class="ag-arrow">→</span>
+          </div>
+          <div class="agenda-card" data-slide="11">
+            <span class="ag-num">04</span>
+            <img src="Slide 2/Working together.svg" alt="Collaboration">
+            <span class="ag-label">Working Together</span>
+            <span class="ag-arrow">→</span>
+          </div>
+          <div class="agenda-card" data-slide="15">
+            <span class="ag-num">05</span>
+            <img src="Slide 15/314.Education.svg" alt="Your Department">
+            <span class="ag-label">Your Department</span>
+            <span class="ag-arrow">→</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ────────────────────────────────────────
+       SLIDE 3 — WHAT IS NOTION?
+       ──────────────────────────────────────── -->
+  <section class="slide" id="slide-2">
+    <div class="slide-inner">
+      <div class="s3-layout">
+        <div class="anim-1">
+          <span class="eyebrow">The big picture</span>
+          <h2 class="slide-title">What is Notion?
+            <button class="info-btn" data-open-modal="notion-detail" title="Learn more">?</button>
+          </h2>
+        </div>
+
+        <blockquote class="notion-quote anim-2">
+          <span class="quote-icon">"</span>
+          Notion is like a digital notebook crossed with Google Docs, Trello, and a planner — all living in one app, beautifully connected.
+        </blockquote>
+
+        <div>
+          <p class="section-title">You can use it to:</p>
+          <div class="use-case-row">
+            <div class="uc-card" data-open-modal="uc-notes">
+              <img src="Slide 3/Write notes and documents.svg" alt="Notes">
+              <span>Write notes &amp; documents</span>
+            </div>
+            <div class="uc-card" data-open-modal="uc-tasks">
+              <img src="Slide 3/Create to-do lists.svg" alt="To-do lists">
+              <span>Create to-do lists</span>
+            </div>
+            <div class="uc-card" data-open-modal="uc-projects">
+              <img src="Slide 3/Plan projects with teams.svg" alt="Projects">
+              <span>Plan projects with teams</span>
+            </div>
+            <div class="uc-card" data-open-modal="uc-store">
+              <img src="Slide 3/Store information and files.svg" alt="Store files">
+              <span>Store information &amp; files</span>
+            </div>
+            <div class="uc-card" data-open-modal="uc-organise">
+              <img src="Slide 3/Organise everything in one place.svg" alt="Organise">
+              <span>Organise everything in one place</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="s3-bottom anim-4">
+          <p style="color:#111111;"><img src="Slide 2/bulb.svg" alt="" style="width:20px;height:20px;display:inline-block;vertical-align:-4px;margin-right:5px;"> Click any card above to learn more about how that feature works</p>
+          <button class="btn btn-ghost" data-open-modal="notion-ai" style="background: var(--surface); border: none;"><img src="Slide 3/ai.gif" alt="" style="width:55px;height:55px;vertical-align:middle;margin-right:2px;margin-top:-11px;margin-bottom:-11px;"> What about Notion AI?</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ────────────────────────────────────────
+       SLIDE 4 — THE ANALOGY
+       ──────────────────────────────────────── -->
+  <section class="slide" id="slide-3">
+    <div class="slide-inner">
+      <span class="eyebrow anim-1">Think of it like this</span>
+      <h2 class="slide-title anim-1">A smart digital workspace
+        <button class="info-btn" data-open-modal="analogy-detail">?</button>
+      </h2>
+      <p class="slide-subtitle anim-2">Imagine building your own digital HQ — one that replaces five separate tools.</p>
+
+      <div class="s4-layout">
+        <div>
+          <p class="section-title">Notion replaces all of these:</p>
+          <div class="tool-list anim-3">
+            <div class="tool-item" data-open-modal="tool-notebook">
+              <span class="ti-emoji"><img src="Slide 4/A notebook.svg" alt="Notebook" style="width:32px;height:32px;display:block;"></span>
+              <div class="ti-body">
+                <strong>A Notebook</strong>
+                <span>Meeting notes, ideas, journal entries</span>
+              </div>
+            </div>
+            <div class="tool-item" data-open-modal="tool-calendar">
+              <span class="ti-emoji"><img src="Slide 4/a calendar.svg" alt="Calendar" style="width:32px;height:32px;display:block;"></span>
+              <div class="ti-body">
+                <strong>A Calendar</strong>
+                <span>Event planning, deadlines, scheduling</span>
+              </div>
+            </div>
+            <div class="tool-item" data-open-modal="tool-tasks">
+              <span class="ti-emoji"><img src="Slide 4/a task manager.svg" alt="Task Manager" style="width:32px;height:32px;display:block;"></span>
+              <div class="ti-body">
+                <strong>A Task Manager</strong>
+                <span>To-dos, checklists, project tracking</span>
+              </div>
+            </div>
+            <div class="tool-item" data-open-modal="tool-wiki">
+              <span class="ti-emoji"><img src="Slide 4/a company wiki.svg" alt="Company Wiki" style="width:32px;height:32px;display:block;"></span>
+              <div class="ti-body">
+                <strong>A Company Wiki</strong>
+                <span>Policies, processes, staff handbook</span>
+              </div>
+            </div>
+            <div class="tool-item" data-open-modal="tool-tracker">
+              <span class="ti-emoji"><img src="Slide 4/a project tracker.svg" alt="Project Tracker" style="width:32px;height:32px;display:block;"></span>
+              <div class="ti-body">
+                <strong>A Project Tracker</strong>
+                <span>Timelines, responsibilities, progress</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <p class="section-title">Why teams love it:</p>
+          <div class="benefit-list anim-4">
+            <div class="benefit-item">
+              <div class="bi-check">✓</div>
+              <p><strong>Everything is customisable</strong> — build it the way your team actually works, not how a tool forces you to.</p>
+            </div>
+            <div class="benefit-item">
+              <div class="bi-check">✓</div>
+              <p><strong>Works for everyone</strong> — individuals, small teams, or whole organisations all in one workspace.</p>
+            </div>
+            <div class="benefit-item">
+              <div class="bi-check">✓</div>
+              <p><strong>Keeps everything connected</strong> — link a meeting note to a project, a project to a budget, a budget to a task.</p>
+            </div>
+            <div class="benefit-item">
+              <div class="bi-check">✓</div>
+              <p><strong>Easy to collaborate</strong> — your whole team sees the same thing, in real time, no version confusion.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ────────────────────────────────────────
+       SLIDE 5 — WHY WE'RE MOVING
+       ──────────────────────────────────────── -->
+  <section class="slide" id="slide-4">
+    <div class="slide-inner">
+      <div class="s5-layout">
+        <div class="anim-1">
+          <span class="eyebrow">The reason</span>
+          <h2 class="slide-title">Why we're moving to Notion
+            <button class="info-btn" data-open-modal="why-detail">?</button>
+          </h2>
+        </div>
+
+        <div class="why-grid anim-2">
+          <div class="why-card">
+            <img class="wc-icon" src="Slide 5/Less scattered communication.svg" alt="Less scattered communication">
+            <h4>Less scattered communication</h4>
+            <p>No more important updates buried in WhatsApp or email threads that disappear.</p>
+          </div>
+          <div class="why-card">
+            <img class="wc-icon" src="Slide 5/Fewer forgotten tasks.svg" alt="Fewer forgotten tasks">
+            <h4>Fewer forgotten tasks</h4>
+            <p>Clear ownership and deadlines. Everyone knows what they're responsible for.</p>
+          </div>
+          <div class="why-card">
+            <img class="wc-icon" src="Slide 5/Easier collaboration.svg" alt="Easier collaboration">
+            <h4>Easier collaboration</h4>
+            <p>Different departments can share information and work on the same page simultaneously.</p>
+          </div>
+          <div class="why-card">
+            <img class="wc-icon" src="Slide 5/Faster onboarding.svg" alt="Faster onboarding">
+            <h4>Faster onboarding</h4>
+            <p>New staff and volunteers can find what they need without asking five people.</p>
+          </div>
+          <div class="why-card">
+            <img class="wc-icon" src="Slide 5/One place for church knowledge.svg" alt="One place for church knowledge">
+            <h4>One place for church knowledge</h4>
+            <p>Processes, policies, history, and resources — all in one searchable place.</p>
+          </div>
+          <div class="why-card">
+            <img class="wc-icon" src="Slide 5/More clarity less confusion.svg" alt="More clarity, less confusion">
+            <h4>More clarity, less confusion</h4>
+            <p>Everyone is working from the same up-to-date information at the same time.</p>
+          </div>
+        </div>
+
+        <div class="goal-banner anim-3">
+          <img class="gb-icon" src="question white.svg" alt="Goal">
+          <p>Our goal: <strong>spend less time searching for information and more time serving people.</strong></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ────────────────────────────────────────
+       SLIDE 6 — BEFORE vs WITH NOTION
+       ──────────────────────────────────────── -->
+  <section class="slide" id="slide-5">
+    <div class="slide-inner">
+      <span class="eyebrow anim-1">The change</span>
+      <h2 class="slide-title anim-1">Before vs. with Notion
+        <button class="info-btn" data-open-modal="change-detail">?</button>
+      </h2>
+
+      <div class="s6-layout anim-2">
+        <!-- Before -->
+        <div class="compare-panel">
+          <div class="compare-header before">Before Notion</div>
+          <div class="compare-body">
+            <div class="compare-item">
+              <img class="ci-marker" src="Slide 6/Docs spread across Google Drive.svg" alt="Docs spread">
+              Docs spread across Google Drive, email, WhatsApp, and desktops
+            </div>
+            <div class="compare-item">
+              <img class="ci-marker" src="Slide 6/Important messages.svg" alt="Important messages">
+              Important messages and decisions get buried and forgotten
+            </div>
+            <div class="compare-item">
+              <img class="ci-marker" src="Slide 6/Duplicate files everywhere.svg" alt="Duplicate files">
+              Duplicate files everywhere — no one knows which is the latest version
+            </div>
+            <div class="compare-item">
+              <img class="ci-marker" src="Slide 6/Hard to track who is doing what.svg" alt="Hard to track">
+              Hard to track who is doing what, and when things are due
+            </div>
+            <div class="compare-item">
+              <img class="ci-marker" src="Slide 6/New staff have to ask multiple.svg" alt="New staff asking">
+              New staff have to ask multiple people to find basic information
+            </div>
+          </div>
+          <div class="compare-illus" style="background:white;">
+            <video autoplay loop muted playsinline style="height:150px;display:block;margin:0 auto;border:none;">
+              <source src="Slide 6/worryvideo.mp4" type="video/mp4">
+            </video>
+          </div>
+        </div>
+
+        <!-- After -->
+        <div class="compare-panel">
+          <div class="compare-header after">With Notion</div>
+          <div class="compare-body">
+            <div class="compare-item">
+              <img class="ci-marker" src="Slide 6/One searchable workspace .svg" alt="One searchable workspace">
+              One searchable workspace — everything is findable in seconds
+            </div>
+            <div class="compare-item">
+              <img class="ci-marker" src="Slide 6/Shared visibility across all teams.svg" alt="Shared visibility">
+              Shared visibility across all teams — everyone sees the same thing
+            </div>
+            <div class="compare-item">
+              <img class="ci-marker" src="Slide 6/One latest version of everything.svg" alt="One latest version">
+              One latest version of everything, always up to date
+            </div>
+            <div class="compare-item">
+              <img class="ci-marker" src="Slide 6/Clear ownership and tracking .svg" alt="Clear ownership">
+              Clear ownership and tracking — tasks are assigned and visible
+            </div>
+            <div class="compare-item">
+              <img class="ci-marker" src="Slide 6/New staff can self-serve.svg" alt="New staff self-serve">
+              New staff can self-serve — find answers without interrupting others
+            </div>
+          </div>
+          <div class="compare-illus" style="background:white;">
+            <video autoplay loop muted playsinline style="height:150px;display:block;margin:0 auto;border:none;">
+              <source src="Slide 6/orginise.mp4" type="video/mp4">
+            </video>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ────────────────────────────────────────
+       SLIDE 7 — EVERYTHING IS A BLOCK
+       ──────────────────────────────────────── -->
+  <section class="slide" id="slide-6">
+    <div class="slide-inner">
+      <span class="eyebrow anim-1">The foundation</span>
+      <h2 class="slide-title anim-1">Everything is a block
+        <button class="info-btn" data-open-modal="blocks-detail">?</button>
+      </h2>
+      <p class="slide-subtitle anim-1">In Notion, every piece of content is a "block". Click the types below to see them in action.</p>
+
+      <div class="s7-layout">
+        <div>
+          <p class="section-title">Types of blocks:</p>
+          <div class="block-types anim-2">
+            <div class="block-type" data-type="text">
+              <img class="bt-icon" src="Slide 7/Text : heading.svg" alt="Text / Heading">
+              <span class="bt-name">Text / Heading</span>
+              <span class="bt-key">Aa</span>
+            </div>
+            <div class="block-type" data-type="image">
+              <img class="bt-icon" src="Slide 7/Image : media.svg" alt="Image / Media">
+              <span class="bt-name">Image / Media</span>
+              <span class="bt-key">/img</span>
+            </div>
+            <div class="block-type" data-type="check">
+              <img class="bt-icon" src="Slide 7/checklist : to-do.svg" alt="Checklist / To-do">
+              <span class="bt-name">Checklist / To-do</span>
+              <span class="bt-key">[ ]</span>
+            </div>
+            <div class="block-type" data-type="table">
+              <img class="bt-icon" src="Slide 7/table : database.svg" alt="Table / Database">
+              <span class="bt-name">Table / Database</span>
+              <span class="bt-key">/db</span>
+            </div>
+            <div class="block-type" data-type="video">
+              <img class="bt-icon" src="Slide 7/video : embed.svg" alt="Video / Embed">
+              <span class="bt-name">Video / Embed</span>
+              <span class="bt-key">/vid</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="anim-3">
+          <div class="lego-canvas">
+            <h4>Your Notion page — built from blocks</h4>
+            <div class="lego-blocks" id="legoBlocks">
+              <div class="lego-block lb-text" data-type="text" draggable="true">
+                <span class="drag-handle" title="Drag to reorder">⠿</span>
+                <img class="lb-icon" src="Slide 7/sunday service.svg" alt="Sunday Service"><span>Sunday Service — 25 May 2026</span>
+              </div>
+              <div class="lego-block lb-image" data-type="image" draggable="true">
+                <span class="drag-handle" title="Drag to reorder">⠿</span>
+                <img class="lb-icon" src="Slide 7/worship slides.svg" alt="Worship Slides"><span>Worship slides.jpg</span>
+              </div>
+              <div class="lego-block lb-check" data-type="check" draggable="true">
+                <span class="drag-handle" title="Drag to reorder">⠿</span>
+                <img class="lb-icon" src="Slide 7/sound check complete.svg" alt="Sound check complete"><span>Sound check complete · Prayer team briefed</span>
+              </div>
+              <div class="lego-block lb-table" data-type="table" draggable="true">
+                <span class="drag-handle" title="Drag to reorder">⠿</span>
+                <img class="lb-icon" src="Slide 7/team rota database.svg" alt="Team Rota Database"><span>Team Rota Database</span>
+              </div>
+              <div class="lego-block lb-video" data-type="video" draggable="true">
+                <span class="drag-handle" title="Drag to reorder">⠿</span>
+                <img class="lb-icon" src="Slide 7/pre-service training video.svg" alt="Pre-service training video"><span>Pre-service training video</span>
+              </div>
+            </div>
+            <div class="lego-note">
+              <strong>↕ Drag blocks to reorder</strong> — just like in real Notion. Press <strong>/</strong> to add a new block.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ────────────────────────────────────────
+       SLIDE 8 — PAGES
+       ──────────────────────────────────────── -->
+  <section class="slide" id="slide-7">
+    <div class="slide-inner">
+      <span class="eyebrow anim-1">The structure</span>
+      <h2 class="slide-title anim-1">Pages are your digital notebooks
+        <button class="info-btn" data-open-modal="pages-detail">?</button>
+      </h2>
+
+      <div class="s8-layout anim-2">
+        <div>
+          <div class="page-tree">
+            <div class="tree-title">📂 All Nations Church Workspace</div>
+            <div class="tree-item"><img class="t-icon" src="Slide 8 /Church Hub.svg" alt="Church Hub"> Church Hub</div>
+              <div class="tree-item l1"><img class="t-icon" src="Slide 8 /Event Calendar.svg" alt="Events Calendar"> Events Calendar</div>
+              <div class="tree-item l1"><img class="t-icon" src="Slide 8 /Announcements.svg" alt="Announcements"> Announcements</div>
+              <div class="tree-item l1"><img class="t-icon" src="Slide 8 /Staff Policies.svg" alt="Staff Policies"> Staff Policies</div>
+            <div class="tree-item"><img class="t-icon" src="Slide 8 /Production Team.svg" alt="Production Team"> Production Team</div>
+              <div class="tree-item l1"><img class="t-icon" src="Slide 8 /Video Marketing plan.svg" alt="Video Marketing Plan"> Video marketing plan</div>
+              <div class="tree-item l1"><img class="t-icon" src="Slide 8 /Equipment tracker.svg" alt="Equipment Tracker"> Equipment Tracker</div>
+              <div class="tree-item l2"><img class="t-icon" src="Slide 8 /Camera invetory.svg" alt="Camera Inventory"> Camera inventory</div>
+            <div class="tree-item"><img class="t-icon" src="Slide 8 /Comms Team.svg" alt="Comms Team"> Comms Team</div>
+              <div class="tree-item l1"><img class="t-icon" src="Slide 8 /Content calendar.svg" alt="Content Calendar"> Content Calendar</div>
+            <div class="tree-item"><img class="t-icon" src="Slide 8 /Events team.svg" alt="Events Team"> Events Team</div>
+              <div class="tree-item l1"><img class="t-icon" src="Slide 8 /Upcoming Event.svg" alt="Upcoming Event"> Upcoming Event</div>
+          </div>
+        </div>
+
+        <div>
+          <p class="section-title">Pages can hold anything:</p>
+          <div class="pages-benefits">
+            <div class="pb-card">
+              <img src="Slide 8 /Tasks & to-do lists.svg" alt="Tasks">
+              <div class="pb-text">
+                <strong>Tasks &amp; to-do lists</strong>
+                <p>Assign work to team members with deadlines and priority labels.</p>
+              </div>
+            </div>
+            <div class="pb-card">
+              <img src="Slide 8 /Images, files & media.svg" alt="Images">
+              <div class="pb-text">
+                <strong>Images, files &amp; media</strong>
+                <p>Attach photos, PDFs, videos — everything lives alongside the content it belongs to.</p>
+              </div>
+            </div>
+            <div class="pb-card">
+              <img src="Slide 8 /Databases & tables.svg" alt="Databases">
+              <div class="pb-text">
+                <strong>Databases &amp; tables</strong>
+                <p>Structured information like rotas, event plans, and contacts — all sortable and filterable.</p>
+              </div>
+            </div>
+          </div>
+
+          <div style="margin-top:12px; padding:12px 14px; background:var(--accent-soft); border:1px solid var(--accent-light); border-radius:var(--radius-sm);">
+            <p style="font-size:13px; color:var(--accent); font-weight:600;">
+              <img src="Slide 2/bulb.svg" alt="" style="width:18px;height:18px;display:inline-block;vertical-align:middle;margin-right:5px;"> Pages can contain other pages — like folders within folders. One giant, connected, searchable notebook for everything in church life.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ────────────────────────────────────────
+       SLIDE 9 — REAL LIFE EXAMPLE
+       ──────────────────────────────────────── -->
+  <section class="slide" id="slide-8">
+    <div class="slide-inner">
+      <span class="eyebrow anim-1">In practice</span>
+      <h2 class="slide-title anim-1">How this works in real life
+        <button class="info-btn" data-open-modal="reallife-detail">?</button>
+      </h2>
+      <p class="slide-subtitle anim-1">Here's how staff meeting prep looks inside Notion — one page, everyone working from it.</p>
+
+      <div class="s9-layout">
+        <div class="scenario-card anim-2">
+          <h3>Staff Meeting — One source of truth</h3>
+          <div class="workflow">
+            <div class="wf-step">
+              <div class="wf-bubble"><img src="Slide 9/agenda built.svg" alt="Agenda built" style="width:24px;height:24px;"></div>
+              <span class="wf-label">Agenda built</span>
+            </div>
+            <div class="wf-step">
+              <div class="wf-bubble"><img src="Slide 9/action points assigned.svg" alt="Action points assigned" style="width:24px;height:24px;"></div>
+              <span class="wf-label">Action points assigned</span>
+            </div>
+            <div class="wf-step">
+              <div class="wf-bubble"><img src="Slide 9/notes recorded.svg" alt="Notes recorded" style="width:24px;height:24px;"></div>
+              <span class="wf-label">Notes recorded</span>
+            </div>
+            <div class="wf-step">
+              <div class="wf-bubble"><img src="Slide 9/follow up tracked.svg" alt="Follow-ups tracked" style="width:24px;height:24px;"></div>
+              <span class="wf-label">Follow-ups tracked</span>
+            </div>
+            <div class="wf-step">
+              <div class="wf-bubble"><img src="Slide 9/everyone sees latest version.svg" alt="Everyone sees latest version" style="width:24px;height:24px;"></div>
+              <span class="wf-label">Everyone sees latest version</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="scenario-card anim-3" style="border-left-color: var(--text-muted);">
+          <h3>Event Planning — Another example</h3>
+          <div class="workflow">
+            <div class="wf-step">
+              <div class="wf-bubble"><img src="Slide 9/event added.svg" alt="Event added" style="width:24px;height:24px;"></div>
+              <span class="wf-label">Event added</span>
+            </div>
+            <div class="wf-step">
+              <div class="wf-bubble"><img src="Slide 9/date added to calendar.svg" alt="Date added to calendar" style="width:24px;height:24px;"></div>
+              <span class="wf-label">Date added to calendar</span>
+            </div>
+            <div class="wf-step">
+              <div class="wf-bubble"><img src="Slide 9/budget tracked.svg" alt="Budget tracked" style="width:24px;height:24px;"></div>
+              <span class="wf-label">Budget tracked</span>
+            </div>
+            <div class="wf-step">
+              <div class="wf-bubble"><img src="Slide 9/team members assigned.svg" alt="Team members assigned" style="width:24px;height:24px;"></div>
+              <span class="wf-label">Team members assigned</span>
+            </div>
+            <div class="wf-step">
+              <div class="wf-bubble"><img src="Slide 9/debrief logged.svg" alt="Debrief logged" style="width:24px;height:24px;"></div>
+              <span class="wf-label">Debrief logged</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="s9-truth anim-4">
+          <p>Same system, <strong>everyone working from one source of truth</strong> — no more "can you resend that file?" or "which version is this?"</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ────────────────────────────────────────
+       SLIDE 10 — DATABASE VIEWS
+       ──────────────────────────────────────── -->
+  <section class="slide" id="slide-9">
+    <div class="slide-inner">
+      <span class="eyebrow anim-1">The flexibility</span>
+      <h2 class="slide-title anim-1">Same info, different views
+        <button class="info-btn" data-open-modal="views-detail">?</button>
+      </h2>
+      <p class="slide-subtitle anim-1">Think of it like different camera angles on the same information. Click a view to preview it.</p>
+
+      <div class="s10-layout anim-2">
+        <div class="view-tabs">
+          <div class="view-tab active" data-view="table">
+            <img class="vt-icon" src="Slide 10/table.svg" alt="Table">
+            <div class="vt-info">
+              <div class="vt-name">Table</div>
+              <div class="vt-desc">Spreadsheet style</div>
+            </div>
+          </div>
+          <div class="view-tab" data-view="board">
+            <img class="vt-icon" src="Slide 10/board.svg" alt="Board">
+            <div class="vt-info">
+              <div class="vt-name">Board</div>
+              <div class="vt-desc">Workflow stages</div>
+            </div>
+          </div>
+          <div class="view-tab" data-view="calendar">
+            <img class="vt-icon" src="Slide 10/calendar.svg" alt="Calendar">
+            <div class="vt-info">
+              <div class="vt-name">Calendar</div>
+              <div class="vt-desc">Schedule view</div>
+            </div>
+          </div>
+          <div class="view-tab" data-view="list">
+            <img class="vt-icon" src="Slide 10/list.svg" alt="List">
+            <div class="vt-info">
+              <div class="vt-name">List</div>
+              <div class="vt-desc">Simple overview</div>
+            </div>
+          </div>
+          <div class="view-tab" data-view="gallery">
+            <img class="vt-icon" src="Slide 10/gallery.svg" alt="Gallery">
+            <div class="vt-info">
+              <div class="vt-name">Gallery</div>
+              <div class="vt-desc">Visual cards</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="view-preview">
+          <!-- Table -->
+          <div class="view-pane active" data-view="table">
+            <h5>Table View — Events Database</h5>
+            <table class="mock-table">
+              <thead>
+                <tr><th>Event</th><th>Date</th><th>Owner</th><th>Status</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>Sunday Service</td><td>25 May</td><td>Endo</td><td><span class="badge badge-green">Done</span></td></tr>
+                <tr><td>Youth Night</td><td>28 May</td><td>Josh</td><td><span class="badge badge-orange">In progress</span></td></tr>
+                <tr><td>Staff Day</td><td>1 Jun</td><td>Ify</td><td><span class="badge badge-grey">Planned</span></td></tr>
+                <tr><td>Community BBQ</td><td>8 Jun</td><td>Andrew</td><td><span class="badge badge-grey">Planned</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+          <!-- Board -->
+          <div class="view-pane" data-view="board">
+            <h5>Board View — Task Pipeline</h5>
+            <div class="board-cols">
+              <div class="board-col" data-col="todo">
+                <h6>📥 To Do</h6>
+                <div class="board-item" draggable="true">Book sound engineer</div>
+                <div class="board-item" draggable="true">Design event flyer</div>
+              </div>
+              <div class="board-col" data-col="inprogress">
+                <h6>🔄 In Progress</h6>
+                <div class="board-item" draggable="true">Confirm venue setup</div>
+                <div class="board-item" draggable="true">Volunteer outreach</div>
+              </div>
+              <div class="board-col" data-col="done">
+                <h6>✅ Done</h6>
+                <div class="board-item board-item--done" draggable="true">Catering ordered</div>
+                <div class="board-item board-item--done" draggable="true">Invites sent</div>
+              </div>
+            </div>
+          </div>
+          <!-- Calendar -->
+          <div class="view-pane" data-view="calendar">
+            <h5>Calendar View — May 2026</h5>
+            <div class="cal-grid">
+              <div class="cal-label">M</div><div class="cal-label">T</div><div class="cal-label">W</div>
+              <div class="cal-label">T</div><div class="cal-label">F</div><div class="cal-label">S</div><div class="cal-label">S</div>
+              <div class="cal-day"></div><div class="cal-day"></div><div class="cal-day"></div><div class="cal-day">1</div>
+              <div class="cal-day">2</div><div class="cal-day weekend">3</div><div class="cal-day weekend has-event">4</div>
+              <div class="cal-day">5</div><div class="cal-day">6</div><div class="cal-day">7</div><div class="cal-day">8</div>
+              <div class="cal-day">9</div><div class="cal-day weekend">10</div><div class="cal-day weekend has-event">11</div>
+              <div class="cal-day">12</div><div class="cal-day">13</div><div class="cal-day">14</div><div class="cal-day">15</div>
+              <div class="cal-day">16</div><div class="cal-day weekend">17</div><div class="cal-day weekend has-event">18</div>
+              <div class="cal-day">19</div><div class="cal-day">20</div><div class="cal-day">21</div><div class="cal-day">22</div>
+              <div class="cal-day">23</div><div class="cal-day weekend">24</div><div class="cal-day weekend has-event">25</div>
+              <div class="cal-day">26</div><div class="cal-day">27</div><div class="cal-day has-event">28</div>
+            </div>
+          </div>
+          <!-- List -->
+          <div class="view-pane" data-view="list">
+            <h5>List View — Task overview</h5>
+            <div class="list-items">
+              <div class="list-item toggleable done" onclick="toggleListItem(this)"><div class="li-check done"></div><span> Send invites to speakers</span></div>
+              <div class="list-item toggleable done" onclick="toggleListItem(this)"><div class="li-check done"></div><span> Confirm catering numbers</span></div>
+              <div class="list-item toggleable" onclick="toggleListItem(this)"><div class="li-check"></div><span> Create event programme</span></div>
+              <div class="list-item toggleable" onclick="toggleListItem(this)"><div class="li-check"></div><span> Arrange parking team</span></div>
+              <div class="list-item toggleable" onclick="toggleListItem(this)"><div class="li-check"></div><span> Publish social posts</span></div>
+            </div>
+          </div>
+          <!-- Gallery -->
+          <div class="view-pane" data-view="gallery">
+            <h5>Gallery View — Resources</h5>
+            <div class="gallery-grid">
+              <div class="gallery-card"><div class="gc-img"><img src="Slide 10/brand kit.svg" alt="Brand Kit"></div><div class="gc-label">Brand Kit</div></div>
+              <div class="gallery-card"><div class="gc-img"><img src="Slide 10/staff photos.svg" alt="Staff Photos"></div><div class="gc-label">Staff Photos</div></div>
+              <div class="gallery-card"><div class="gc-img"><img src="Slide 10/event flyers.svg" alt="Event Flyers"></div><div class="gc-label">Event Flyers</div></div>
+              <div class="gallery-card"><div class="gc-img"><img src="Slide 10/run sheets.svg" alt="Runsheets"></div><div class="gc-label">Runsheets</div></div>
+              <div class="gallery-card"><div class="gc-img"><img src="Slide 10/videos.svg" alt="Videos"></div><div class="gc-label">Videos</div></div>
+              <div class="gallery-card"><div class="gc-img"><img src="Slide 10/templates.svg" alt="Templates"></div><div class="gc-label">Templates</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ────────────────────────────────────────
+       SLIDE 11 — SEARCH
+       ──────────────────────────────────────── -->
+  <section class="slide" id="slide-10">
+    <div class="slide-inner">
+      <div class="s11-layout">
+        <div style="text-align:center" class="anim-1">
+          <span class="eyebrow">Instant recall</span>
+          <h2 class="slide-title">Find anything instantly
+            <button class="info-btn" data-open-modal="search-detail">?</button>
+          </h2>
+          <p class="slide-subtitle">No more digging through emails or chats. Everything is searchable — across the whole workspace.</p>
+        </div>
+
+        <div class="search-demo anim-2">
+          <div class="search-bar">
+            <span class="si">🔍</span>
+            <input type="text" id="searchInput" placeholder="Search everything..." readonly>
+            <span class="sk">⌘K</span>
+          </div>
+          <div class="search-results">
+            <div class="sr-item">
+              <span class="sr-icon">📄</span>
+              <div class="sr-text">
+                <div class="sr-name">Sunday Service Runsheet</div>
+                <div class="sr-path">Production → Service Files → May 2026</div>
+              </div>
+            </div>
+            <div class="sr-item">
+              <span class="sr-icon">📊</span>
+              <div class="sr-text">
+                <div class="sr-name">Volunteer Rota — Worship Team</div>
+                <div class="sr-path">HR → Volunteer Management</div>
+              </div>
+            </div>
+            <div class="sr-item">
+              <span class="sr-icon">📅</span>
+              <div class="sr-text">
+                <div class="sr-name">Events Calendar 2026</div>
+                <div class="sr-path">Church Hub → Events</div>
+              </div>
+            </div>
+            <div class="sr-item">
+              <span class="sr-icon">📋</span>
+              <div class="sr-text">
+                <div class="sr-name">Staff Handbook — Policies</div>
+                <div class="sr-path">HR → Documentation</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="search-benefits anim-3">
+          <div class="sb-card">
+            <img class="sbc-icon" src="Slide 11/instant results.svg" alt="Instant results">
+            <div>
+              <strong>Instant results</strong>
+              <p>Press ⌘K (Mac) or Ctrl+K (Windows) from anywhere in Notion.</p>
+            </div>
+          </div>
+          <div class="sb-card">
+            <img class="sbc-icon" src="Slide 11/everything connected.svg" alt="Everything connected">
+            <div>
+              <strong>Everything connected</strong>
+              <p>Search across all teamspaces, pages, and databases at once.</p>
+            </div>
+          </div>
+          <div class="sb-card">
+            <img class="sbc-icon" src="Slide 11/recent history.svg" alt="Recent history">
+            <div>
+              <strong>Recent history</strong>
+              <p>Recently visited pages appear first so you can pick up right where you left off.</p>
+            </div>
+          </div>
+          <div class="sb-card">
+            <img class="sbc-icon" src="Slide 11/ai powered search.svg" alt="AI-powered search">
+            <div>
+              <strong>AI-powered search</strong>
+              <p>Notion AI can answer questions using your workspace content — like a knowledgeable colleague.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ────────────────────────────────────────
+       SLIDE 12 — WORKING TOGETHER
+       ──────────────────────────────────────── -->
+  <section class="slide" id="slide-11">
+    <div class="slide-inner">
+      <span class="eyebrow anim-1">Collaboration</span>
+      <h2 class="slide-title anim-1">Working together in real time
+        <button class="info-btn" data-open-modal="collab-detail">?</button>
+      </h2>
+      <p class="slide-subtitle anim-1">Notion turns lone working into team working — here's how your team stays connected.</p>
+
+      <div class="s12-layout anim-2">
+        <div class="collab-card">
+          <img class="cc-illus" src="Slide 12/Mention.svg" alt="Mentions">
+          <div class="cc-content">
+            <h4>Mention &amp; notify</h4>
+            <p>Type <strong>@</strong> followed by a colleague's name to tag them anywhere in Notion. They get an instant notification — no separate message needed.</p>
+            <div class="collab-tag">Works like tagging on social media</div>
+          </div>
+        </div>
+
+        <div class="collab-card">
+          <img class="cc-illus" src="Slide 12/Comment.svg" alt="Comments">
+          <div class="cc-content">
+            <h4>Comment on anything</h4>
+            <p>Highlight any text or click any block to leave a comment. Have threaded discussions right next to the content — context stays together.</p>
+            <div class="collab-tag">Like Google Docs comments, but smarter</div>
+          </div>
+        </div>
+
+        <div class="collab-card">
+          <img class="cc-illus" src="Slide 12/Edit.svg" alt="Live editing">
+          <div class="cc-content">
+            <h4>Edit together, live</h4>
+            <p>Multiple people can edit the same page at the same time. You'll see each other's cursors — and every change is saved automatically.</p>
+            <div class="collab-tag">No more "editing locked" messages</div>
+          </div>
+        </div>
+
+        <div class="collab-card">
+          <img class="cc-illus" src="Slide 12/47.Inbox.svg" alt="Inbox">
+          <div class="cc-content">
+            <h4>One unified inbox</h4>
+            <p>All your mentions, comments, and task assignments land in your Notion inbox. One place to see everything that needs your attention.</p>
+            <div class="collab-tag">Your personalised notification hub</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ────────────────────────────────────────
+       SLIDE 13 — WHAT WE'RE BUILDING
+       ──────────────────────────────────────── -->
+  <section class="slide" id="slide-12">
+    <div class="slide-inner">
+      <div class="s13-layout">
+        <div class="anim-1">
+          <span class="eyebrow">Our vision</span>
+          <h2 class="slide-title">What we're building together
+            <button class="info-btn" data-open-modal="vision-detail">?</button>
+          </h2>
+        </div>
+
+        <div class="build-grid anim-2">
+          <div class="build-card">
+            <img class="bc-icon" src="Slide 13/church hub.svg" alt="Church Hub">
+            <h4>Church Hub</h4>
+            <p>A shared central home — calendar, announcements, policies, and church-wide information accessible to everyone.</p>
+          </div>
+          <div class="build-card">
+            <img class="bc-icon" src="Slide 13/department spaces.svg" alt="Department Spaces">
+            <h4>Department Spaces</h4>
+            <p>Every team gets their own space — Production, Events, HR, Finance — structured for how each department actually works.</p>
+          </div>
+          <div class="build-card">
+            <img class="bc-icon" src="Slide 13/knowledge base.svg" alt="Knowledge Base">
+            <h4>Knowledge Base</h4>
+            <p>A growing library of training materials, processes, SOPs, and guides so knowledge lives in the organisation — not just in people's heads.</p>
+          </div>
+          <div class="build-card">
+            <img class="bc-icon" src="Slide 13/project tracking.svg" alt="Project Tracking">
+            <h4>Project Tracking</h4>
+            <p>Every event, campaign, and initiative has a home — tasks assigned, deadlines set, progress visible to all involved.</p>
+          </div>
+          <div class="build-card">
+            <img class="bc-icon" src="Slide 13/less whatsapp chaos.svg" alt="Less WhatsApp Chaos">
+            <h4>Less WhatsApp Chaos</h4>
+            <p>Decisions, documents, and discussions move out of group chats and into a structured, searchable workspace.</p>
+          </div>
+          <div class="build-card">
+            <img class="bc-icon" src="Slide 13/a system that grows.svg" alt="A System That Grows">
+            <h4>A System That Grows</h4>
+            <p>Notion scales as All Nations grows. New departments, new roles, new processes — they all fit inside the same workspace.</p>
+          </div>
+        </div>
+
+        <div class="build-footer anim-3">
+          <p>This is a <strong>team effort</strong> — the more everyone uses it, the more valuable it becomes for everyone.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ────────────────────────────────────────
+       SLIDE 14 — DON'T NEED TO MASTER IT
+       ──────────────────────────────────────── -->
+  <section class="slide" id="slide-13">
+    <div class="slide-inner">
+      <div class="s14-layout">
+        <div>
+          <span class="eyebrow anim-1">Good news</span>
+          <h2 class="slide-title anim-1">You do not need to master everything
+            <button class="info-btn" data-open-modal="pace-detail">?</button>
+          </h2>
+          <p class="slide-subtitle anim-1">Notion has a lot of features. We're starting with the basics — and building up at a pace that works for everyone.</p>
+
+          <div class="step-timeline anim-2">
+            <div class="st-item now">
+              <div class="st-num">1</div>
+              <div class="st-content">
+                <h4>Today — The basics</h4>
+                <p>Understand what Notion is, how to navigate it, and where your team space lives.</p>
+              </div>
+            </div>
+            <div class="st-item">
+              <div class="st-num">2</div>
+              <div class="st-content">
+                <h4>Week 1–2 — Build the habit</h4>
+                <p>Start using Notion for one thing: a task list, a running doc, or your team's calendar.</p>
+              </div>
+            </div>
+            <div class="st-item">
+              <div class="st-num">3</div>
+              <div class="st-content">
+                <h4>Month 1 — Department setup</h4>
+                <p>Your space starts taking shape — databases, views, and templates tailored to your role.</p>
+              </div>
+            </div>
+            <div class="st-item">
+              <div class="st-num">4</div>
+              <div class="st-content">
+                <h4>Ongoing — Keep growing</h4>
+                <p>The system evolves with All Nations. New features, new workflows — one step at a time.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="reassure-box anim-3">
+          <img src="Slide 14/603.Learning-Journey.svg" alt="Learning journey">
+          <h3>We're building this together.</h3>
+          <p>Ask questions anytime. There are no dumb questions in Notion onboarding. Everyone starts somewhere — and we're all starting together.</p>
+          <button class="btn btn-accent" style="margin-top:16px; width:100%; justify-content:center;" data-open-modal="resources-list">
+            Helpful resources
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ────────────────────────────────────────
+       SLIDE 15 — THREE THINGS TO DO
+       ──────────────────────────────────────── -->
+  <section class="slide" id="slide-14">
+    <div class="slide-inner">
+      <div class="s15-layout">
+        <div class="anim-1">
+          <span class="eyebrow">Your next steps</span>
+          <h2 class="slide-title">Three things to do after today</h2>
+          <p class="slide-subtitle">Small actions. Big difference. Do these three things and you're properly set up.</p>
+        </div>
+
+        <div class="actions-row anim-2">
+          <div class="action-card">
+            <div class="action-num">1</div>
+            <img src="Slide 15/314.Education.svg" alt="Log in">
+            <h4>Accept your invite &amp; log in</h4>
+            <p>Check your email for an invite from Notion. Click it, create your account, and you're in.</p>
+          </div>
+          <div class="action-card">
+            <div class="action-num">2</div>
+            <img src="Slide 15/43.Teacher.svg" alt="Explore">
+            <h4>Explore your department space</h4>
+            <p>Have a look around. Click through the pages. You won't break anything — promise.</p>
+          </div>
+          <div class="action-card">
+            <div class="action-num">3</div>
+            <img src="Slide 15/84.Learning.svg" alt="Academy">
+            <h4>Try Notion Academy</h4>
+            <p>Free short videos for beginners. Visit <a href="https://academy.notion.com" target="_blank">academy.notion.com</a> and do the "Getting Started" course.</p>
+          </div>
+        </div>
+
+        <div class="slash-hint anim-3">
+          <div class="slash-key">/</div>
+          <p><img src="Slide 2/bulb.svg" alt="" style="width:20px;height:20px;display:inline-block;vertical-align:middle;margin-right:5px;"><strong>Top tip:</strong> Whenever you're in Notion and want to add something new — type <strong>/</strong> and a menu appears showing every block type you can insert. It's the single most useful shortcut to know.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ────────────────────────────────────────
+       SLIDE 16 — DEPARTMENT EXPLORER
+       ──────────────────────────────────────── -->
+  <section class="slide" id="slide-15">
+    <div class="slide-inner">
+      <div class="s16-layout">
+        <div class="s16-intro anim-1">
+          <span class="eyebrow">Just for you</span>
+          <h2 class="slide-title">See how your department uses Notion</h2>
+          <p class="slide-subtitle">Click your name to explore personalised examples of how Notion can work in your specific role.</p>
+        </div>
+
+        <div class="dept-grid anim-2">
+          <a class="dept-card" href="departments/production.html" target="_blank">
+            <img src="Slide 16 /Production.svg" alt="Production">
+            <span class="dc-name">Endo</span>
+            <span class="dc-role">Production</span>
+            <span class="dc-cta">Explore →</span>
+          </a>
+          <a class="dept-card" href="departments/communications.html" target="_blank">
+            <img src="Slide 16 /Communication.svg" alt="Communications">
+            <span class="dc-name">Naomi</span>
+            <span class="dc-role">Communications Lead</span>
+            <span class="dc-cta">Explore →</span>
+          </a>
+          <a class="dept-card" href="departments/marketing.html" target="_blank">
+            <img src="Slide 16 /Web  and marketing.svg" alt="Website & Marketing">
+            <span class="dc-name">Alisha</span>
+            <span class="dc-role">Website &amp; Marketing</span>
+            <span class="dc-cta">Explore →</span>
+          </a>
+          <a class="dept-card" href="departments/facilities.html" target="_blank">
+            <img src="Slide 16 /Facilities.svg" alt="Facilities">
+            <span class="dc-name">Sarah</span>
+            <span class="dc-role">Facilities</span>
+            <span class="dc-cta">Explore →</span>
+          </a>
+          <a class="dept-card" href="departments/events.html" target="_blank">
+            <img src="Slide 16 /Events.svg" alt="Events">
+            <span class="dc-name">Ify</span>
+            <span class="dc-role">Events</span>
+            <span class="dc-cta">Explore →</span>
+          </a>
+          <a class="dept-card" href="departments/hr.html" target="_blank">
+            <img src="Slide 16 /HR.svg" alt="HR">
+            <span class="dc-name">Cassy</span>
+            <span class="dc-role">HR</span>
+            <span class="dc-cta">Explore →</span>
+          </a>
+          <a class="dept-card" href="departments/learning.html" target="_blank">
+            <img src="Slide 16 /Learning & Development.svg" alt="Learning & Development">
+            <span class="dc-name">Susie</span>
+            <span class="dc-role">Learning &amp; Development</span>
+            <span class="dc-cta">Explore →</span>
+          </a>
+          <a class="dept-card" href="departments/generations.html" target="_blank">
+            <img src="Slide 16 /Generations.svg" alt="Generations">
+            <span class="dc-name">Josh</span>
+            <span class="dc-role">Generations</span>
+            <span class="dc-cta">Explore →</span>
+          </a>
+          <a class="dept-card" href="departments/finance.html" target="_blank">
+            <img src="Slide 16 /Finance.svg" alt="Finance">
+            <span class="dc-name">Ify</span>
+            <span class="dc-role">Finance</span>
+            <span class="dc-cta">Explore →</span>
+          </a>
+          <a class="dept-card" href="departments/hub-pastor.html" target="_blank">
+            <img src="Slide 16 /Hub Pastor.svg" alt="Hub Pastor">
+            <span class="dc-name">Andrew</span>
+            <span class="dc-role">Hub Pastor</span>
+            <span class="dc-cta">Explore →</span>
+          </a>
+        </div>
+
+        <div class="anim-3" style="text-align:center;">
+          <p style="font-size:13px; color:var(--text-muted);">
+            Each page opens with tailored examples, templates, and ideas for how Notion can support your work.
+            <button class="btn btn-ghost" style="margin-left:8px; font-size:12px; padding:6px 14px;" data-open-modal="dept-note">What am I looking at? ℹ</button>
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div><!-- end .slides-wrap -->
+
+<!-- ═══════════════════════════════════════════
+     BOTTOM NAV
+     ═══════════════════════════════════════════ -->
+<nav class="nav-bar">
+  <button class="nav-btn" id="prevBtn" disabled title="Previous (←)">
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="currentColor"><path d="M9 2L4 7l5 5" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </button>
+
+  <div class="progress-dots" id="progressDots">
+    <div class="dot active" title="Slide 1"></div>
+    <div class="dot" title="Slide 2"></div>
+    <div class="dot" title="Slide 3"></div>
+    <div class="dot" title="Slide 4"></div>
+    <div class="dot" title="Slide 5"></div>
+    <div class="dot" title="Slide 6"></div>
+    <div class="dot" title="Slide 7"></div>
+    <div class="dot" title="Slide 8"></div>
+    <div class="dot" title="Slide 9"></div>
+    <div class="dot" title="Slide 10"></div>
+    <div class="dot" title="Slide 11"></div>
+    <div class="dot" title="Slide 12"></div>
+    <div class="dot" title="Slide 13"></div>
+    <div class="dot" title="Slide 14"></div>
+    <div class="dot" title="Slide 15"></div>
+    <div class="dot" title="Slide 16"></div>
+  </div>
+
+  <button class="nav-btn" id="nextBtn" title="Next (→)">
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="currentColor"><path d="M5 2l5 5-5 5" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </button>
+
+  <div class="keyboard-hint">
+    <span class="key-badge">←</span>
+    <span class="key-badge">→</span>
+    to navigate
+  </div>
+</nav>
+
+<!-- ═══════════════════════════════════════════
+     MODALS
+     ═══════════════════════════════════════════ -->
+
+<!-- What is Notion (slide 1 ghost btn) -->
+<div class="modal-overlay" id="modal-what-is-notion">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title">🔍 What exactly is Notion?</div>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+    <div class="modal-body">
+      <p>Notion is an all-in-one workspace — a place where you can write, plan, collaborate, and organise. It was founded in 2016 and has grown to be used by millions of teams worldwide, from small charities to Fortune 500 companies.</p>
+      <p>What makes Notion different from other tools is its flexibility. Rather than being a fixed "task app" or "document tool", Notion lets you build exactly the workspace your team needs — using simple building blocks.</p>
+      <p>For All Nations, it will be the single place where our work, knowledge, and collaboration lives — rather than scattered across WhatsApp, email, Google Drive, and paper.</p>
+      <div class="modal-tip"><p style="color:#111111;"><img src="Slide 2/bulb.svg" alt="" style="width:16px;height:16px;display:inline-block;vertical-align:middle;margin-right:5px;">Notion works on browser, desktop app (Mac/Windows), and mobile (iOS/Android) — so you can access it anywhere.</p></div>
+    </div>
+  </div>
+</div>
+
+<!-- Session Tips -->
+<div class="modal-overlay" id="modal-session-tips">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title"><img src="Slide 2/bulb.svg" alt="" style="width:18px;height:18px;display:inline-block;vertical-align:middle;margin-right:6px;">Tips for getting the most out of today</div>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+    <div class="modal-body">
+      <h4>During this presentation:</h4>
+      <ul class="modal-list">
+        <li>Use the arrow keys or the buttons at the bottom to move between slides</li>
+        <li>Click any <strong>? button</strong> to open a deeper explanation of that topic</li>
+        <li>Click interactive cards, tabs, and blocks — they're all designed to teach you something</li>
+        <li>On Slide 16, click your name to get personalised ideas for your department</li>
+      </ul>
+      <div class="modal-tip"><p>📱 This presentation works on phones and tablets too — so feel free to explore it later on any device.</p></div>
+    </div>
+  </div>
+</div>
+
+<!-- Notion deeper detail -->
+<div class="modal-overlay" id="modal-notion-detail">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title">📖 Notion in more depth</div>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+    <div class="modal-body">
+      <p>Notion is built around a deceptively simple idea: everything is a page, and every page is built from blocks. That's it. But from that simple foundation, you can build almost anything.</p>
+      <h4>How teams typically use it:</h4>
+      <ul class="modal-list">
+        <li>As a wiki — storing all the processes, policies, and "how we do things" docs</li>
+        <li>As a project manager — tracking tasks, deadlines, and who owns what</li>
+        <li>As a meeting tool — agendas before, notes during, action items after</li>
+        <li>As a content system — draft, review, and publish communications</li>
+        <li>As an events tool — plan, run, and review every event in one place</li>
+      </ul>
+      <div class="modal-tip"><p style="color:#111111;"><img src="Slide 2/bulb.svg" alt="" style="width:16px;height:16px;display:inline-block;vertical-align:middle;margin-right:5px;">The best Notion workspaces grow gradually. Don't try to build everything on day one — start with one use case and expand from there.</p></div>
+    </div>
+  </div>
+</div>
+
+<!-- Notion AI -->
+<div class="modal-overlay" id="modal-notion-ai">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title">What about Notion AI?</div>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+    <div class="modal-body">
+      <video autoplay loop muted playsinline style="width:50%;border-radius:var(--radius-sm);margin:0 auto 18px;display:block;border:none;">
+        <source src="Slide 3/ai-hero-animation.mp4" type="video/mp4">
+      </video>
+      <p>Notion AI is built directly into the workspace — there's nothing extra to install. As of 2026, it's become quite powerful and genuinely useful for everyday tasks.</p>
+      <h4>What Notion AI can do for you:</h4>
+      <ul class="modal-list">
+        <li><strong>Summarise</strong> long documents or meeting notes into bullet points</li>
+        <li><strong>Draft</strong> emails, announcements, or communications from a few notes</li>
+        <li><strong>Answer questions</strong> about your workspace — "What events do we have in June?"</li>
+        <li><strong>Translate text</strong> into other languages for international comms</li>
+        <li><strong>Brainstorm</strong> ideas for events, sermons, campaigns, or training</li>
+        <li><strong>Improve writing</strong> — fix grammar, adjust tone, or shorten long pieces</li>
+      </ul>
+      <div class="modal-tip"><p style="color:#111111;"><img src="Slide 2/bulb.svg" alt="" style="width:16px;height:16px;display:inline-block;vertical-align:middle;margin-right:5px;">Notion AI learns from your workspace content — so the more your team adds to Notion, the more useful it becomes as an AI assistant.</p></div>
+    </div>
+  </div>
+</div>
+
+<!-- Use case modals (slide 3) -->
+<div class="modal-overlay" id="modal-uc-notes">
+  <div class="modal">
+    <div class="modal-header"><div class="modal-title">📝 Write notes &amp; documents</div><button class="modal-close" onclick="closeModal()">✕</button></div>
+    <div class="modal-body">
+      <img src="Slide 3/write notes and documents.webp" alt="Write notes and documents" class="modal-preview-img">
+      <p>In Notion, writing a document feels like a cross between Google Docs and a website builder. You can format text, add headings, embed images, include callout boxes, and add tables — all in one flowing document.</p>
+      <p>Documents in Notion are always live — no saving required. And unlike an email attachment, a Notion page can be updated by anyone with access, so everyone always has the latest version.</p>
+      <div class="modal-tip"><p style="color:#111111;"><img src="Slide 2/bulb.svg" alt="" style="width:16px;height:16px;display:inline-block;vertical-align:middle;margin-right:5px;">Great for: meeting notes, sermon prep, staff communications, team briefings, policy documents.</p></div>
+    </div>
+  </div>
+</div>
+<div class="modal-overlay" id="modal-uc-tasks">
+  <div class="modal">
+    <div class="modal-header"><div class="modal-title">☑️ Create to-do lists</div><button class="modal-close" onclick="closeModal()">✕</button></div>
+    <div class="modal-body">
+      <img src="Slide 3/create to do lists.webp" alt="Create to-do lists" class="modal-preview-img">
+      <p>Notion's task and to-do features go far beyond a simple checklist. You can assign tasks to specific people, set due dates, add priority labels, and view everything as a table, board, or calendar.</p>
+      <p>When you're assigned a task, you get notified. When something is complete, it's ticked off. Simple — but powerful when everyone uses the same system.</p>
+      <div class="modal-tip"><p style="color:#111111;"><img src="Slide 2/bulb.svg" alt="" style="width:16px;height:16px;display:inline-block;vertical-align:middle;margin-right:5px;">Great for: weekly personal task lists, project task tracking, service runsheets, and any recurring checklist your team does.</p></div>
+    </div>
+  </div>
+</div>
+<div class="modal-overlay" id="modal-uc-projects">
+  <div class="modal">
+    <div class="modal-header"><div class="modal-title">📌 Plan projects with teams</div><button class="modal-close" onclick="closeModal()">✕</button></div>
+    <div class="modal-body">
+      <img src="Slide 3/plan projects with teams.webp" alt="Plan projects with teams" class="modal-preview-img">
+      <p>A Notion project page can contain everything related to that project: the brief, the task list, the timeline, meeting notes, links to files, and the final debrief. All in one place.</p>
+      <p>Team members can comment on specific tasks, update statuses, and see the full picture — reducing the need for endless update meetings.</p>
+      <div class="modal-tip"><p style="color:#111111;"><img src="Slide 2/bulb.svg" alt="" style="width:16px;height:16px;display:inline-block;vertical-align:middle;margin-right:5px;">Great for: event planning, service preparation, campaigns, building projects, and any multi-step work involving more than one person.</p></div>
+    </div>
+  </div>
+</div>
+<div class="modal-overlay" id="modal-uc-store">
+  <div class="modal">
+    <div class="modal-header"><div class="modal-title">📁 Store information &amp; files</div><button class="modal-close" onclick="closeModal()">✕</button></div>
+    <div class="modal-body">
+      <img src="Slide 3/store information and files.webp" alt="Store information and files" class="modal-preview-img">
+      <p>You can upload and attach files directly to Notion pages — PDFs, images, spreadsheets, Word docs. But more importantly, Notion keeps information organised so it's findable.</p>
+      <p>Rather than a folder of unlabelled files, a Notion database can include metadata — who created it, what event it's for, what its current status is — making everything searchable and filterable.</p>
+      <div class="modal-tip"><p style="color:#111111;"><img src="Slide 2/bulb.svg" alt="" style="width:16px;height:16px;display:inline-block;vertical-align:middle;margin-right:5px;">Think of Notion as where your important information lives, and Google Drive as where the raw files are stored. The two work brilliantly together.</p></div>
+    </div>
+  </div>
+</div>
+<div class="modal-overlay" id="modal-uc-organise">
+  <div class="modal">
+    <div class="modal-header"><div class="modal-title">🗂 Organise everything in one place</div><button class="modal-close" onclick="closeModal()">✕</button></div>
+    <div class="modal-body">
+      <img src="Slide 3/orginise everything in one place.webp" alt="Organise everything in one place" class="modal-preview-img">
+      <p>The real power of Notion is that everything is connected. A meeting note can link to a project. A project can link to a task list. A task list can link to a budget. All without jumping between apps.</p>
+      <p>Your Notion sidebar acts like a structured set of shelves — organised by team and topic — so anyone can navigate to what they need without knowing where things "are" in anyone else's system.</p>
+      <div class="modal-tip"><p style="color:#111111;"><img src="Slide 2/bulb.svg" alt="" style="width:16px;height:16px;display:inline-block;vertical-align:middle;margin-right:5px;">Once your Notion workspace is set up properly, the question "where did that document go?" mostly disappears.</p></div>
+    </div>
+  </div>
+</div>
+
+<!-- Analogy detail -->
+<div class="modal-overlay" id="modal-analogy-detail">
+  <div class="modal">
+    <div class="modal-header"><div class="modal-title">🏗 Why the "workspace" analogy works</div><button class="modal-close" onclick="closeModal()">✕</button></div>
+    <div class="modal-body">
+      <p>Imagine your current physical desk — it has a notepad for jotting things down, a calendar pinned on the wall, a to-do list stuck to your monitor, a filing cabinet for documents, and a whiteboard for planning. Notion brings all of that into one digital surface.</p>
+      <p>The key difference from other tools like Microsoft Teams or Slack is that Notion is primarily about content — documents, databases, and pages — not just messages and conversations.</p>
+      <div class="modal-tip"><p style="color:#111111;"><img src="Slide 2/bulb.svg" alt="" style="width:16px;height:16px;display:inline-block;vertical-align:middle;margin-right:5px;">Notion and WhatsApp/Slack can coexist — use them for quick messages, use Notion for everything that needs to be findable later.</p></div>
+    </div>
+  </div>
+</div>
+
+<!-- Tool detail modals -->
+<div class="modal-overlay" id="modal-tool-notebook">
+  <div class="modal">
+    <div class="modal-header"><div class="modal-title"><img src="Slide 4/A notebook.svg" alt="" style="width:22px;height:22px;display:inline-block;vertical-align:middle;margin-right:8px;">Notion as a Notebook</div><button class="modal-close" onclick="closeModal()">✕</button></div>
+    <div class="modal-body">
+      <p>Meeting notes are one of the most common starting points in Notion. You can create a template for your regular meetings — agenda, attendees, discussion points, actions — and every meeting becomes a searchable, linked entry in a database.</p>
+      <div class="modal-tip"><p style="color:#111111;"><img src="Slide 2/bulb.svg" alt="" style="width:16px;height:16px;display:inline-block;vertical-align:middle;margin-right:5px;">Try creating a recurring "Weekly Team Meeting" template — same structure every week, automatically dated, easy to search back through.</p></div>
+    </div>
+  </div>
+</div>
+<div class="modal-overlay" id="modal-tool-calendar">
+  <div class="modal">
+    <div class="modal-header"><div class="modal-title"><img src="Slide 4/a calendar.svg" alt="" style="width:22px;height:22px;display:inline-block;vertical-align:middle;margin-right:8px;">Notion as a Calendar</div><button class="modal-close" onclick="closeModal()">✕</button></div>
+    <div class="modal-body">
+      <p>Any Notion database can be viewed as a calendar. Add a "date" property to your events database and switch to Calendar view — and you'll see everything laid out by date, with the ability to click through to each event's full details.</p>
+      <div class="modal-tip"><p style="color:#111111;"><img src="Slide 2/bulb.svg" alt="" style="width:16px;height:16px;display:inline-block;vertical-align:middle;margin-right:5px;">Notion calendars can be filtered too — so you can view only your department's events, or only events in a certain status.</p></div>
+    </div>
+  </div>
+</div>
+<div class="modal-overlay" id="modal-tool-tasks">
+  <div class="modal">
+    <div class="modal-header"><div class="modal-title"><img src="Slide 4/a task manager.svg" alt="" style="width:22px;height:22px;display:inline-block;vertical-align:middle;margin-right:8px;">Notion as a Task Manager</div><button class="modal-close" onclick="closeModal()">✕</button></div>
+    <div class="modal-body">
+      <p>Notion's task management works through databases with properties like "Assignee", "Due Date", "Priority", and "Status". Unlike a basic to-do list, you can filter tasks to see only yours, or only overdue items, or only this week's priorities.</p>
+      <div class="modal-tip"><p style="color:#111111;"><img src="Slide 2/bulb.svg" alt="" style="width:16px;height:16px;display:inline-block;vertical-align:middle;margin-right:5px;">The Notion "My Tasks" view lets you see every task assigned to you across the entire workspace — from any department — in one place.</p></div>
+    </div>
+  </div>
+</div>
+<div class="modal-overlay" id="modal-tool-wiki">
+  <div class="modal">
+    <div class="modal-header"><div class="modal-title"><img src="Slide 4/a company wiki.svg" alt="" style="width:22px;height:22px;display:inline-block;vertical-align:middle;margin-right:8px;">Notion as a Company Wiki</div><button class="modal-close" onclick="closeModal()">✕</button></div>
+    <div class="modal-body">
+      <p>A wiki is a collection of linked documents that captures how your organisation works. In Notion, you can build one for All Nations — covering everything from how to set up a room for an event to what the procedure is when a volunteer doesn't show up.</p>
+      <p>Because it's searchable and linkable, it becomes the first place people go when they have a question — rather than interrupting a colleague.</p>
+      <div class="modal-tip"><p style="color:#111111;"><img src="Slide 2/bulb.svg" alt="" style="width:16px;height:16px;display:inline-block;vertical-align:middle;margin-right:5px;">A good wiki means institutional knowledge doesn't leave with a person when they move on. Everything important is documented.</p></div>
+    </div>
+  </div>
+</div>
+<div class="modal-overlay" id="modal-tool-tracker">
+  <div class="modal">
+    <div class="modal-header"><div class="modal-title"><img src="Slide 4/a project tracker.svg" alt="" style="width:22px;height:22px;display:inline-block;vertical-align:middle;margin-right:8px;">Notion as a Project Tracker</div><button class="modal-close" onclick="closeModal()">✕</button></div>
+    <div class="modal-body">
+      <p>In Notion, a project tracker is a database where each row is a project (or milestone), with columns for owner, deadline, status, and related tasks. Switch to Timeline view and you get a visual Gantt chart showing everything at once.</p>
+      <div class="modal-tip"><p style="color:#111111;"><img src="Slide 2/bulb.svg" alt="" style="width:16px;height:16px;display:inline-block;vertical-align:middle;margin-right:5px;">You can nest a task database inside a project database — so clicking on an event in your tracker opens that event's full task list. Everything connected.</p></div>
+    </div>
+  </div>
+</div>
+
+<!-- Why detail -->
+<div class="modal-overlay" id="modal-why-detail">
+  <div class="modal">
+    <div class="modal-header"><div class="modal-title">🎯 The real reason we're making this change</div><button class="modal-close" onclick="closeModal()">✕</button></div>
+    <div class="modal-body">
+      <p>Every growing organisation reaches a point where informal systems stop scaling. What works when there are 3 staff members creates chaos at 10. WhatsApp groups, email threads, and saved files on personal laptops are not systems — they're habits that hide information from everyone else.</p>
+      <p>Notion is how we build a system that works regardless of who's in the office, who's new, or who's been here for years. The information belongs to All Nations — not to any individual's inbox.</p>
+      <div class="modal-tip"><p style="color:#111111;"><img src="Slide 2/bulb.svg" alt="" style="width:16px;height:16px;display:inline-block;vertical-align:middle;margin-right:5px;">The goal isn't to add more work — it's to replace scattered, hard-to-find information with organised, accessible information. Once it's set up, it saves far more time than it costs.</p></div>
+    </div>
+  </div>
+</div>
+
+<!-- Change detail -->
+<div class="modal-overlay" id="modal-change-detail">
+  <div class="modal">
+    <div class="modal-header"><div class="modal-title">🔄 How the change actually happens</div><button class="modal-close" onclick="closeModal()">✕</button></div>
+    <div class="modal-body">
+      <p>The shift from "scattered tools" to "one workspace" doesn't happen overnight — and it doesn't need to. The approach is gradual: start using Notion for one or two things, and migrate more over time as the habit builds.</p>
+      <ul class="modal-list">
+        <li>Don't try to move everything at once — start with your most chaotic process</li>
+        <li>When you create something new, create it in Notion from the start</li>
+        <li>Encourage your team to look in Notion before asking "where's that document?"</li>
+        <li>The more everyone uses it, the more valuable it becomes</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- Blocks detail -->
+<div class="modal-overlay" id="modal-blocks-detail">
+  <div class="modal">
+    <div class="modal-header"><div class="modal-title">🧱 Understanding blocks — the LEGO idea</div><button class="modal-close" onclick="closeModal()">✕</button></div>
+    <div class="modal-body">
+      <p>The block concept is the most important thing to understand in Notion. Every single thing you add to a page — a line of text, an image, a checkbox, a table — is a block. And every block can be moved, duplicated, nested inside another block, or deleted independently.</p>
+      <p>Think of it like LEGO. Each brick (block) is a simple piece. But you can combine them into almost anything — a simple note, a complex project tracker, a staff handbook. The same basic pieces, infinitely combinable.</p>
+      <h4>The magic of the "/" key:</h4>
+      <p>Anywhere in Notion, pressing <strong>/</strong> (forward slash) opens a menu of every block type you can insert. This is the single most useful thing to know on day one.</p>
+      <div class="modal-tip"><p style="color:#111111;"><img src="Slide 2/bulb.svg" alt="" style="width:16px;height:16px;display:inline-block;vertical-align:middle;margin-right:5px;">There are over 60 block types in Notion — but you'll probably use about 8 regularly. Don't worry about the rest until you need them.</p></div>
+    </div>
+  </div>
+</div>
+
+<!-- Pages detail -->
+<div class="modal-overlay" id="modal-pages-detail">
+  <div class="modal">
+    <div class="modal-header"><div class="modal-title">📄 Pages — the heart of Notion</div><button class="modal-close" onclick="closeModal()">✕</button></div>
+    <div class="modal-body">
+      <p>In Notion, a "page" is like a blank canvas — but it can hold anything. A page isn't just a document. It can be a database, a project, a task list, a template, or a hub that contains all of the above.</p>
+      <p>Pages can contain other pages (like a folder contains files), which is how you build structure. Your department space is a page, and inside it are more pages — one for each project, one for your team rota, one for your processes.</p>
+      <h4>Key page features:</h4>
+      <ul class="modal-list">
+        <li>Add a cover image and icon to make pages visually recognisable</li>
+        <li>Every page has a unique URL — easy to share with anyone in the workspace</li>
+        <li>Use templates to create pages with a pre-filled structure every time</li>
+        <li>Duplicate a page to create a fresh copy instantly</li>
+      </ul>
+      <div class="modal-tip"><p style="color:#111111;"><img src="Slide 2/bulb.svg" alt="" style="width:16px;height:16px;display:inline-block;vertical-align:middle;margin-right:5px;">The search bar (⌘K) searches across all pages in your workspace. Once you build the habit of adding things to Notion, finding them is almost instant.</p></div>
+    </div>
+  </div>
+</div>
+
+<!-- Real life detail -->
+<div class="modal-overlay" id="modal-reallife-detail">
+  <div class="modal">
+    <div class="modal-header"><div class="modal-title">🎙 More on "one source of truth"</div><button class="modal-close" onclick="closeModal()">✕</button></div>
+    <div class="modal-body">
+      <p>"One source of truth" means there's one definitive place where information lives — not ten different versions in ten different inboxes. When someone updates the Sunday runsheet in Notion, everyone sees the update. No more "which version did you send?" conversations.</p>
+      <p>For a church with multiple departments, events, and volunteers all needing to coordinate — this is transformative. The sound team, the hosting team, the worship team, and the pastoral team can all work from the same page — literally.</p>
+      <div class="modal-tip"><p style="color:#111111;"><img src="Slide 2/bulb.svg" alt="" style="width:16px;height:16px;display:inline-block;vertical-align:middle;margin-right:5px;">Notion pages are live documents. There's no "send" button, no email thread, no version number. There's just the page — always up to date.</p></div>
+    </div>
+  </div>
+</div>
+
+<!-- Views detail -->
+<div class="modal-overlay" id="modal-views-detail">
+  <div class="modal">
+    <div class="modal-header"><div class="modal-title">🎥 The camera angles analogy</div><button class="modal-close" onclick="closeModal()">✕</button></div>
+    <div class="modal-body">
+      <p>Imagine a database of your church events. The data is the same: each event has a name, date, owner, and status. But different people need to see that information differently.</p>
+      <ul class="modal-list">
+        <li>Ify (Events) wants a <strong>Board view</strong> — tasks organised by stage (Planning → Confirmed → Done)</li>
+        <li>Andrew (Hub Pastor) wants a <strong>Calendar view</strong> — everything laid out chronologically</li>
+        <li>Cassy (HR) wants a <strong>Table view</strong> — to see volunteer assignments at a glance</li>
+        <li>Alisha (Marketing) wants a <strong>Gallery view</strong> — to see event artwork and branding</li>
+      </ul>
+      <p>One database. Four different views. No duplication, no inconsistency. Everyone sees what they need.</p>
+      <div class="modal-tip"><p style="color:#111111;"><img src="Slide 2/bulb.svg" alt="" style="width:16px;height:16px;display:inline-block;vertical-align:middle;margin-right:5px;">You can add as many views as you like to any database. Creating a new view doesn't change the underlying data — just how it's displayed.</p></div>
+    </div>
+  </div>
+</div>
+
+<!-- Search detail -->
+<div class="modal-overlay" id="modal-search-detail">
+  <div class="modal">
+    <div class="modal-header"><div class="modal-title">🔍 Search — the underrated superpower</div><button class="modal-close" onclick="closeModal()">✕</button></div>
+    <div class="modal-body">
+      <p>Notion's search is one of its most powerful features — and most underused by beginners. Press ⌘K on Mac, Ctrl+K on Windows, and a search bar appears that searches everything in your workspace instantly.</p>
+      <p>It searches page titles, content inside pages, database entries, and even comments. As your Notion workspace grows, this becomes more and more valuable — because well-organised information is only useful if you can find it.</p>
+      <h4>Search tips:</h4>
+      <ul class="modal-list">
+        <li>Search by title first — Notion prioritises exact title matches</li>
+        <li>Use filters to narrow by date, creator, or page type</li>
+        <li>Notion AI can also answer questions using your workspace ("What's the budget for the summer event?")</li>
+      </ul>
+      <div class="modal-tip"><p style="color:#111111;"><img src="Slide 2/bulb.svg" alt="" style="width:16px;height:16px;display:inline-block;vertical-align:middle;margin-right:5px;">The more consistently your team names things in Notion, the better search works. Agree on naming conventions early — it pays off.</p></div>
+    </div>
+  </div>
+</div>
+
+<!-- Collaboration detail -->
+<div class="modal-overlay" id="modal-collab-detail">
+  <div class="modal">
+    <div class="modal-header"><div class="modal-title">🤝 Collaboration in Notion — the full picture</div><button class="modal-close" onclick="closeModal()">✕</button></div>
+    <div class="modal-body">
+      <p>Notion is designed for teams — not just individuals. Every feature is built with collaboration in mind: comments thread contextually, mentions route notifications intelligently, and page history lets you see exactly who changed what and when.</p>
+      <h4>Permissions — who can see what:</h4>
+      <ul class="modal-list">
+        <li><strong>Workspace members</strong> can see everything in shared teamspaces</li>
+        <li><strong>Teamspace members</strong> only see their team's space</li>
+        <li><strong>Private pages</strong> are visible only to you (for sensitive work)</li>
+        <li><strong>Guests</strong> can be invited to specific pages (e.g. contractors, volunteers)</li>
+      </ul>
+      <div class="modal-tip"><p style="color:#111111;"><img src="Slide 2/bulb.svg" alt="" style="width:16px;height:16px;display:inline-block;vertical-align:middle;margin-right:5px;">Page history is available on all plans — you can always go back and see what a page looked like last week, and restore it if needed.</p></div>
+    </div>
+  </div>
+</div>
+
+<!-- Vision detail -->
+<div class="modal-overlay" id="modal-vision-detail">
+  <div class="modal">
+    <div class="modal-header"><div class="modal-title">🌱 What the long-term vision looks like</div><button class="modal-close" onclick="closeModal()">✕</button></div>
+    <div class="modal-body">
+      <p>The workspace we're building in Notion is meant to grow with All Nations. As the church grows, as teams expand, as new ministries emerge — Notion scales to hold it all. New departments get new teamspaces. New processes get new pages. New staff find everything they need without asking.</p>
+      <p>The end goal is a fully self-documented organisation — where the "how we do things" knowledge isn't locked inside any individual's head, but lives in Notion for everyone to access.</p>
+      <div class="modal-tip"><p style="color:#111111;"><img src="Slide 2/bulb.svg" alt="" style="width:16px;height:16px;display:inline-block;vertical-align:middle;margin-right:5px;">The best sign of a healthy Notion workspace: when new volunteers can answer most of their own questions by searching — without needing to interrupt anyone.</p></div>
+    </div>
+  </div>
+</div>
+
+<!-- Pace detail -->
+<div class="modal-overlay" id="modal-pace-detail">
+  <div class="modal">
+    <div class="modal-header"><div class="modal-title">🐢 Why "start simple" matters</div><button class="modal-close" onclick="closeModal()">✕</button></div>
+    <div class="modal-body">
+      <p>One of the most common mistakes with Notion is trying to build the perfect system from day one. It almost always leads to an over-engineered, confusing workspace that nobody uses — and then abandonment.</p>
+      <p>The better approach: start with one thing, use it daily, and let the system grow naturally from real needs. The teams who get the most from Notion are the ones who started with a single page and let it evolve.</p>
+      <ul class="modal-list">
+        <li>Don't build databases for things you don't have yet</li>
+        <li>Don't create structure before you know what goes in it</li>
+        <li>Do start with the most painful problem you have right now</li>
+        <li>Do ask for help when something isn't working — don't abandon it</li>
+      </ul>
+      <div class="modal-tip"><p style="color:#111111;"><img src="Slide 2/bulb.svg" alt="" style="width:16px;height:16px;display:inline-block;vertical-align:middle;margin-right:5px;">A simple Notion page you actually use is infinitely more valuable than a complex system you built once and never opened again.</p></div>
+    </div>
+  </div>
+</div>
+
+<!-- Resources list -->
+<div class="modal-overlay" id="modal-resources-list">
+  <div class="modal">
+    <div class="modal-header"><div class="modal-title">📚 Helpful resources to get started</div><button class="modal-close" onclick="closeModal()">✕</button></div>
+    <div class="modal-body">
+      <h4>Free official resources from Notion:</h4>
+      <ul class="modal-list">
+        <li><strong>Notion Academy</strong> (academy.notion.com) — free short video courses for beginners</li>
+        <li><strong>Notion Help Centre</strong> (notion.com/help) — answers to every question you'll have</li>
+        <li><strong>Notion's YouTube channel</strong> — tutorials, tips, and feature walkthroughs</li>
+        <li><strong>Notion templates gallery</strong> (notion.com/templates) — free pre-built starting points</li>
+      </ul>
+      <h4>The most important thing:</h4>
+      <p>Don't learn Notion in theory — learn it by doing. Open your workspace, create a page, and start adding things. You'll figure it out faster than any tutorial.</p>
+      <div class="modal-tip"><p style="color:#111111;"><img src="Slide 2/bulb.svg" alt="" style="width:16px;height:16px;display:inline-block;vertical-align:middle;margin-right:5px;">Questions? Ask Endo or anyone in the team who's already using it. We're all learning together.</p></div>
+    </div>
+  </div>
+</div>
+
+<!-- Department note -->
+<div class="modal-overlay" id="modal-dept-note">
+  <div class="modal">
+    <div class="modal-header"><div class="modal-title">🗂 About the department pages</div><button class="modal-close" onclick="closeModal()">✕</button></div>
+    <div class="modal-body">
+      <p>Each department page is a personalised guide showing how Notion can be used specifically for that role. They include:</p>
+      <ul class="modal-list">
+        <li>5–6 specific use cases tailored to that department</li>
+        <li>Example database structures and page layouts</li>
+        <li>Practical ideas for getting started quickly</li>
+        <li>A "where to begin" recommendation for that role</li>
+      </ul>
+      <p>These pages open in a new tab so you can keep this presentation open alongside them.</p>
+      <div class="modal-tip"><p style="color:#111111;"><img src="Slide 2/bulb.svg" alt="" style="width:16px;height:16px;display:inline-block;vertical-align:middle;margin-right:5px;">Share the link to your department page with your team — it's a great conversation starter for how you want to use Notion together.</p></div>
+    </div>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
