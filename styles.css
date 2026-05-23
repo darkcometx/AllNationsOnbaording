@@ -3,7 +3,7 @@
    Design Language: Notion + #CB5928 accent
    ==================================================== */
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap&font-display=optional');
 
 /* ── CSS Variables ─────────────────────────────────── */
 :root {
@@ -58,9 +58,7 @@ img { max-width: 100%; display: block; }
   align-items: center;
   justify-content: space-between;
   padding: 0 28px;
-  background: rgba(247, 247, 245, 0.92);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  background: rgba(247, 247, 245, 0.98);
   border-bottom: 1px solid var(--border);
 }
 .top-bar-brand {
@@ -143,6 +141,10 @@ img { max-width: 100%; display: block; }
   pointer-events: none;
   overflow-y: auto;
   background: var(--bg);
+  will-change: opacity, transform;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  transform: translateZ(0);
 }
 .slide.active {
   opacity: 1;
@@ -173,9 +175,7 @@ img { max-width: 100%; display: block; }
   justify-content: center;
   gap: 20px;
   padding: 0 28px;
-  background: rgba(247, 247, 245, 0.92);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  background: rgba(247, 247, 245, 0.98);
   border-top: 1px solid var(--border);
 }
 .nav-btn {
@@ -459,6 +459,8 @@ img { max-width: 100%; display: block; }
   0%, 100% { opacity: 1; }
   50%       { opacity: 0.5; }
 }
+.anim-1, .anim-2, .anim-3,
+.anim-4, .anim-5, .anim-6 { will-change: opacity, transform; }
 .slide.active .anim-1 { animation: fadeInUp 0.5s ease 0.05s both; }
 .slide.active .anim-2 { animation: fadeInUp 0.5s ease 0.15s both; }
 .slide.active .anim-3 { animation: fadeInUp 0.5s ease 0.25s both; }
@@ -567,6 +569,7 @@ img { max-width: 100%; display: block; }
   grid-template-columns: repeat(5, 1fr);
   gap: 10px;
 }
+.agenda-card, .uc-card { will-change: opacity, transform; }
 .agenda-card {
   background: var(--surface);
   border: 1px solid var(--border);

@@ -51,6 +51,9 @@ function goTo(index) {
     from.classList.add('slide-exit');
   }
 
+  // Force reflow so Chrome restarts CSS animations on revisit
+  void to.offsetWidth;
+
   // Animate in
   to.classList.add('active');
   currentSlide = index;
