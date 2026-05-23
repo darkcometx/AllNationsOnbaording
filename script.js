@@ -67,8 +67,7 @@ function goTo(index) {
   syncUI();
 
   if (isMobile) {
-    // No animations on mobile — run slide effects immediately
-    slides.forEach(s => { if (!s.classList.contains('active')) s.classList.remove('slide-exit'); });
+    // display:none/flex handles visibility on mobile — no animation cleanup needed
     onSlideEnter(index);
   } else {
     // Desktop: wait for CSS transition to finish before allowing next navigation
