@@ -40,9 +40,13 @@ body {
   background: var(--bg);
   color: var(--text-primary);
   height: 100vh;
-  height: 100dvh; /* dynamic viewport height — fixes iOS/Chrome mobile address bar */
+  height: 100dvh;
+  /* Flex column so top-bar, slides-wrap, nav-bar stack without position:fixed.
+     position:fixed + overflow:hidden silently breaks GPU painting on Android Chrome. */
+  display: flex;
+  flex-direction: column;
   overflow: hidden;
-  overscroll-behavior: none; /* prevents pull-to-refresh interfering with swipe nav */
+  overscroll-behavior: none;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -52,8 +56,7 @@ img { max-width: 100%; display: block; }
 
 /* ── Top Bar ────────────────────────────────────────── */
 .top-bar {
-  position: fixed;
-  top: 0; left: 0; right: 0;
+  flex-shrink: 0;
   z-index: 200;
   height: 56px;
   display: flex;
@@ -109,8 +112,7 @@ img { max-width: 100%; display: block; }
 
 /* ── Progress Bar ───────────────────────────────────── */
 .progress-track {
-  position: fixed;
-  top: 56px; left: 0; right: 0;
+  flex-shrink: 0;
   height: 2px;
   background: var(--border);
   z-index: 199;
@@ -124,10 +126,11 @@ img { max-width: 100%; display: block; }
 
 /* ── Slides Wrapper ─────────────────────────────────── */
 .slides-wrap {
-  position: fixed;
-  top: 58px; bottom: 72px; left: 0; right: 0;
+  flex: 1;
+  min-height: 0; /* required for flex children to shrink below content size */
+  position: relative;
   overflow: hidden;
-  touch-action: pan-y pinch-zoom; /* let vertical scroll pass through; JS handles horizontal swipe */
+  touch-action: pan-y pinch-zoom;
   overscroll-behavior: none;
 }
 
@@ -167,8 +170,8 @@ img { max-width: 100%; display: block; }
 
 /* ── Bottom Nav ─────────────────────────────────────── */
 .nav-bar {
-  position: fixed;
-  bottom: 0; left: 0; right: 0;
+  flex-shrink: 0;
+  position: relative; /* for .keyboard-hint absolute positioning */
   z-index: 200;
   height: 72px;
   display: flex;
@@ -1369,15 +1372,13 @@ img { max-width: 100%; display: block; }
   .s1-sub { max-width: 100%; font-size: 15px; }
 }
 
-/* ── Safe area insets (notch / home bar on iPhone) ─── */
+/* ── Safe area insets (notch / home bar on iPhone/Android) ─── */
 @supports (padding-bottom: env(safe-area-inset-bottom)) {
   .nav-bar {
     padding-bottom: max(12px, env(safe-area-inset-bottom));
     height: calc(72px + env(safe-area-inset-bottom));
   }
-  .slides-wrap {
-    bottom: calc(72px + env(safe-area-inset-bottom));
-  }
+  /* slides-wrap grows/shrinks automatically as a flex child — no manual bottom needed */
 }
 
 /* ── Touch devices: disable sticky hover states ─────── */
