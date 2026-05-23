@@ -1416,3 +1416,63 @@ img { max-width: 100%; display: block; }
   }
   .slide:not(.active) { opacity: 0 !important; pointer-events: none !important; }
 }
+
+/* ── Mobile: strip ALL animations and transitions ────────
+   Chrome mobile often fails to fire opacity/transform
+   transitions, leaving slides stuck at opacity:0 (blank).
+   On touch devices we snap instantly — no motion at all. */
+@media (hover: none) and (pointer: coarse) {
+  /* Slides snap in/out instantly — no opacity or transform animation */
+  .slide {
+    opacity: 0 !important;
+    transform: none !important;
+    transition: none !important;
+    pointer-events: none !important;
+  }
+  .slide.active {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+    pointer-events: all !important;
+    z-index: 2;
+  }
+  .slide.slide-exit {
+    opacity: 0 !important;
+    transform: none !important;
+    transition: none !important;
+    pointer-events: none !important;
+  }
+
+  /* Kill all keyframe animations on slide content */
+  .slide.active .anim-1,
+  .slide.active .anim-2,
+  .slide.active .anim-3,
+  .slide.active .anim-4,
+  .slide.active .anim-5,
+  .slide.active .anim-6 {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  /* Kill staggered card animations */
+  .slide.active .agenda-cards .agenda-card:nth-child(n),
+  .slide.active .use-case-row .uc-card:nth-child(n) {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  /* Kill all other transitions site-wide */
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0s !important;
+    animation-duration: 0s !important;
+    animation-iteration-count: 1 !important;
+  }
+
+  /* Progress bar still works but snaps */
+  .progress-fill { transition: none !important; }
+  .dot           { transition: none !important; }
+}

@@ -17,6 +17,11 @@ let touchStartY   = 0;
 const TOTAL       = 16;
 let stepInterval  = null; // stored so we can clear it when leaving slide 14
 
+// Detect touch-only devices (mobile Chrome / Safari mobile).
+// On these devices all CSS animations are stripped, so the
+// isAnimating lock and transition delay are not needed.
+const isMobile = window.matchMedia('(hover: none) and (pointer: coarse)').matches;
+
 // ── Boot ────────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', () => {
   goTo(0);
@@ -38,8 +43,6 @@ function goTo(index) {
   if (isAnimating) return;
   if (index < 0 || index >= TOTAL) return;
 
-  isAnimating = true;
-
   const slides = document.querySelectorAll('.slide');
   const from   = slides[currentSlide];
   const to     = slides[index];
@@ -47,28 +50,33 @@ function goTo(index) {
   // Remove all transition classes
   slides.forEach(s => s.classList.remove('slide-exit', 'active'));
 
-  // Animate out
-  if (from && currentSlide !== index) {
-    from.classList.add('slide-exit');
+  if (!isMobile) {
+    // Desktop: animate out the current slide
+    if (from && currentSlide !== index) from.classList.add('slide-exit');
+    isAnimating = true;
   }
 
   // Force reflow so Chrome restarts CSS animations on revisit
   void to.offsetWidth;
 
-  // Animate in
+  // Animate in (or snap in on mobile)
   to.classList.add('active');
   currentSlide = index;
 
   syncUI();
 
-  // Trigger per-slide effects
-  setTimeout(() => {
-    isAnimating = false;
-    slides.forEach(s => {
-      if (!s.classList.contains('active')) s.classList.remove('slide-exit');
-    });
+  if (isMobile) {
+    // No animations on mobile — run slide effects immediately
+    slides.forEach(s => { if (!s.classList.contains('active')) s.classList.remove('slide-exit'); });
     onSlideEnter(index);
-  }, 550);
+  } else {
+    // Desktop: wait for CSS transition to finish before allowing next navigation
+    setTimeout(() => {
+      isAnimating = false;
+      slides.forEach(s => { if (!s.classList.contains('active')) s.classList.remove('slide-exit'); });
+      onSlideEnter(index);
+    }, 550);
+  }
 }
 
 function next() { if (currentSlide < TOTAL - 1) goTo(currentSlide + 1); }
