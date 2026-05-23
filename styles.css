@@ -1424,43 +1424,31 @@ img { max-width: 100%; display: block; }
   .slide:not(.active) { opacity: 0 !important; pointer-events: none !important; }
 }
 
-/* ── Mobile: use display:none/flex instead of opacity ────
-   opacity:0→1 transitions fail silently on many Android
-   browsers, leaving slides permanently blank. display is
-   always reliable — the browser cannot partially apply it. */
-@media (hover: none) and (pointer: coarse) {
-  .slide {
-    display: none !important;
-    transform: none !important;
-    transition: none !important;
-    pointer-events: none !important;
-    opacity: 1 !important;
-  }
-  .slide.active {
-    display: flex !important;
-    transform: none !important;
-    transition: none !important;
-    pointer-events: all !important;
-    opacity: 1 !important;
-    z-index: 2;
-  }
-  .slide.slide-exit {
-    display: none !important;
-    pointer-events: none !important;
-  }
+/* ── Mobile: controlled by body.is-mobile (set by JavaScript) ──
+   CSS media queries were inconsistently matching on Android Chrome,
+   causing slide CSS overrides to silently not apply. JS sets
+   body.is-mobile reliably, and slide display is controlled via
+   inline styles in goTo() which always beat stylesheet rules.   */
+body.is-mobile .slide {
+  opacity: 1;
+  transform: none;
+  transition: none;
+}
 
-  /* Strip all animations — fill-mode:both with a delay keeps
-     elements at opacity:0 until the delay fires, making
-     content invisible after the slide becomes visible */
-  *, *::before, *::after {
-    animation: none !important;
-    transition: none !important;
-  }
+/* Strip all keyframe animations — fill-mode:both with delays keeps
+   elements at opacity:0 until delay fires, making content invisible */
+body.is-mobile *,
+body.is-mobile *::before,
+body.is-mobile *::after {
+  animation: none !important;
+  transition: none !important;
+}
 
-  /* Ensure animated content elements are immediately visible */
-  .anim-1, .anim-2, .anim-3, .anim-4, .anim-5, .anim-6,
-  .agenda-card, .uc-card {
-    opacity: 1 !important;
-    transform: none !important;
-  }
+/* Ensure animated content is immediately visible on mobile */
+body.is-mobile .anim-1, body.is-mobile .anim-2,
+body.is-mobile .anim-3, body.is-mobile .anim-4,
+body.is-mobile .anim-5, body.is-mobile .anim-6,
+body.is-mobile .agenda-card, body.is-mobile .uc-card {
+  opacity: 1 !important;
+  transform: none !important;
 }

@@ -25,6 +25,12 @@ const isMobile = window.matchMedia('(hover: none) and (pointer: coarse)').matche
 
 // ── Boot ────────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', () => {
+  if (isMobile) {
+    // Hide all slides via inline style BEFORE first paint so there's no flicker.
+    // Inline styles override CSS without needing !important.
+    document.querySelectorAll('.slide').forEach(s => { s.style.display = 'none'; });
+    document.body.classList.add('is-mobile');
+  }
   goTo(0);
   wireNavigation();
   wireKeyboard();
@@ -41,36 +47,38 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // ── Core: go to a slide ─────────────────────────────────
 function goTo(index) {
-  if (isAnimating) return;
+  if (!isMobile && isAnimating) return;
   if (index < 0 || index >= TOTAL) return;
 
   const slides = document.querySelectorAll('.slide');
   const from   = slides[currentSlide];
   const to     = slides[index];
 
-  // Remove all transition classes
   slides.forEach(s => s.classList.remove('slide-exit', 'active'));
 
-  if (!isMobile) {
-    // Desktop: animate out the current slide
-    if (from && currentSlide !== index) from.classList.add('slide-exit');
-    isAnimating = true;
-  }
-
-  // Force reflow so Chrome restarts CSS animations on revisit
-  void to.offsetWidth;
-
-  // Animate in (or snap in on mobile)
-  to.classList.add('active');
-  currentSlide = index;
-
-  syncUI();
-
   if (isMobile) {
-    // display:none/flex handles visibility on mobile — no animation cleanup needed
+    // Control visibility entirely via inline styles.
+    // This bypasses all CSS media query / specificity issues that were
+    // silently failing on Android Chrome — inline styles always win
+    // over stylesheet rules (except !important, which we've removed).
+    slides.forEach((s, i) => {
+      s.style.display    = 'none';
+      s.style.pointerEvents = 'none';
+    });
+    to.style.display    = 'flex';
+    to.style.pointerEvents = 'all';
+    to.classList.add('active');
+    currentSlide = index;
+    syncUI();
     onSlideEnter(index);
   } else {
-    // Desktop: wait for CSS transition to finish before allowing next navigation
+    // Desktop: CSS opacity transition
+    if (from && currentSlide !== index) from.classList.add('slide-exit');
+    isAnimating = true;
+    void to.offsetWidth;
+    to.classList.add('active');
+    currentSlide = index;
+    syncUI();
     setTimeout(() => {
       isAnimating = false;
       slides.forEach(s => { if (!s.classList.contains('active')) s.classList.remove('slide-exit'); });
