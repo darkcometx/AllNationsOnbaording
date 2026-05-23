@@ -57,16 +57,31 @@ function goTo(index) {
   slides.forEach(s => s.classList.remove('slide-exit', 'active'));
 
   if (isMobile) {
-    // Control visibility entirely via inline styles.
-    // This bypasses all CSS media query / specificity issues that were
-    // silently failing on Android Chrome — inline styles always win
-    // over stylesheet rules (except !important, which we've removed).
-    slides.forEach((s, i) => {
-      s.style.display    = 'none';
+    // Hide all slides
+    slides.forEach(s => {
+      s.style.display       = 'none';
+      s.style.opacity       = '0';
       s.style.pointerEvents = 'none';
     });
-    to.style.display    = 'flex';
+
+    // Show target slide — set every visibility property inline so CSS
+    // cascade and media queries cannot override any of them
+    to.style.display       = 'flex';
+    to.style.opacity       = '1';
+    to.style.transform     = 'none';
     to.style.pointerEvents = 'all';
+    to.style.zIndex        = '2';
+
+    // Strip animations from content inside the slide so fill-mode:both
+    // delays don't keep elements stuck at opacity:0
+    to.querySelectorAll(
+      '.anim-1,.anim-2,.anim-3,.anim-4,.anim-5,.anim-6,.agenda-card,.uc-card'
+    ).forEach(el => {
+      el.style.animation = 'none';
+      el.style.opacity   = '1';
+      el.style.transform = 'none';
+    });
+
     to.classList.add('active');
     currentSlide = index;
     syncUI();
