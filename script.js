@@ -17,10 +17,11 @@ let touchStartY   = 0;
 const TOTAL       = 16;
 let stepInterval  = null; // stored so we can clear it when leaving slide 14
 
-// Detect touch-only devices (mobile Chrome / Safari mobile).
-// On these devices all CSS animations are stripped, so the
-// isAnimating lock and transition delay are not needed.
-const isMobile = window.matchMedia('(hover: none) and (pointer: coarse)').matches;
+// Detect touch-only devices. Use three signals so Samsung S Pen devices,
+// Android tablets, and any browser that mis-reports the media query are caught.
+const isMobile = window.matchMedia('(hover: none) and (pointer: coarse)').matches
+  || ('ontouchstart' in window)
+  || navigator.maxTouchPoints > 0;
 
 // ── Boot ────────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', () => {

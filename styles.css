@@ -144,7 +144,6 @@ img { max-width: 100%; display: block; }
   transition: opacity var(--t-slow), transform var(--t-slow);
   pointer-events: none;
   overflow-y: auto;
-  -webkit-overflow-scrolling: touch; /* momentum scrolling on iOS */
   overscroll-behavior-y: contain;    /* prevent scroll leaking out of slide on mobile */
   background: var(--bg);
 }
@@ -1463,16 +1462,22 @@ img { max-width: 100%; display: block; }
     transform: none !important;
   }
 
-  /* Kill all other transitions site-wide */
+  /* Kill ALL animations and transitions — duration:0s alone doesn't remove delays,
+     leaving fill-mode:both elements stuck invisible until the delay expires */
   *,
   *::before,
   *::after {
-    transition-duration: 0s !important;
-    animation-duration: 0s !important;
-    animation-iteration-count: 1 !important;
+    animation: none !important;
+    transition: none !important;
   }
 
-  /* Progress bar still works but snaps */
-  .progress-fill { transition: none !important; }
-  .dot           { transition: none !important; }
+  /* Ensure any element that was being animated in is immediately visible */
+  .anim-1, .anim-2, .anim-3, .anim-4, .anim-5, .anim-6 {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  .agenda-card, .uc-card {
+    opacity: 1 !important;
+    transform: none !important;
+  }
 }
