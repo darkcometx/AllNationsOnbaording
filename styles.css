@@ -143,6 +143,7 @@ img { max-width: 100%; display: block; }
   transform: translateY(22px) translateZ(0);
   transition: opacity var(--t-slow), transform var(--t-slow);
   pointer-events: none;
+  overflow-x: hidden;
   overflow-y: auto;
   overscroll-behavior-y: contain;    /* prevent scroll leaking out of slide on mobile */
   background: var(--bg);
@@ -507,6 +508,8 @@ img { max-width: 100%; display: block; }
   line-height: 1.0;
   color: var(--text-primary);
   margin-bottom: 16px;
+  max-width: 100%;
+  word-break: break-word;
 }
 .s1-hero-title em { color: var(--accent); font-style: normal; }
 .s1-sub {
@@ -1359,6 +1362,12 @@ img { max-width: 100%; display: block; }
   /* Tighten slide padding on small phones */
   .slide { padding: 16px; }
   .slide-title { margin-bottom: 6px; }
+  /* Hero title was 44px minimum — too wide to fit a phone screen */
+  .s1-hero-title { font-size: clamp(28px, 9vw, 44px); letter-spacing: -0.02em; }
+  /* Hide decorative scribbles — they have negative offsets that cause overflow on small screens */
+  .s1-decor { display: none; }
+  /* Sub text max-width was fixed 480px — let it breathe on small screens */
+  .s1-sub { max-width: 100%; font-size: 15px; }
 }
 
 /* ── Safe area insets (notch / home bar on iPhone) ─── */
