@@ -15,6 +15,7 @@ let isAnimating   = false;
 let touchStartX   = 0;
 let touchStartY   = 0;
 const TOTAL       = 16;
+let stepInterval  = null; // stored so we can clear it when leaving slide 14
 
 // ── Boot ────────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', () => {
@@ -98,6 +99,25 @@ function syncUI() {
 // ── Per-slide triggers ──────────────────────────────────
 function onSlideEnter(index) {
   if (index === 10) startSearchDemo(); // Slide 11 (0-indexed = 10)
+
+  // Clear step timeline interval when not on slide 14 (index 13)
+  // Without this it keeps firing in the background, wasting CPU on mobile
+  if (index !== 13 && stepInterval !== null) {
+    clearInterval(stepInterval);
+    stepInterval = null;
+  }
+
+  // Safari autoplay fix: manually play videos in the active slide,
+  // pause videos in all other slides
+  document.querySelectorAll('.slide').forEach((slide, i) => {
+    slide.querySelectorAll('video').forEach(vid => {
+      if (i === index) {
+        vid.play().catch(() => {}); // catch silences any policy errors
+      } else {
+        vid.pause();
+      }
+    });
+  });
 }
 
 // ── Navigation wiring ───────────────────────────────────
@@ -236,6 +256,14 @@ function wireBlockDemo() {
 function wireDragBlocks() {
   const container = document.getElementById('legoBlocks');
   if (!container) return;
+
+  // HTML5 drag API doesn't work on touch — show a note instead of silent failure
+  const isTouchOnly = window.matchMedia('(hover: none) and (pointer: coarse)').matches;
+  if (isTouchOnly) {
+    const note = container.nextElementSibling; // .lego-note
+    if (note) note.innerHTML = '📱 <strong>Tap any block type</strong> on the left to highlight it here';
+    return;
+  }
 
   let dragSrc = null;
 
@@ -414,7 +442,9 @@ function wireStepAnimation() {
   // Ensure step 1 starts active
   activate(0);
 
-  setInterval(() => {
+  // Store reference so we can clear it when navigating away
+  if (stepInterval) clearInterval(stepInterval);
+  stepInterval = setInterval(() => {
     current = (current + 1) % items.length;
     activate(current);
   }, 2800); // 2.8s per step — gives 0.9s transition time to breathe

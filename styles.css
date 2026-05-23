@@ -3,7 +3,7 @@
    Design Language: Notion + #CB5928 accent
    ==================================================== */
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap&font-display=optional');
+/* Google Fonts loaded via <link> in HTML for non-blocking parallel download */
 
 /* ── CSS Variables ─────────────────────────────────── */
 :root {
@@ -40,12 +40,14 @@ body {
   background: var(--bg);
   color: var(--text-primary);
   height: 100vh;
+  height: 100dvh; /* dynamic viewport height — fixes iOS/Chrome mobile address bar */
   overflow: hidden;
+  overscroll-behavior: none; /* prevents pull-to-refresh interfering with swipe nav */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 a { text-decoration: none; color: inherit; }
-button { font-family: inherit; cursor: pointer; border: none; background: none; }
+button { font-family: inherit; cursor: pointer; border: none; background: none; touch-action: manipulation; } /* manipulation removes 300ms tap delay on mobile */
 img { max-width: 100%; display: block; }
 
 /* ── Top Bar ────────────────────────────────────────── */
@@ -125,6 +127,8 @@ img { max-width: 100%; display: block; }
   position: fixed;
   top: 58px; bottom: 72px; left: 0; right: 0;
   overflow: hidden;
+  touch-action: pan-y pinch-zoom; /* let vertical scroll pass through; JS handles horizontal swipe */
+  overscroll-behavior: none;
 }
 
 /* ── Individual Slide ───────────────────────────────── */
@@ -132,36 +136,34 @@ img { max-width: 100%; display: block; }
   position: absolute;
   inset: 0;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
   padding: 32px 48px;
   opacity: 0;
-  transform: translateY(22px);
+  transform: translateY(22px) translateZ(0);
   transition: opacity var(--t-slow), transform var(--t-slow);
   pointer-events: none;
   overflow-y: auto;
+  -webkit-overflow-scrolling: touch; /* momentum scrolling on iOS */
+  overscroll-behavior-y: contain;    /* prevent scroll leaking out of slide on mobile */
   background: var(--bg);
-  will-change: opacity, transform;
-  -webkit-backface-visibility: hidden;
-  backface-visibility: hidden;
-  transform: translateZ(0);
 }
 .slide.active {
   opacity: 1;
-  transform: translateY(0);
+  transform: translateY(0) translateZ(0);
   pointer-events: all;
   z-index: 2;
 }
 .slide.slide-exit {
   opacity: 0;
-  transform: translateY(-22px);
+  transform: translateY(-22px) translateZ(0);
   pointer-events: none;
   z-index: 1;
 }
 .slide-inner {
   width: 100%;
   max-width: 1000px;
-  margin: 0 auto;
+  margin: auto;
 }
 
 /* ── Bottom Nav ─────────────────────────────────────── */
@@ -459,8 +461,8 @@ img { max-width: 100%; display: block; }
   0%, 100% { opacity: 1; }
   50%       { opacity: 0.5; }
 }
-.anim-1, .anim-2, .anim-3,
-.anim-4, .anim-5, .anim-6 { will-change: opacity, transform; }
+/* will-change is NOT set here permanently — the browser handles it during the animation.
+   Applying it to every anim element on every slide at all times wastes GPU memory on mobile. */
 .slide.active .anim-1 { animation: fadeInUp 0.5s ease 0.05s both; }
 .slide.active .anim-2 { animation: fadeInUp 0.5s ease 0.15s both; }
 .slide.active .anim-3 { animation: fadeInUp 0.5s ease 0.25s both; }
@@ -569,7 +571,7 @@ img { max-width: 100%; display: block; }
   grid-template-columns: repeat(5, 1fr);
   gap: 10px;
 }
-.agenda-card, .uc-card { will-change: opacity, transform; }
+/* will-change removed from agenda-card/uc-card — browser handles during animation */
 .agenda-card {
   background: var(--surface);
   border: 1px solid var(--border);
@@ -1355,4 +1357,62 @@ img { max-width: 100%; display: block; }
   .why-grid, .build-grid, .actions-row { grid-template-columns: 1fr; }
   .progress-dots { max-width: 220px; }
   .keyboard-hint { display: none; }
+  /* Tighten slide padding on small phones */
+  .slide { padding: 16px; }
+  .slide-title { margin-bottom: 6px; }
+}
+
+/* ── Safe area insets (notch / home bar on iPhone) ─── */
+@supports (padding-bottom: env(safe-area-inset-bottom)) {
+  .nav-bar {
+    padding-bottom: max(12px, env(safe-area-inset-bottom));
+    height: calc(72px + env(safe-area-inset-bottom));
+  }
+  .slides-wrap {
+    bottom: calc(72px + env(safe-area-inset-bottom));
+  }
+}
+
+/* ── Touch devices: disable sticky hover states ─────── */
+/* On touch screens, :hover sticks after a tap. This resets
+   transform/shadow hover effects so they don't get stuck. */
+@media (hover: none) {
+  .card:hover,
+  .agenda-card:hover,
+  .uc-card:hover,
+  .tool-item:hover,
+  .why-card:hover,
+  .pb-card:hover,
+  .block-type:hover,
+  .collab-card:hover,
+  .build-card:hover,
+  .action-card:hover,
+  .dept-card:hover {
+    transform: none;
+    box-shadow: none;
+    border-color: var(--border);
+  }
+  .lego-block:hover { transform: none; box-shadow: none; }
+  .tree-item:hover  { color: inherit; }
+  .nav-btn:hover:not(:disabled) { background: var(--surface); color: var(--text-primary); border-color: var(--border); }
+  .dot:hover:not(.active) { background: var(--border-dark); }
+  .wf-step:hover .wf-bubble { background: var(--accent-soft); color: var(--accent); }
+  .sr-item:hover { background: transparent; }
+  .view-tab:hover { background: transparent; border-color: transparent; }
+}
+
+/* ── Reduced motion: respect user accessibility settings ── */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  .slide, .slide.active, .slide.slide-exit {
+    transform: none !important;
+    opacity: 1 !important;
+  }
+  .slide:not(.active) { opacity: 0 !important; pointer-events: none !important; }
 }
