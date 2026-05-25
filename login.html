@@ -378,33 +378,7 @@
     return;
   }
 
-  // ── Check for invite token in URL hash ─────────────
-  // Format: login.html#setup?username=alisha.bains&token=abc123
-  const hash = window.location.hash;
-  if (hash.startsWith('#setup?')) {
-    const params = new URLSearchParams(hash.slice('#setup?'.length));
-    const username = params.get('username');
-    const token    = params.get('token');
-    if (username && token) {
-      const storedToken = getInviteToken(username);
-      if (!storedToken || storedToken !== token) {
-        showView('viewInvalidToken');
-        return;
-      }
-      // Valid token — show setup
-      const user = getUserInfo(username);
-      document.getElementById('setupDisplayName').value = user?.displayName || username;
-      document.getElementById('viewSetup').dataset.username = username;
-      document.getElementById('viewSetup').dataset.token    = token;
-      showView('viewSetup');
-      return;
-    }
-  }
-
-  // Default: show login
-  showView('viewLogin');
-
-  // ── Login: hint on username blur ───────────────────
+  // ── Login: hint on username input ─────────────────
   usernameInput.addEventListener('input', () => {
     const username = usernameInput.value.trim().toLowerCase();
     const u = getUserInfo(username);
@@ -438,7 +412,6 @@
     err.classList.remove('show');
     if (!username) { showError('loginError', 'Please enter your username.'); return; }
     if (!password) { showError('loginError', 'Please enter your password.'); return; }
-    // Check username exists in registry
     const knownUser = getUserInfo(username);
     if (!knownUser) { showError('loginError', 'Username not recognised. Try firstname.lastname — e.g. endo.moyo'); return; }
     setLoading('login', true);
@@ -453,7 +426,7 @@
     }
   }
 
-  // ── Setup submit ───────────────────────────────────
+  // ── Setup submit — attached unconditionally so it works from invite links ──
   const setupPwInput = document.getElementById('setupPassword');
   setupPwInput.addEventListener('input', updateStrength);
 
@@ -485,6 +458,32 @@
       setTimeout(() => redirectAfterLogin(loginResult.user), 1000);
     }
   }
+
+  // ── Check for invite token in URL hash ─────────────
+  // Format: login.html#setup?username=alisha.bains&token=abc123
+  const hash = window.location.hash;
+  if (hash.startsWith('#setup?')) {
+    const params = new URLSearchParams(hash.slice('#setup?'.length));
+    const username = params.get('username');
+    const token    = params.get('token');
+    if (username && token) {
+      const storedToken = getInviteToken(username);
+      if (!storedToken || storedToken !== token) {
+        showView('viewInvalidToken');
+        return;
+      }
+      // Valid token — show setup
+      const user = getUserInfo(username);
+      document.getElementById('setupDisplayName').value = user?.displayName || username;
+      document.getElementById('viewSetup').dataset.username = username;
+      document.getElementById('viewSetup').dataset.token    = token;
+      showView('viewSetup');
+      return;
+    }
+  }
+
+  // Default: show login
+  showView('viewLogin');
 
   // ── Helpers ────────────────────────────────────────
   function redirectAfterLogin(user) {
