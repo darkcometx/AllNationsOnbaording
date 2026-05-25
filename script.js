@@ -41,7 +41,8 @@ document.addEventListener('DOMContentLoaded', () => {
   wireDragBlocks();
   wireBoardDrag();
   wireAgendaCards();
-  startSearchDemo();
+  // startSearchDemo() is intentionally NOT called here — it runs in onSlideEnter(10)
+  // when the user actually navigates to that slide, preventing a background timer at startup.
   wireStepAnimation();
 });
 

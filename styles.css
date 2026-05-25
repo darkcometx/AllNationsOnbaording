@@ -136,31 +136,32 @@ img { max-width: 100%; display: block; }
 
 /* ── Individual Slide ───────────────────────────────── */
 .slide {
+  display: none; /* hidden by default — no opacity tricks, just display */
   position: absolute;
-  inset: 0;
-  display: flex;
+  top: 0; right: 0; bottom: 0; left: 0; /* explicit instead of inset shorthand */
   align-items: flex-start;
   justify-content: center;
   padding: 32px 48px;
-  opacity: 0;
-  transform: translateY(22px) translateZ(0);
-  transition: opacity var(--t-slow), transform var(--t-slow);
-  pointer-events: none;
   overflow-y: auto;
-  overscroll-behavior-y: contain;    /* prevent scroll leaking out of slide on mobile */
+  overscroll-behavior-y: contain;
   background: var(--bg);
+  pointer-events: none;
 }
 .slide.active {
-  opacity: 1;
-  transform: translateY(0) translateZ(0);
+  display: flex; /* show — browser cannot partially apply display */
   pointer-events: all;
   z-index: 2;
 }
-.slide.slide-exit {
-  opacity: 0;
-  transform: translateY(-22px) translateZ(0);
-  pointer-events: none;
-  z-index: 1;
+
+/* Desktop only: subtle fade-in when a slide becomes active */
+@media (hover: hover) and (pointer: fine) {
+  .slide.active {
+    animation: slideReveal 0.35s ease-out both;
+  }
+}
+@keyframes slideReveal {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 .slide-inner {
   width: 100%;
@@ -364,10 +365,16 @@ img { max-width: 100%; display: block; }
   opacity: 0;
   pointer-events: none;
   transition: opacity var(--t-base);
+  /* backdrop-filter intentionally absent here — having it on all 27 overlays at opacity:0
+     forces Android Chrome to pre-allocate 27 full-viewport GPU compositing layers at startup,
+     causing GPU memory pressure and partial tile-render failures on mid-range devices. */
+}
+.modal-overlay.open {
+  opacity: 1;
+  pointer-events: all;
   backdrop-filter: blur(3px);
   -webkit-backdrop-filter: blur(3px);
 }
-.modal-overlay.open { opacity: 1; pointer-events: all; }
 .modal {
   background: var(--surface);
   border-radius: var(--radius-lg);
@@ -465,12 +472,18 @@ img { max-width: 100%; display: block; }
 }
 /* will-change is NOT set here permanently — the browser handles it during the animation.
    Applying it to every anim element on every slide at all times wastes GPU memory on mobile. */
-.slide.active .anim-1 { animation: fadeInUp 0.5s ease 0.05s both; }
-.slide.active .anim-2 { animation: fadeInUp 0.5s ease 0.15s both; }
-.slide.active .anim-3 { animation: fadeInUp 0.5s ease 0.25s both; }
-.slide.active .anim-4 { animation: fadeInUp 0.5s ease 0.35s both; }
-.slide.active .anim-5 { animation: fadeInUp 0.5s ease 0.45s both; }
-.slide.active .anim-6 { animation: fadeInUp 0.5s ease 0.55s both; }
+
+/* Desktop-only entry animations. On touch devices (Android/iOS), fill-mode:both + delays
+   keep elements at opacity:0 until the animation fires — before DOMContentLoaded on slow
+   Android Chrome this creates a blank first paint. No animation = instantly visible. */
+@media (hover: hover) and (pointer: fine) {
+  .slide.active .anim-1 { animation: fadeInUp 0.5s ease 0.05s both; }
+  .slide.active .anim-2 { animation: fadeInUp 0.5s ease 0.15s both; }
+  .slide.active .anim-3 { animation: fadeInUp 0.5s ease 0.25s both; }
+  .slide.active .anim-4 { animation: fadeInUp 0.5s ease 0.35s both; }
+  .slide.active .anim-5 { animation: fadeInUp 0.5s ease 0.45s both; }
+  .slide.active .anim-6 { animation: fadeInUp 0.5s ease 0.55s both; }
+}
 
 /* ═══════════════════════════════════════════════════════
    SLIDE-SPECIFIC STYLES
@@ -613,12 +626,14 @@ img { max-width: 100%; display: block; }
   margin-top: auto;
 }
 
-/* Staggered agenda card pop-in */
-.slide.active .agenda-cards .agenda-card:nth-child(1) { animation: cardPopIn 0.55s cubic-bezier(0.34, 1.4, 0.64, 1) 0.20s both; }
-.slide.active .agenda-cards .agenda-card:nth-child(2) { animation: cardPopIn 0.55s cubic-bezier(0.34, 1.4, 0.64, 1) 0.35s both; }
-.slide.active .agenda-cards .agenda-card:nth-child(3) { animation: cardPopIn 0.55s cubic-bezier(0.34, 1.4, 0.64, 1) 0.50s both; }
-.slide.active .agenda-cards .agenda-card:nth-child(4) { animation: cardPopIn 0.55s cubic-bezier(0.34, 1.4, 0.64, 1) 0.65s both; }
-.slide.active .agenda-cards .agenda-card:nth-child(5) { animation: cardPopIn 0.55s cubic-bezier(0.34, 1.4, 0.64, 1) 0.80s both; }
+/* Staggered agenda card pop-in — desktop only (same reason as .anim-* above) */
+@media (hover: hover) and (pointer: fine) {
+  .slide.active .agenda-cards .agenda-card:nth-child(1) { animation: cardPopIn 0.55s cubic-bezier(0.34, 1.4, 0.64, 1) 0.20s both; }
+  .slide.active .agenda-cards .agenda-card:nth-child(2) { animation: cardPopIn 0.55s cubic-bezier(0.34, 1.4, 0.64, 1) 0.35s both; }
+  .slide.active .agenda-cards .agenda-card:nth-child(3) { animation: cardPopIn 0.55s cubic-bezier(0.34, 1.4, 0.64, 1) 0.50s both; }
+  .slide.active .agenda-cards .agenda-card:nth-child(4) { animation: cardPopIn 0.55s cubic-bezier(0.34, 1.4, 0.64, 1) 0.65s both; }
+  .slide.active .agenda-cards .agenda-card:nth-child(5) { animation: cardPopIn 0.55s cubic-bezier(0.34, 1.4, 0.64, 1) 0.80s both; }
+}
 
 /* ── Slide 3: What is Notion ────────────────────────── */
 .s3-layout { display: flex; flex-direction: column; gap: 20px; }
@@ -666,11 +681,14 @@ img { max-width: 100%; display: block; }
   from { opacity: 0; transform: translateY(24px) scale(0.80); }
   to   { opacity: 1; transform: translateY(0)   scale(1);    }
 }
-.slide.active .use-case-row .uc-card:nth-child(1) { animation: cardPopIn 0.55s cubic-bezier(0.34, 1.4, 0.64, 1) 0.20s both; }
-.slide.active .use-case-row .uc-card:nth-child(2) { animation: cardPopIn 0.55s cubic-bezier(0.34, 1.4, 0.64, 1) 0.35s both; }
-.slide.active .use-case-row .uc-card:nth-child(3) { animation: cardPopIn 0.55s cubic-bezier(0.34, 1.4, 0.64, 1) 0.50s both; }
-.slide.active .use-case-row .uc-card:nth-child(4) { animation: cardPopIn 0.55s cubic-bezier(0.34, 1.4, 0.64, 1) 0.65s both; }
-.slide.active .use-case-row .uc-card:nth-child(5) { animation: cardPopIn 0.55s cubic-bezier(0.34, 1.4, 0.64, 1) 0.80s both; }
+/* Desktop only — same reason as .anim-* rules above */
+@media (hover: hover) and (pointer: fine) {
+  .slide.active .use-case-row .uc-card:nth-child(1) { animation: cardPopIn 0.55s cubic-bezier(0.34, 1.4, 0.64, 1) 0.20s both; }
+  .slide.active .use-case-row .uc-card:nth-child(2) { animation: cardPopIn 0.55s cubic-bezier(0.34, 1.4, 0.64, 1) 0.35s both; }
+  .slide.active .use-case-row .uc-card:nth-child(3) { animation: cardPopIn 0.55s cubic-bezier(0.34, 1.4, 0.64, 1) 0.50s both; }
+  .slide.active .use-case-row .uc-card:nth-child(4) { animation: cardPopIn 0.55s cubic-bezier(0.34, 1.4, 0.64, 1) 0.65s both; }
+  .slide.active .use-case-row .uc-card:nth-child(5) { animation: cardPopIn 0.55s cubic-bezier(0.34, 1.4, 0.64, 1) 0.80s both; }
+}
 .s3-bottom {
   display: flex;
   align-items: center;
