@@ -14,7 +14,7 @@ let currentSlide  = 0;
 let isAnimating   = false;
 let touchStartX   = 0;
 let touchStartY   = 0;
-const TOTAL       = 16;
+const TOTAL       = 17;
 let stepInterval  = null; // stored so we can clear it when leaving slide 14
 
 // Detect touch-only devices. Use three signals so Samsung S Pen devices,
@@ -44,6 +44,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // startSearchDemo() is intentionally NOT called here — it runs in onSlideEnter(10)
   // when the user actually navigates to that slide, preventing a background timer at startup.
   wireStepAnimation();
+  wireDbTabs();
 });
 
 // ── Core: go to a slide ─────────────────────────────────
@@ -122,9 +123,9 @@ function syncUI() {
 function onSlideEnter(index) {
   if (index === 10) startSearchDemo(); // Slide 11 (0-indexed = 10)
 
-  // Clear step timeline interval when not on slide 14 (index 13)
+  // Clear step timeline interval when not on slide 15 (index 14)
   // Without this it keeps firing in the background, wasting CPU on mobile
-  if (index !== 13 && stepInterval !== null) {
+  if (index !== 14 && stepInterval !== null) {
     clearInterval(stepInterval);
     stepInterval = null;
   }
@@ -237,6 +238,24 @@ function isModalOpen() {
 // Expose for inline usage
 window.openModal = openModal;
 window.closeModal = closeModal;
+
+// ── Database Tabs (Slide 9) ──────────────────────────────
+function wireDbTabs() {
+  const container = document.getElementById('slide-8');
+  if (!container) return;
+  const tabs  = container.querySelectorAll('.db-tab');
+  const panes = container.querySelectorAll('.db-pane');
+
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      tabs.forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+      panes.forEach(p => {
+        p.classList.toggle('active', p.dataset.dbView === tab.dataset.dbView);
+      });
+    });
+  });
+}
 
 // ── View Tabs (Slide 10) ─────────────────────────────────
 function wireViewTabs() {

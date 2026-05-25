@@ -142,7 +142,7 @@
             <span class="ag-label">Working Together</span>
             <span class="ag-arrow">→</span>
           </div>
-          <div class="agenda-card" data-slide="15">
+          <div class="agenda-card" data-slide="16">
             <span class="ag-num">05</span>
             <img src="slide-15/314-education.svg" alt="Your Department" loading="lazy" decoding="async">
             <span class="ag-label">Your Department</span>
@@ -558,73 +558,145 @@
   </section>
 
   <!-- ────────────────────────────────────────
-       SLIDE 9 — REAL LIFE EXAMPLE
+       SLIDE 9 — DATABASES
        ──────────────────────────────────────── -->
   <section class="slide" id="slide-8">
     <div class="slide-inner">
-      <span class="eyebrow anim-1">In practice</span>
-      <h2 class="slide-title anim-1">How this works in real life
-        <button class="info-btn" data-open-modal="reallife-detail">?</button>
+      <span class="eyebrow anim-1">The superpower</span>
+      <h2 class="slide-title anim-1">Databases: the heartbeat of Notion
+        <button class="info-btn" data-open-modal="databases-detail">?</button>
       </h2>
-      <p class="slide-subtitle anim-1">Here's how staff meeting prep looks inside Notion — one page, everyone working from it.</p>
 
-      <div class="s9-layout">
-        <div class="scenario-card anim-2">
-          <h3>Staff Meeting — One source of truth</h3>
-          <div class="workflow">
-            <div class="wf-step">
-              <div class="wf-bubble"><img src="slide-9/agenda-built.svg" alt="Agenda built" style="width:24px;height:24px;" loading="lazy" decoding="async"></div>
-              <span class="wf-label">Agenda built</span>
-            </div>
-            <div class="wf-step">
-              <div class="wf-bubble"><img src="slide-9/action-points-assigned.svg" alt="Action points assigned" style="width:24px;height:24px;" loading="lazy" decoding="async"></div>
-              <span class="wf-label">Action points assigned</span>
-            </div>
-            <div class="wf-step">
-              <div class="wf-bubble"><img src="slide-9/notes-recorded.svg" alt="Notes recorded" style="width:24px;height:24px;" loading="lazy" decoding="async"></div>
-              <span class="wf-label">Notes recorded</span>
-            </div>
-            <div class="wf-step">
-              <div class="wf-bubble"><img src="slide-9/follow-up-tracked.svg" alt="Follow-ups tracked" style="width:24px;height:24px;" loading="lazy" decoding="async"></div>
-              <span class="wf-label">Follow-ups tracked</span>
-            </div>
-            <div class="wf-step">
-              <div class="wf-bubble"><img src="slide-9/everyone-sees-latest-version.svg" alt="Everyone sees latest version" style="width:24px;height:24px;" loading="lazy" decoding="async"></div>
-              <span class="wf-label">Everyone sees latest version</span>
-            </div>
+      <div class="db-demo anim-2">
+        <div class="db-page-header">
+          <span class="db-page-icon">📋</span>
+          <span class="db-page-title">All Nations — Church Events</span>
+          <div class="db-tabs">
+            <button class="db-tab active" data-db-view="table">⊞ Table</button>
+            <button class="db-tab" data-db-view="calendar">📅 Calendar</button>
+            <button class="db-tab" data-db-view="board">◫ Board</button>
           </div>
         </div>
 
-        <div class="scenario-card anim-3" style="border-left-color: var(--text-muted);">
-          <h3>Event Planning — Another example</h3>
-          <div class="workflow">
-            <div class="wf-step">
-              <div class="wf-bubble"><img src="slide-9/event-added.svg" alt="Event added" style="width:24px;height:24px;" loading="lazy" decoding="async"></div>
-              <span class="wf-label">Event added</span>
-            </div>
-            <div class="wf-step">
-              <div class="wf-bubble"><img src="slide-9/date-added-to-calendar.svg" alt="Date added to calendar" style="width:24px;height:24px;" loading="lazy" decoding="async"></div>
-              <span class="wf-label">Date added to calendar</span>
-            </div>
-            <div class="wf-step">
-              <div class="wf-bubble"><img src="slide-9/budget-tracked.svg" alt="Budget tracked" style="width:24px;height:24px;" loading="lazy" decoding="async"></div>
-              <span class="wf-label">Budget tracked</span>
-            </div>
-            <div class="wf-step">
-              <div class="wf-bubble"><img src="slide-9/team-members-assigned.svg" alt="Team members assigned" style="width:24px;height:24px;" loading="lazy" decoding="async"></div>
-              <span class="wf-label">Team members assigned</span>
-            </div>
-            <div class="wf-step">
-              <div class="wf-bubble"><img src="slide-9/debrief-logged.svg" alt="Debrief logged" style="width:24px;height:24px;" loading="lazy" decoding="async"></div>
-              <span class="wf-label">Debrief logged</span>
+        <div class="db-panes">
+          <div class="db-pane active" data-db-view="table">
+            <table class="db-table">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Date</th>
+                  <th>Category</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="db-td-name">Sunday Service</td>
+                  <td>25 May</td>
+                  <td><span class="db-tag db-tag-purple">Worship</span></td>
+                  <td><span class="badge badge-green">Done</span></td>
+                </tr>
+                <tr>
+                  <td class="db-td-name">Youth Night</td>
+                  <td>28 May</td>
+                  <td><span class="db-tag db-tag-blue">Youth</span></td>
+                  <td><span class="badge badge-orange">In Progress</span></td>
+                </tr>
+                <tr>
+                  <td class="db-td-name">Prayer Meeting</td>
+                  <td>31 May</td>
+                  <td><span class="db-tag db-tag-teal">Prayer</span></td>
+                  <td><span class="badge badge-grey">Upcoming</span></td>
+                </tr>
+                <tr>
+                  <td class="db-td-name">Staff Day</td>
+                  <td>1 Jun</td>
+                  <td><span class="db-tag db-tag-brown">HR</span></td>
+                  <td><span class="badge badge-grey">Upcoming</span></td>
+                </tr>
+                <tr>
+                  <td class="db-td-name">Community BBQ</td>
+                  <td>8 Jun</td>
+                  <td><span class="db-tag db-tag-green2">Community</span></td>
+                  <td><span class="badge badge-grey">Upcoming</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="db-pane" data-db-view="calendar">
+            <div class="db-cal">
+              <div class="db-cal-month">May — June 2026</div>
+              <div class="db-cal-grid">
+                <div class="db-cal-label">Mon</div>
+                <div class="db-cal-label">Tue</div>
+                <div class="db-cal-label">Wed</div>
+                <div class="db-cal-label">Thu</div>
+                <div class="db-cal-label">Fri</div>
+                <div class="db-cal-label">Sat</div>
+                <div class="db-cal-label">Sun</div>
+                <div class="db-cal-day">19</div>
+                <div class="db-cal-day">20</div>
+                <div class="db-cal-day">21</div>
+                <div class="db-cal-day">22</div>
+                <div class="db-cal-day">23</div>
+                <div class="db-cal-day">24</div>
+                <div class="db-cal-day has-event">25<div class="db-event-chip chip-green">Sunday Service</div></div>
+                <div class="db-cal-day">26</div>
+                <div class="db-cal-day">27</div>
+                <div class="db-cal-day has-event">28<div class="db-event-chip chip-orange">Youth Night</div></div>
+                <div class="db-cal-day">29</div>
+                <div class="db-cal-day">30</div>
+                <div class="db-cal-day has-event">31<div class="db-event-chip chip-blue">Prayer Mtg</div></div>
+                <div class="db-cal-day has-event">1<div class="db-event-chip chip-brown">Staff Day</div></div>
+                <div class="db-cal-day">2</div>
+                <div class="db-cal-day">3</div>
+                <div class="db-cal-day">4</div>
+                <div class="db-cal-day">5</div>
+                <div class="db-cal-day">6</div>
+                <div class="db-cal-day">7</div>
+                <div class="db-cal-day has-event">8<div class="db-event-chip chip-teal">Comm. BBQ</div></div>
+              </div>
             </div>
           </div>
-        </div>
 
-        <div class="s9-truth anim-4">
-          <p>Same system, <strong>everyone working from one source of truth</strong> — no more "can you resend that file?" or "which version is this?"</p>
+          <div class="db-pane" data-db-view="board">
+            <div class="db-board">
+              <div class="db-board-col">
+                <div class="db-board-header" style="color:#1A6E1E">✅ Done</div>
+                <div class="db-board-card">
+                  <strong>Sunday Service</strong>
+                  <span>25 May · Worship</span>
+                </div>
+              </div>
+              <div class="db-board-col">
+                <div class="db-board-header" style="color:#E65100">⏳ In Progress</div>
+                <div class="db-board-card">
+                  <strong>Youth Night</strong>
+                  <span>28 May · Youth</span>
+                </div>
+              </div>
+              <div class="db-board-col">
+                <div class="db-board-header" style="color:var(--text-muted)">📅 Upcoming</div>
+                <div class="db-board-card">
+                  <strong>Prayer Meeting</strong>
+                  <span>31 May · Prayer</span>
+                </div>
+                <div class="db-board-card">
+                  <strong>Staff Day</strong>
+                  <span>1 Jun · HR</span>
+                </div>
+                <div class="db-board-card">
+                  <strong>Community BBQ</strong>
+                  <span>8 Jun · Community</span>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
+
+      <p class="db-footnote anim-3">One database, three ways to look at it. Every row is the same event — Notion just shows it differently depending on what you need. Filter by team, sort by date, track by status. The data never changes, only the view does.</p>
     </div>
   </section>
 
@@ -951,9 +1023,80 @@
   </section>
 
   <!-- ────────────────────────────────────────
-       SLIDE 14 — DON'T NEED TO MASTER IT
+       SLIDE 14 — REAL LIFE EXAMPLE
        ──────────────────────────────────────── -->
   <section class="slide" id="slide-13">
+    <div class="slide-inner">
+      <span class="eyebrow anim-1">In practice</span>
+      <h2 class="slide-title anim-1">How this works in real life
+        <button class="info-btn" data-open-modal="reallife-detail">?</button>
+      </h2>
+      <p class="slide-subtitle anim-1">Here's how staff meeting prep looks inside Notion — one page, everyone working from it.</p>
+
+      <div class="s9-layout">
+        <div class="scenario-card anim-2">
+          <h3>Staff Meeting — One source of truth</h3>
+          <div class="workflow">
+            <div class="wf-step">
+              <div class="wf-bubble"><img src="slide-9/agenda-built.svg" alt="Agenda built" style="width:24px;height:24px;" loading="lazy" decoding="async"></div>
+              <span class="wf-label">Agenda built</span>
+            </div>
+            <div class="wf-step">
+              <div class="wf-bubble"><img src="slide-9/action-points-assigned.svg" alt="Action points assigned" style="width:24px;height:24px;" loading="lazy" decoding="async"></div>
+              <span class="wf-label">Action points assigned</span>
+            </div>
+            <div class="wf-step">
+              <div class="wf-bubble"><img src="slide-9/notes-recorded.svg" alt="Notes recorded" style="width:24px;height:24px;" loading="lazy" decoding="async"></div>
+              <span class="wf-label">Notes recorded</span>
+            </div>
+            <div class="wf-step">
+              <div class="wf-bubble"><img src="slide-9/follow-up-tracked.svg" alt="Follow-ups tracked" style="width:24px;height:24px;" loading="lazy" decoding="async"></div>
+              <span class="wf-label">Follow-ups tracked</span>
+            </div>
+            <div class="wf-step">
+              <div class="wf-bubble"><img src="slide-9/everyone-sees-latest-version.svg" alt="Everyone sees latest version" style="width:24px;height:24px;" loading="lazy" decoding="async"></div>
+              <span class="wf-label">Everyone sees latest version</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="scenario-card anim-3" style="border-left-color: var(--text-muted);">
+          <h3>Event Planning — Another example</h3>
+          <div class="workflow">
+            <div class="wf-step">
+              <div class="wf-bubble"><img src="slide-9/event-added.svg" alt="Event added" style="width:24px;height:24px;" loading="lazy" decoding="async"></div>
+              <span class="wf-label">Event added</span>
+            </div>
+            <div class="wf-step">
+              <div class="wf-bubble"><img src="slide-9/date-added-to-calendar.svg" alt="Date added to calendar" style="width:24px;height:24px;" loading="lazy" decoding="async"></div>
+              <span class="wf-label">Date added to calendar</span>
+            </div>
+            <div class="wf-step">
+              <div class="wf-bubble"><img src="slide-9/budget-tracked.svg" alt="Budget tracked" style="width:24px;height:24px;" loading="lazy" decoding="async"></div>
+              <span class="wf-label">Budget tracked</span>
+            </div>
+            <div class="wf-step">
+              <div class="wf-bubble"><img src="slide-9/team-members-assigned.svg" alt="Team members assigned" style="width:24px;height:24px;" loading="lazy" decoding="async"></div>
+              <span class="wf-label">Team members assigned</span>
+            </div>
+            <div class="wf-step">
+              <div class="wf-bubble"><img src="slide-9/debrief-logged.svg" alt="Debrief logged" style="width:24px;height:24px;" loading="lazy" decoding="async"></div>
+              <span class="wf-label">Debrief logged</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="s9-truth anim-4">
+          <p>Same system, <strong>everyone working from one source of truth</strong> — no more "can you resend that file?" or "which version is this?"</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ────────────────────────────────────────
+       SLIDE 15 — DON'T NEED TO MASTER IT
+       ──────────────────────────────────────── -->
+  <section class="slide" id="slide-14">
     <div class="slide-inner">
       <div class="s14-layout">
         <div>
@@ -1008,9 +1151,9 @@
   </section>
 
   <!-- ────────────────────────────────────────
-       SLIDE 15 — THREE THINGS TO DO
+       SLIDE 16 — THREE THINGS TO DO
        ──────────────────────────────────────── -->
-  <section class="slide" id="slide-14">
+  <section class="slide" id="slide-15">
     <div class="slide-inner">
       <div class="s15-layout">
         <div class="anim-1">
@@ -1049,9 +1192,9 @@
   </section>
 
   <!-- ────────────────────────────────────────
-       SLIDE 16 — DEPARTMENT EXPLORER
+       SLIDE 17 — DEPARTMENT EXPLORER
        ──────────────────────────────────────── -->
-  <section class="slide" id="slide-15">
+  <section class="slide" id="slide-16">
     <div class="slide-inner">
       <div class="s16-layout">
         <div class="s16-intro anim-1">
@@ -1159,6 +1302,7 @@
     <div class="dot" title="Slide 14"></div>
     <div class="dot" title="Slide 15"></div>
     <div class="dot" title="Slide 16"></div>
+    <div class="dot" title="Slide 17"></div>
   </div>
 
   <button class="nav-btn" id="nextBtn" title="Next (→)">
@@ -1435,6 +1579,25 @@
         <li>Duplicate a page to create a fresh copy instantly</li>
       </ul>
       <div class="modal-tip"><p style="color:#111111;"><img src="slide-2/bulb.svg" alt="" style="width:16px;height:16px;display:inline-block;vertical-align:middle;margin-right:5px;" loading="lazy" decoding="async">The search bar (⌘K) searches across all pages in your workspace. Once you build the habit of adding things to Notion, finding them is almost instant.</p></div>
+    </div>
+  </div>
+</div>
+
+<!-- Databases detail -->
+<div class="modal-overlay" id="modal-databases-detail">
+  <div class="modal">
+    <div class="modal-header"><div class="modal-title">🗄️ What makes databases so powerful</div><button class="modal-close" onclick="closeModal()">✕</button></div>
+    <div class="modal-body">
+      <p>A database in Notion is a structured collection of pages — each row is its own page with properties attached to it (like a date, a status, a person, or a tag). That structure is what makes the data so flexible.</p>
+      <p>The magic is that one database can look completely different depending on what you need in that moment. Need to plan by date? Switch to Calendar. Need to see what's stuck? Switch to Board. Need a full overview? Table. Same data, different angle — every time.</p>
+      <h4>Common uses at All Nations:</h4>
+      <ul class="modal-list">
+        <li>Event tracker — every event as a row, with date, owner, and status</li>
+        <li>Volunteer rota — who's serving when, filtered by team or date</li>
+        <li>Task database — assigned to individuals, tracked through completion</li>
+        <li>Content calendar — what's being published, by who, and when</li>
+      </ul>
+      <div class="modal-tip"><p style="color:#111111;"><img src="slide-2/bulb.svg" alt="" style="width:16px;height:16px;display:inline-block;vertical-align:middle;margin-right:5px;" loading="lazy" decoding="async">You don't need to build databases yourself straight away. The ones in your team space are already set up — you just need to start using them.</p></div>
     </div>
   </div>
 </div>
