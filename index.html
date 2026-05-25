@@ -589,45 +589,14 @@
                   <th>Status</th>
                 </tr>
               </thead>
-              <tbody>
-                <tr>
-                  <td class="db-td-name">Sunday Service</td>
-                  <td>25 May</td>
-                  <td><span class="db-tag db-tag-purple">Worship</span></td>
-                  <td><span class="badge badge-green">Done</span></td>
-                </tr>
-                <tr>
-                  <td class="db-td-name">Youth Night</td>
-                  <td>28 May</td>
-                  <td><span class="db-tag db-tag-blue">Youth</span></td>
-                  <td><span class="badge badge-orange">In Progress</span></td>
-                </tr>
-                <tr>
-                  <td class="db-td-name">Prayer Meeting</td>
-                  <td>31 May</td>
-                  <td><span class="db-tag db-tag-teal">Prayer</span></td>
-                  <td><span class="badge badge-grey">Upcoming</span></td>
-                </tr>
-                <tr>
-                  <td class="db-td-name">Staff Day</td>
-                  <td>1 Jun</td>
-                  <td><span class="db-tag db-tag-brown">HR</span></td>
-                  <td><span class="badge badge-grey">Upcoming</span></td>
-                </tr>
-                <tr>
-                  <td class="db-td-name">Community BBQ</td>
-                  <td>8 Jun</td>
-                  <td><span class="db-tag db-tag-green2">Community</span></td>
-                  <td><span class="badge badge-grey">Upcoming</span></td>
-                </tr>
-              </tbody>
+              <tbody id="db-table-body"></tbody>
             </table>
           </div>
 
           <div class="db-pane" data-db-view="calendar">
             <div class="db-cal">
               <div class="db-cal-month">May — June 2026</div>
-              <div class="db-cal-grid">
+              <div class="db-cal-grid" id="db-cal-grid">
                 <div class="db-cal-label">Mon</div>
                 <div class="db-cal-label">Tue</div>
                 <div class="db-cal-label">Wed</div>
@@ -635,63 +604,12 @@
                 <div class="db-cal-label">Fri</div>
                 <div class="db-cal-label">Sat</div>
                 <div class="db-cal-label">Sun</div>
-                <div class="db-cal-day">19</div>
-                <div class="db-cal-day">20</div>
-                <div class="db-cal-day">21</div>
-                <div class="db-cal-day">22</div>
-                <div class="db-cal-day">23</div>
-                <div class="db-cal-day">24</div>
-                <div class="db-cal-day has-event">25<div class="db-event-chip chip-green">Sunday Service</div></div>
-                <div class="db-cal-day">26</div>
-                <div class="db-cal-day">27</div>
-                <div class="db-cal-day has-event">28<div class="db-event-chip chip-orange">Youth Night</div></div>
-                <div class="db-cal-day">29</div>
-                <div class="db-cal-day">30</div>
-                <div class="db-cal-day has-event">31<div class="db-event-chip chip-blue">Prayer Mtg</div></div>
-                <div class="db-cal-day has-event">1<div class="db-event-chip chip-brown">Staff Day</div></div>
-                <div class="db-cal-day">2</div>
-                <div class="db-cal-day">3</div>
-                <div class="db-cal-day">4</div>
-                <div class="db-cal-day">5</div>
-                <div class="db-cal-day">6</div>
-                <div class="db-cal-day">7</div>
-                <div class="db-cal-day has-event">8<div class="db-event-chip chip-teal">Comm. BBQ</div></div>
               </div>
             </div>
           </div>
 
           <div class="db-pane" data-db-view="board">
-            <div class="db-board">
-              <div class="db-board-col">
-                <div class="db-board-header" style="color:#1A6E1E">✅ Done</div>
-                <div class="db-board-card">
-                  <strong>Sunday Service</strong>
-                  <span>25 May · Worship</span>
-                </div>
-              </div>
-              <div class="db-board-col">
-                <div class="db-board-header" style="color:#E65100">⏳ In Progress</div>
-                <div class="db-board-card">
-                  <strong>Youth Night</strong>
-                  <span>28 May · Youth</span>
-                </div>
-              </div>
-              <div class="db-board-col">
-                <div class="db-board-header" style="color:var(--text-muted)">📅 Upcoming</div>
-                <div class="db-board-card">
-                  <strong>Prayer Meeting</strong>
-                  <span>31 May · Prayer</span>
-                </div>
-                <div class="db-board-card">
-                  <strong>Staff Day</strong>
-                  <span>1 Jun · HR</span>
-                </div>
-                <div class="db-board-card">
-                  <strong>Community BBQ</strong>
-                  <span>8 Jun · Community</span>
-                </div>
-              </div>
-            </div>
+            <div class="db-board"></div>
           </div>
         </div>
       </div>

@@ -1075,6 +1075,62 @@ img { max-width: 100%; display: block; }
 .db-board-card strong { font-size: 12px; font-weight: 500; color: var(--text-primary); }
 .db-board-card span { font-size: 11px; color: var(--text-muted); }
 
+/* Interactive table cells */
+.db-status-cell { cursor: pointer; user-select: none; }
+.db-status-cell:hover { opacity: 0.75; }
+.db-date-cell {
+  cursor: pointer;
+  text-decoration: underline;
+  text-decoration-style: dotted;
+  text-underline-offset: 2px;
+  color: var(--text-primary);
+}
+.db-date-cell:hover { color: var(--accent); }
+
+/* Drag states */
+.db-event-chip { cursor: grab; }
+.db-event-chip.is-dragging { opacity: 0.35; cursor: grabbing; }
+.db-board-card { cursor: grab; }
+.db-board-card.is-dragging { opacity: 0.35; cursor: grabbing; }
+.db-cal-day.db-drop-target { outline: 2px dashed var(--accent); background: var(--accent-soft) !important; border-radius: 3px; }
+.db-board-col.db-drop-target { background: var(--accent-soft); border-radius: var(--radius-sm); outline: 2px dashed var(--accent-light); }
+
+/* Date picker popup */
+.db-date-picker {
+  position: absolute;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-md);
+  z-index: 50;
+  padding: 8px;
+  display: flex;
+  gap: 10px;
+  min-width: 160px;
+}
+.db-picker-month { display: flex; flex-direction: column; gap: 1px; }
+.db-picker-label {
+  font-size: 9px;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 2px 6px 4px;
+}
+.db-picker-day {
+  background: none;
+  border: none;
+  padding: 3px 10px;
+  font-size: 12px;
+  color: var(--text-secondary);
+  cursor: pointer;
+  border-radius: 3px;
+  text-align: left;
+  font-family: inherit;
+}
+.db-picker-day:hover { background: var(--accent-soft); color: var(--accent); }
+.db-picker-day.active { background: var(--accent); color: #fff; font-weight: 600; }
+
 /* Footnote */
 .db-footnote {
   font-size: 12px;

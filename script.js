@@ -239,12 +239,235 @@ function isModalOpen() {
 window.openModal = openModal;
 window.closeModal = closeModal;
 
-// ── Database Tabs (Slide 9) ──────────────────────────────
+// ── Database Demo (Slide 9) — shared data model ──────────
+
+const DB_EVENTS = [
+  { id: 0, name: 'Sunday Service', day: 25, month: 5, category: 'Worship',   catClass: 'db-tag-purple', chipClass: 'chip-green',  status: 'Done' },
+  { id: 1, name: 'Youth Night',    day: 28, month: 5, category: 'Youth',     catClass: 'db-tag-blue',   chipClass: 'chip-orange', status: 'In Progress' },
+  { id: 2, name: 'Prayer Meeting', day: 31, month: 5, category: 'Prayer',    catClass: 'db-tag-teal',   chipClass: 'chip-blue',   status: 'Upcoming' },
+  { id: 3, name: 'Staff Day',      day: 1,  month: 6, category: 'HR',        catClass: 'db-tag-brown',  chipClass: 'chip-brown',  status: 'Upcoming' },
+  { id: 4, name: 'Community BBQ',  day: 8,  month: 6, category: 'Community', catClass: 'db-tag-green2', chipClass: 'chip-teal',   status: 'Upcoming' },
+];
+
+const DB_STATUSES = ['Done', 'In Progress', 'Upcoming'];
+
+const CAL_CELLS = [
+  {d:19,m:5},{d:20,m:5},{d:21,m:5},{d:22,m:5},{d:23,m:5},{d:24,m:5},{d:25,m:5},
+  {d:26,m:5},{d:27,m:5},{d:28,m:5},{d:29,m:5},{d:30,m:5},{d:31,m:5},{d:1,m:6},
+  {d:2,m:6},{d:3,m:6},{d:4,m:6},{d:5,m:6},{d:6,m:6},{d:7,m:6},{d:8,m:6},
+];
+
+function dbFmtDate(day, month) {
+  return day + (month === 5 ? ' May' : ' Jun');
+}
+
+function dbBadgeClass(status) {
+  return status === 'Done' ? 'badge-green' : status === 'In Progress' ? 'badge-orange' : 'badge-grey';
+}
+
+let dbContainer = null;
+
+function dbRenderAll() {
+  if (!dbContainer) return;
+  dbRenderTable();
+  dbRenderCalendar();
+  dbRenderBoard();
+}
+
+function dbRenderTable() {
+  const tbody = dbContainer.querySelector('#db-table-body');
+  if (!tbody) return;
+
+  tbody.innerHTML = DB_EVENTS.map(ev => `
+    <tr>
+      <td class="db-td-name">${ev.name}</td>
+      <td><span class="db-date-cell" data-ev-id="${ev.id}">${dbFmtDate(ev.day, ev.month)}</span></td>
+      <td><span class="db-tag ${ev.catClass}">${ev.category}</span></td>
+      <td><span class="db-status-cell badge ${dbBadgeClass(ev.status)}" data-ev-id="${ev.id}">${ev.status}</span></td>
+    </tr>
+  `).join('');
+
+  tbody.querySelectorAll('.db-status-cell').forEach(el => {
+    el.addEventListener('click', () => {
+      const ev = DB_EVENTS[+el.dataset.evId];
+      ev.status = DB_STATUSES[(DB_STATUSES.indexOf(ev.status) + 1) % DB_STATUSES.length];
+      dbRenderAll();
+    });
+  });
+
+  tbody.querySelectorAll('.db-date-cell').forEach(el => {
+    el.addEventListener('click', e => {
+      e.stopPropagation();
+      dbShowDatePicker(el, +el.dataset.evId);
+    });
+  });
+}
+
+function dbRenderCalendar() {
+  const grid = dbContainer.querySelector('#db-cal-grid');
+  if (!grid) return;
+
+  grid.querySelectorAll('.db-cal-day').forEach(el => el.remove());
+
+  CAL_CELLS.forEach(cell => {
+    const div = document.createElement('div');
+    div.className = 'db-cal-day';
+    div.dataset.day = cell.d;
+    div.dataset.month = cell.m;
+
+    const eventsHere = DB_EVENTS.filter(ev => ev.day === cell.d && ev.month === cell.m);
+
+    if (eventsHere.length) {
+      div.classList.add('has-event');
+      const num = document.createElement('span');
+      num.className = 'db-cal-num';
+      num.textContent = cell.d;
+      div.appendChild(num);
+
+      eventsHere.forEach(ev => {
+        const chip = document.createElement('div');
+        chip.className = `db-event-chip ${ev.chipClass}`;
+        chip.textContent = ev.name.length > 13 ? ev.name.slice(0, 12) + '…' : ev.name;
+        chip.draggable = true;
+        chip.dataset.evId = ev.id;
+
+        chip.addEventListener('dragstart', e => {
+          e.dataTransfer.setData('db-ev-id', ev.id);
+          e.dataTransfer.effectAllowed = 'move';
+          requestAnimationFrame(() => chip.classList.add('is-dragging'));
+        });
+        chip.addEventListener('dragend', () => chip.classList.remove('is-dragging'));
+        div.appendChild(chip);
+      });
+    } else {
+      div.textContent = cell.d;
+    }
+
+    div.addEventListener('dragover', e => {
+      e.preventDefault();
+      e.dataTransfer.dropEffect = 'move';
+      div.classList.add('db-drop-target');
+    });
+    div.addEventListener('dragleave', e => {
+      if (!div.contains(e.relatedTarget)) div.classList.remove('db-drop-target');
+    });
+    div.addEventListener('drop', e => {
+      e.preventDefault();
+      div.classList.remove('db-drop-target');
+      const id = +e.dataTransfer.getData('db-ev-id');
+      if (!isNaN(id)) {
+        DB_EVENTS[id].day = cell.d;
+        DB_EVENTS[id].month = cell.m;
+        dbRenderAll();
+      }
+    });
+
+    grid.appendChild(div);
+  });
+}
+
+function dbRenderBoard() {
+  const board = dbContainer.querySelector('.db-board');
+  if (!board) return;
+
+  board.innerHTML = DB_STATUSES.map(status => {
+    const color = status === 'Done' ? '#1A6E1E' : status === 'In Progress' ? '#E65100' : 'var(--text-muted)';
+    const icon  = status === 'Done' ? '✅' : status === 'In Progress' ? '⏳' : '📅';
+    const cards = DB_EVENTS.filter(ev => ev.status === status).map(ev => `
+      <div class="db-board-card" draggable="true" data-ev-id="${ev.id}">
+        <strong>${ev.name}</strong>
+        <span>${dbFmtDate(ev.day, ev.month)} · ${ev.category}</span>
+      </div>`).join('');
+    return `<div class="db-board-col" data-status="${status}">
+      <div class="db-board-header" style="color:${color}">${icon} ${status.toUpperCase()}</div>
+      ${cards}
+    </div>`;
+  }).join('');
+
+  board.querySelectorAll('.db-board-card').forEach(card => {
+    card.addEventListener('dragstart', e => {
+      e.dataTransfer.setData('db-ev-id', card.dataset.evId);
+      e.dataTransfer.effectAllowed = 'move';
+      requestAnimationFrame(() => card.classList.add('is-dragging'));
+    });
+    card.addEventListener('dragend', () => card.classList.remove('is-dragging'));
+  });
+
+  board.querySelectorAll('.db-board-col').forEach(col => {
+    col.addEventListener('dragover', e => {
+      e.preventDefault();
+      e.dataTransfer.dropEffect = 'move';
+      col.classList.add('db-drop-target');
+    });
+    col.addEventListener('dragleave', e => {
+      if (!col.contains(e.relatedTarget)) col.classList.remove('db-drop-target');
+    });
+    col.addEventListener('drop', e => {
+      e.preventDefault();
+      col.classList.remove('db-drop-target');
+      const id = +e.dataTransfer.getData('db-ev-id');
+      if (!isNaN(id)) {
+        DB_EVENTS[id].status = col.dataset.status;
+        dbRenderAll();
+      }
+    });
+  });
+}
+
+// Date picker
+function dbShowDatePicker(anchor, evId) {
+  dbCloseDatePicker();
+  const ev = DB_EVENTS[evId];
+  const picker = document.createElement('div');
+  picker.className = 'db-date-picker';
+  picker.id = 'db-date-picker';
+
+  [
+    { label: 'May', month: 5, days: [19,20,21,22,23,24,25,26,27,28,29,30,31] },
+    { label: 'June', month: 6, days: [1,2,3,4,5,6,7,8] },
+  ].forEach(({ label, month, days }) => {
+    const col = document.createElement('div');
+    col.className = 'db-picker-month';
+    col.innerHTML = `<div class="db-picker-label">${label}</div>`;
+    days.forEach(d => {
+      const btn = document.createElement('button');
+      btn.className = 'db-picker-day' + (ev.day === d && ev.month === month ? ' active' : '');
+      btn.textContent = d;
+      btn.addEventListener('click', () => {
+        ev.day = d;
+        ev.month = month;
+        dbCloseDatePicker();
+        dbRenderAll();
+      });
+      col.appendChild(btn);
+    });
+    picker.appendChild(col);
+  });
+
+  const demo = dbContainer.querySelector('.db-demo');
+  demo.style.position = 'relative';
+  const ar = anchor.getBoundingClientRect();
+  const dr = demo.getBoundingClientRect();
+  picker.style.top  = (ar.bottom - dr.top + 4) + 'px';
+  picker.style.left = Math.min(ar.left - dr.left, dr.width - 175) + 'px';
+  demo.appendChild(picker);
+
+  setTimeout(() => {
+    document.addEventListener('click', dbCloseDatePicker, { once: true });
+  }, 0);
+}
+
+function dbCloseDatePicker() {
+  document.getElementById('db-date-picker')?.remove();
+}
+
+// Tab switching + initial render
 function wireDbTabs() {
-  const container = document.getElementById('slide-8');
-  if (!container) return;
-  const tabs  = container.querySelectorAll('.db-tab');
-  const panes = container.querySelectorAll('.db-pane');
+  dbContainer = document.getElementById('slide-8');
+  if (!dbContainer) return;
+
+  const tabs  = dbContainer.querySelectorAll('.db-tab');
+  const panes = dbContainer.querySelectorAll('.db-pane');
 
   tabs.forEach(tab => {
     tab.addEventListener('click', () => {
@@ -255,6 +478,8 @@ function wireDbTabs() {
       });
     });
   });
+
+  dbRenderAll();
 }
 
 // ── View Tabs (Slide 10) ─────────────────────────────────
