@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Onboarding — All Nations Notion</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap">
+  <style>
+    :root {
+      --bg:            #F7F7F5;
+      --surface:       #FFFFFF;
+      --border:        #E9E9E7;
+      --border-dark:   #D5D5D3;
+      --text-primary:  #111111;
+      --text-secondary:#666666;
+      --text-muted:    #999999;
+      --accent:        #CB5928;
+      --accent-hover:  #B34E22;
+      --accent-soft:   rgba(203, 89, 40, 0.08);
+      --shadow-xs:     0 1px 2px rgba(0,0,0,0.05);
+      --shadow-sm:     0 1px 4px rgba(0,0,0,0.07), 0 1px 2px rgba(0,0,0,0.04);
+      --shadow-md:     0 4px 16px rgba(0,0,0,0.08), 0 1px 4px rgba(0,0,0,0.04);
+      --radius-sm:     6px;
+      --radius-md:     10px;
+      --radius-lg:     16px;
+      --t-fast:        0.15s cubic-bezier(0.4, 0, 0.2, 1);
+      --t-base:        0.3s  cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { font-size: 16px; }
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text-primary);
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── Top bar ── */
+    .top-bar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      height: 56px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 28px;
+      background: rgba(247, 247, 245, 0.98);
+      border-bottom: 1px solid var(--border);
+      backdrop-filter: blur(8px);
+    }
+    .top-bar-left { display: flex; align-items: center; gap: 10px; }
+    .logo-img { width: 28px; height: 28px; border-radius: 5px; object-fit: contain; }
+    .brand-name { font-size: 13px; font-weight: 700; }
+    .brand-sub  { font-size: 11px; color: var(--text-muted); }
+    .brand-label { display: flex; flex-direction: column; line-height: 1.2; }
+    .top-bar-right { display: flex; align-items: center; gap: 16px; }
+    .user-pill {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--surface);
+      border: 1px solid var(--border-dark);
+      border-radius: 99px;
+      padding: 4px 12px 4px 6px;
+      font-size: 13px;
+      font-weight: 500;
+    }
+    .user-avatar {
+      width: 26px; height: 26px;
+      background: var(--accent-soft);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 11px; font-weight: 700; color: var(--accent);
+    }
+    .btn-logout {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--text-muted);
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 4px 0;
+      transition: color var(--t-fast);
+      font-family: inherit;
+    }
+    .btn-logout:hover { color: var(--text-primary); }
+
+    /* ── Page layout ── */
+    .page { max-width: 780px; margin: 0 auto; padding: 40px 28px 80px; }
+
+    /* ── Hero ── */
+    .hero { margin-bottom: 36px; }
+    .hero-greeting {
+      font-size: 26px;
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 6px;
+    }
+    .hero-greeting em { font-style: normal; color: var(--accent); }
+    .hero-sub { font-size: 14px; color: var(--text-secondary); margin-bottom: 20px; }
+
+    /* ── Overall progress bar ── */
+    .overall-progress {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 20px 24px;
+      box-shadow: var(--shadow-xs);
+    }
+    .progress-label-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 10px;
+    }
+    .progress-label { font-size: 13px; font-weight: 600; }
+    .progress-pct   { font-size: 22px; font-weight: 800; color: var(--accent); }
+    .progress-track {
+      height: 8px;
+      background: var(--border);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    .progress-fill {
+      height: 100%;
+      border-radius: 4px;
+      background: var(--accent);
+      transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .progress-sub {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-top: 8px;
+    }
+
+    /* ── Path section ── */
+    .path-section { margin-bottom: 28px; }
+    .path-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+    .path-dot {
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .path-title { font-size: 16px; font-weight: 700; }
+    .path-badge {
+      font-size: 11px;
+      font-weight: 600;
+      padding: 2px 8px;
+      border-radius: 99px;
+      opacity: 0.85;
+    }
+    .path-progress-mini {
+      margin-left: auto;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-muted);
+    }
+
+    /* ── Checklist items ── */
+    .checklist { display: flex; flex-direction: column; gap: 10px; }
+    .check-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      background: var(--surface);
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 14px 16px;
+      cursor: pointer;
+      transition: border-color var(--t-fast), box-shadow var(--t-fast), background var(--t-fast);
+      user-select: none;
+    }
+    .check-item:hover { border-color: var(--border-dark); box-shadow: var(--shadow-sm); }
+    .check-item.done {
+      background: #fafafa;
+      border-color: var(--border);
+    }
+    .check-item.badge-item {
+      border-style: dashed;
+    }
+    .check-box {
+      width: 22px; height: 22px;
+      border: 2px solid var(--border-dark);
+      border-radius: 6px;
+      flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      transition: background var(--t-fast), border-color var(--t-fast);
+      margin-top: 1px;
+    }
+    .check-item.done .check-box {
+      background: var(--accent);
+      border-color: var(--accent);
+    }
+    .check-tick {
+      opacity: 0;
+      transition: opacity var(--t-fast);
+    }
+    .check-item.done .check-tick { opacity: 1; }
+    .check-content { flex: 1; min-width: 0; }
+    .check-label {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 2px;
+      transition: color var(--t-fast);
+    }
+    .check-item.done .check-label {
+      color: var(--text-secondary);
+      text-decoration: line-through;
+      text-decoration-color: var(--border-dark);
+    }
+    .check-desc {
+      font-size: 12px;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+    .check-meta {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 6px;
+    }
+    .check-mins {
+      font-size: 11px;
+      color: var(--text-muted);
+      display: flex; align-items: center; gap: 3px;
+    }
+    .check-link {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--accent);
+      text-decoration: none;
+      display: flex; align-items: center; gap: 3px;
+    }
+    .check-link:hover { text-decoration: underline; }
+    .badge-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 11px;
+      font-weight: 600;
+      padding: 2px 8px;
+      border-radius: 99px;
+      margin-top: 4px;
+    }
+
+    /* ── Congrats banner ── */
+    .congrats-banner {
+      display: none;
+      background: linear-gradient(135deg, #fdf4f0 0%, #fff7f4 100%);
+      border: 1px solid rgba(203,89,40,0.2);
+      border-radius: var(--radius-lg);
+      padding: 28px 28px 24px;
+      margin-bottom: 32px;
+      text-align: center;
+    }
+    .congrats-banner.show { display: block; }
+    .congrats-emoji { font-size: 36px; margin-bottom: 10px; }
+    .congrats-title { font-size: 20px; font-weight: 700; margin-bottom: 6px; }
+    .congrats-sub { font-size: 13px; color: var(--text-secondary); }
+
+    /* ── Divider ── */
+    .section-divider {
+      height: 1px;
+      background: var(--border);
+      margin: 32px 0;
+    }
+
+    /* ── Return link ── */
+    .return-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      color: var(--text-secondary);
+      text-decoration: none;
+      transition: color var(--t-fast);
+      margin-bottom: 32px;
+    }
+    .return-link:hover { color: var(--text-primary); }
+  </style>
+</head>
+<body>
+
+<!-- ── Top Bar ── -->
+<header class="top-bar">
+  <div class="top-bar-left">
+    <img src="anlogo.png" class="logo-img" alt="All Nations">
+    <div class="brand-label">
+      <span class="brand-name">All Nations Church</span>
+      <span class="brand-sub">Notion Onboarding</span>
+    </div>
+  </div>
+  <div class="top-bar-right">
+    <div class="user-pill">
+      <div class="user-avatar" id="userAvatar">?</div>
+      <span id="userDisplayName">Loading…</span>
+    </div>
+    <button class="btn-logout" id="logoutBtn">Sign out</button>
+  </div>
+</header>
+
+<!-- ── Page ── -->
+<main class="page">
+
+  <a href="index.html" class="return-link">
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M9 2L4 7l5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    Back to presentation
+  </a>
+
+  <!-- Hero -->
+  <div class="hero">
+    <div class="hero-greeting">Your <em>Notion Academy</em> journey</div>
+    <div class="hero-sub">Work through each path at your own pace. Tick off items as you complete them — your progress saves automatically.</div>
+
+    <!-- Overall progress -->
+    <div class="overall-progress">
+      <div class="progress-label-row">
+        <span class="progress-label">Overall progress</span>
+        <span class="progress-pct" id="overallPct">0%</span>
+      </div>
+      <div class="progress-track">
+        <div class="progress-fill" id="overallFill" style="width:0%"></div>
+      </div>
+      <div class="progress-sub" id="overallSub">0 of 12 completed</div>
+    </div>
+  </div>
+
+  <!-- Congrats banner (shown when 100% complete) -->
+  <div class="congrats-banner" id="congratsBanner">
+    <div class="congrats-emoji">🎉</div>
+    <div class="congrats-title">You've completed all three paths!</div>
+    <div class="congrats-sub">Well done — you're officially a Notion expert. Let your admin know you're done.</div>
+  </div>
+
+  <!-- Checklist will be injected here by JS -->
+  <div id="checklistRoot"></div>
+
+</main>
+
+<script src="auth.js"></script>
+<script>
+(async () => {
+  // ── Auth guard ─────────────────────────────────────
+  const session = getSession();
+  if (!session) { window.location.href = 'login.html'; return; }
+  if (session.role === 'admin') { window.location.href = 'admin.html'; return; }
+
+  const { username, displayName } = session;
+
+  // ── Set up header ──────────────────────────────────
+  document.getElementById('userDisplayName').textContent = displayName;
+  const initials = displayName.split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase();
+  document.getElementById('userAvatar').textContent = initials;
+  document.title = `${displayName} — Notion Onboarding`;
+
+  document.getElementById('logoutBtn').addEventListener('click', () => {
+    logout();
+    window.location.href = 'login.html';
+  });
+
+  // ── Load & render checklist ────────────────────────
+  let progress = getProgress(username);
+
+  renderAll();
+
+  function renderAll() {
+    const root = document.getElementById('checklistRoot');
+    root.innerHTML = '';
+
+    let totalDone = 0, totalItems = 0;
+
+    for (const [pathKey, path] of Object.entries(CHECKLIST)) {
+      const pathDone  = path.items.filter(i => progress[pathKey]?.[i.id]).length;
+      const pathTotal = path.items.length;
+      totalDone  += pathDone;
+      totalItems += pathTotal;
+
+      const section = document.createElement('div');
+      section.className = 'path-section';
+
+      // Header
+      const header = document.createElement('div');
+      header.className = 'path-header';
+      header.innerHTML = `
+        <div class="path-dot" style="background:${path.color}"></div>
+        <span class="path-title">${path.label}</span>
+        <span class="path-badge" style="background:${path.color}22;color:${path.color}">${path.badge}</span>
+        <span class="path-progress-mini">${pathDone}/${pathTotal}</span>
+      `;
+      section.appendChild(header);
+
+      // Items
+      const list = document.createElement('div');
+      list.className = 'checklist';
+
+      for (const item of path.items) {
+        const checked = progress[pathKey]?.[item.id] || false;
+        const div = document.createElement('div');
+        div.className = `check-item${checked ? ' done' : ''}${item.isBadge ? ' badge-item' : ''}`;
+        div.innerHTML = `
+          <div class="check-box">
+            <svg class="check-tick" width="12" height="12" viewBox="0 0 12 12" fill="none">
+              <path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <div class="check-content">
+            <div class="check-label">${item.label}</div>
+            <div class="check-desc">${item.desc}</div>
+            <div class="check-meta">
+              ${item.mins ? `<span class="check-mins">
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.8"/><path d="M12 7v5l3 3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+                ${item.mins} min
+              </span>` : ''}
+              ${item.isBadge ? `<span class="badge-chip" style="background:${path.color}18;color:${path.color}">
+                <svg width="10" height="10" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="5" stroke="currentColor" stroke-width="2"/><path d="M8.21 13.89L7 23l5-3 5 3-1.21-9.12" stroke="currentColor" stroke-width="2"/></svg>
+                Badge
+              </span>` : ''}
+              <a class="check-link" href="${item.url}" target="_blank" rel="noopener" onclick="event.stopPropagation()">
+                Open lesson ↗
+              </a>
+            </div>
+          </div>
+        `;
+
+        div.addEventListener('click', () => {
+          const nowChecked = !progress[pathKey][item.id];
+          progress[pathKey][item.id] = nowChecked;
+          saveProgress(username, progress);
+          renderAll();
+        });
+
+        list.appendChild(div);
+      }
+
+      section.appendChild(list);
+
+      // Divider (except after last section)
+      root.appendChild(section);
+      if (pathKey !== 'advanced') {
+        const divider = document.createElement('div');
+        divider.className = 'section-divider';
+        root.appendChild(divider);
+      }
+    }
+
+    // Update overall progress
+    const pct = totalItems ? Math.round((totalDone / totalItems) * 100) : 0;
+    document.getElementById('overallPct').textContent  = pct + '%';
+    document.getElementById('overallFill').style.width = pct + '%';
+    document.getElementById('overallSub').textContent  = `${totalDone} of ${totalItems} completed`;
+
+    // Show congrats banner if all done
+    if (pct === 100) {
+      document.getElementById('congratsBanner').classList.add('show');
+    } else {
+      document.getElementById('congratsBanner').classList.remove('show');
+    }
+  }
+})();
+</script>
+</body>
+</html>

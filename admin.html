@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin — All Nations Notion Onboarding</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap">
+  <style>
+    :root {
+      --bg:            #F7F7F5;
+      --surface:       #FFFFFF;
+      --border:        #E9E9E7;
+      --border-dark:   #D5D5D3;
+      --text-primary:  #111111;
+      --text-secondary:#666666;
+      --text-muted:    #999999;
+      --accent:        #CB5928;
+      --accent-hover:  #B34E22;
+      --accent-soft:   rgba(203, 89, 40, 0.08);
+      --shadow-xs:     0 1px 2px rgba(0,0,0,0.05);
+      --shadow-sm:     0 1px 4px rgba(0,0,0,0.07), 0 1px 2px rgba(0,0,0,0.04);
+      --shadow-md:     0 4px 16px rgba(0,0,0,0.08), 0 1px 4px rgba(0,0,0,0.04);
+      --radius-sm:     6px;
+      --radius-md:     10px;
+      --radius-lg:     16px;
+      --t-fast:        0.15s cubic-bezier(0.4, 0, 0.2, 1);
+      --t-base:        0.3s  cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { font-size: 16px; }
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text-primary);
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── Top bar ── */
+    .top-bar {
+      position: sticky; top: 0; z-index: 100;
+      height: 56px;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 28px;
+      background: rgba(247,247,245,0.98);
+      border-bottom: 1px solid var(--border);
+      backdrop-filter: blur(8px);
+    }
+    .top-bar-left { display: flex; align-items: center; gap: 10px; }
+    .logo-img { width: 28px; height: 28px; border-radius: 5px; object-fit: contain; }
+    .brand-label { display: flex; flex-direction: column; line-height: 1.2; }
+    .brand-name  { font-size: 13px; font-weight: 700; }
+    .brand-sub   { font-size: 11px; color: var(--text-muted); }
+    .admin-badge {
+      font-size: 11px; font-weight: 600;
+      background: var(--text-primary); color: #fff;
+      padding: 2px 8px; border-radius: 99px;
+    }
+    .top-bar-right { display: flex; align-items: center; gap: 16px; }
+    .btn-logout {
+      font-size: 12px; font-weight: 500;
+      color: var(--text-muted); background: none; border: none;
+      cursor: pointer; font-family: inherit;
+      transition: color var(--t-fast);
+    }
+    .btn-logout:hover { color: var(--text-primary); }
+
+    /* ── Page ── */
+    .page { max-width: 900px; margin: 0 auto; padding: 40px 28px 80px; }
+
+    /* ── Page header ── */
+    .page-title { font-size: 24px; font-weight: 700; margin-bottom: 4px; }
+    .page-sub   { font-size: 14px; color: var(--text-secondary); margin-bottom: 32px; }
+
+    /* ── Summary cards ── */
+    .summary-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-bottom: 36px;
+    }
+    .stat-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 20px 20px 16px;
+      box-shadow: var(--shadow-xs);
+    }
+    .stat-num  { font-size: 32px; font-weight: 800; color: var(--text-primary); line-height: 1; margin-bottom: 4px; }
+    .stat-num.accent { color: var(--accent); }
+    .stat-label { font-size: 13px; color: var(--text-secondary); }
+
+    /* ── Section header ── */
+    .section-header {
+      display: flex; align-items: baseline; justify-content: space-between;
+      margin-bottom: 16px;
+    }
+    .section-title { font-size: 16px; font-weight: 700; }
+    .section-hint  { font-size: 12px; color: var(--text-muted); }
+
+    /* ── User table ── */
+    .user-table {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow-xs);
+      margin-bottom: 40px;
+    }
+    .user-row {
+      display: grid;
+      grid-template-columns: 1fr 180px 160px 140px 120px;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 20px;
+      border-bottom: 1px solid var(--border);
+      transition: background var(--t-fast);
+    }
+    .user-row:last-child { border-bottom: none; }
+    .user-row.header-row {
+      background: var(--bg);
+      padding: 10px 20px;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .user-row:not(.header-row):hover { background: #fafafa; }
+
+    /* User info cell */
+    .user-info { display: flex; align-items: center; gap: 10px; }
+    .user-avatar {
+      width: 32px; height: 32px;
+      border-radius: 50%;
+      background: var(--accent-soft);
+      color: var(--accent);
+      font-size: 12px; font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .user-name  { font-size: 14px; font-weight: 600; }
+    .user-uname { font-size: 11px; color: var(--text-muted); }
+
+    /* Email cell */
+    .email-cell { display: flex; align-items: center; gap: 6px; }
+    .email-display { font-size: 12px; color: var(--text-secondary); flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .btn-icon {
+      width: 26px; height: 26px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border-dark);
+      background: var(--surface);
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      transition: background var(--t-fast), border-color var(--t-fast);
+      font-family: inherit;
+    }
+    .btn-icon:hover { background: var(--bg); border-color: var(--text-muted); }
+
+    /* Status chip */
+    .status-chip {
+      display: inline-flex; align-items: center; gap: 5px;
+      font-size: 11px; font-weight: 600;
+      padding: 3px 9px;
+      border-radius: 99px;
+    }
+    .status-dot { width: 6px; height: 6px; border-radius: 50%; }
+    .chip-active    { background: #f0fdf4; color: #15803d; }
+    .chip-invited   { background: #fef9ec; color: #92400e; }
+    .chip-pending   { background: var(--bg); color: var(--text-muted); border: 1px solid var(--border-dark); }
+    .dot-active  { background: #22c55e; }
+    .dot-invited { background: #f59e0b; }
+    .dot-pending { background: var(--border-dark); }
+
+    /* Progress mini bar */
+    .mini-progress { display: flex; flex-direction: column; gap: 4px; }
+    .mini-bar-track { height: 6px; background: var(--border); border-radius: 3px; overflow: hidden; }
+    .mini-bar-fill  { height: 100%; border-radius: 3px; background: var(--accent); transition: width 0.4s; }
+    .mini-pct { font-size: 11px; font-weight: 600; color: var(--text-secondary); }
+
+    /* Invite button */
+    .btn-invite {
+      font-size: 12px; font-weight: 600;
+      padding: 5px 12px;
+      border-radius: var(--radius-sm);
+      border: 1.5px solid var(--accent);
+      background: transparent;
+      color: var(--accent);
+      cursor: pointer;
+      font-family: inherit;
+      transition: background var(--t-fast), color var(--t-fast);
+      white-space: nowrap;
+    }
+    .btn-invite:hover { background: var(--accent); color: #fff; }
+    .btn-invite:disabled { opacity: 0.5; cursor: not-allowed; }
+    .btn-invite.sent { border-color: #22c55e; color: #22c55e; }
+    .btn-invite.sent:hover { background: #22c55e; color: #fff; }
+
+    /* ── Email modal ── */
+    .modal-overlay {
+      display: none; position: fixed; inset: 0; z-index: 500;
+      background: rgba(0,0,0,0.3);
+      align-items: center; justify-content: center;
+      backdrop-filter: blur(4px);
+    }
+    .modal-overlay.show { display: flex; }
+    .modal {
+      background: var(--surface);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-md);
+      padding: 32px;
+      width: 100%; max-width: 420px;
+      margin: 16px;
+    }
+    .modal-title { font-size: 18px; font-weight: 700; margin-bottom: 6px; }
+    .modal-sub   { font-size: 13px; color: var(--text-secondary); margin-bottom: 20px; }
+    .form-group  { margin-bottom: 14px; }
+    label { display: block; font-size: 13px; font-weight: 500; margin-bottom: 5px; }
+    input[type="text"], input[type="email"] {
+      width: 100%; height: 40px; padding: 0 12px;
+      font-family: inherit; font-size: 14px;
+      color: var(--text-primary);
+      background: var(--bg);
+      border: 1.5px solid var(--border-dark);
+      border-radius: var(--radius-sm);
+      outline: none;
+      transition: border-color var(--t-fast), box-shadow var(--t-fast);
+    }
+    input:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(203,89,40,0.12);
+    }
+    .modal-btns { display: flex; gap: 10px; margin-top: 20px; }
+    .btn { height: 40px; padding: 0 18px; border-radius: var(--radius-sm); font-family: inherit; font-size: 14px; font-weight: 600; cursor: pointer; border: none; transition: background var(--t-fast), opacity var(--t-fast); }
+    .btn-primary { background: var(--text-primary); color: #fff; flex: 1; }
+    .btn-primary:hover { background: #333; }
+    .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; }
+    .btn-cancel { background: var(--bg); color: var(--text-secondary); border: 1.5px solid var(--border-dark); }
+    .btn-cancel:hover { background: var(--border); }
+    .alert { padding: 10px 14px; border-radius: var(--radius-sm); font-size: 13px; margin-top: 12px; display: none; }
+    .alert.show { display: block; }
+    .alert-error   { background: #fef2f2; color: #b91c1c; border: 1px solid #fecaca; }
+    .alert-success { background: #f0fdf4; color: #15803d; border: 1px solid #bbf7d0; }
+    .alert-warning { background: #fef9ec; color: #92400e; border: 1px solid #fde68a; }
+
+    /* Link box */
+    .link-box {
+      background: var(--bg);
+      border: 1px solid var(--border-dark);
+      border-radius: var(--radius-sm);
+      padding: 10px 12px;
+      font-size: 12px;
+      font-family: monospace;
+      color: var(--text-secondary);
+      word-break: break-all;
+      margin-top: 12px;
+    }
+    .copy-btn {
+      font-size: 12px; font-weight: 600;
+      color: var(--accent);
+      background: none; border: none;
+      cursor: pointer; font-family: inherit;
+      margin-top: 6px;
+      display: inline-flex; align-items: center; gap: 4px;
+    }
+
+    /* EmailJS setup notice */
+    .setup-notice {
+      background: var(--accent-soft);
+      border: 1px solid rgba(203,89,40,0.2);
+      border-radius: var(--radius-md);
+      padding: 16px 20px;
+      margin-bottom: 28px;
+      font-size: 13px;
+      line-height: 1.6;
+    }
+    .setup-notice strong { font-weight: 600; }
+    .setup-notice a { color: var(--accent); text-decoration: underline; }
+    .setup-notice.hidden { display: none; }
+
+    /* Return link */
+    .return-link {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 13px; color: var(--text-secondary);
+      text-decoration: none;
+      transition: color var(--t-fast);
+      margin-bottom: 32px;
+    }
+    .return-link:hover { color: var(--text-primary); }
+
+    @media (max-width: 700px) {
+      .summary-grid { grid-template-columns: 1fr 1fr; }
+      .user-row { grid-template-columns: 1fr; gap: 8px; }
+      .user-row.header-row { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── Top Bar ── -->
+<header class="top-bar">
+  <div class="top-bar-left">
+    <img src="anlogo.png" class="logo-img" alt="All Nations">
+    <div class="brand-label">
+      <span class="brand-name">All Nations Church</span>
+      <span class="brand-sub">Notion Onboarding</span>
+    </div>
+    <span class="admin-badge">Admin</span>
+  </div>
+  <div class="top-bar-right">
+    <button class="btn-logout" id="logoutBtn">Sign out</button>
+  </div>
+</header>
+
+<!-- ── Page ── -->
+<main class="page">
+
+  <a href="index.html" class="return-link">
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M9 2L4 7l5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    Back to presentation
+  </a>
+
+  <div class="page-title">Team overview</div>
+  <div class="page-sub">Manage invites and track each person's Notion Academy progress.</div>
+
+  <!-- EmailJS setup notice (hidden once configured) -->
+  <div class="setup-notice" id="emailjsNotice">
+    <strong>⚙️ EmailJS not yet configured.</strong> To send invite emails directly from this page, you need to set up a free EmailJS account.
+    <a href="https://www.emailjs.com" target="_blank">Create a free account at emailjs.com</a> → connect your Gmail → create a template using variables <code>{{to_name}}</code>, <code>{{to_email}}</code>, <code>{{setup_link}}</code>, <code>{{from_name}}</code> → then open <strong>auth.js</strong> and paste in your Service ID, Template ID, and Public Key.
+    Until then, you can copy invite links manually from the modal.
+  </div>
+
+  <!-- Summary cards -->
+  <div class="summary-grid" id="summaryGrid">
+    <div class="stat-card">
+      <div class="stat-num" id="statTotal">—</div>
+      <div class="stat-label">Total users</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num accent" id="statActive">—</div>
+      <div class="stat-label">Accounts active</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num" id="statAvgPct">—</div>
+      <div class="stat-label">Avg. progress (this device)</div>
+    </div>
+  </div>
+
+  <!-- User list -->
+  <div class="section-header">
+    <span class="section-title">All users</span>
+    <span class="section-hint">Progress shown for users who have logged in on this machine</span>
+  </div>
+
+  <div class="user-table">
+    <!-- Header row -->
+    <div class="user-row header-row">
+      <div>User</div>
+      <div>Email</div>
+      <div>Status</div>
+      <div>Progress</div>
+      <div>Invite</div>
+    </div>
+    <!-- Rows injected by JS -->
+    <div id="userRows"></div>
+  </div>
+
+</main>
+
+<!-- ── Email / Invite Modal ── -->
+<div class="modal-overlay" id="inviteModal">
+  <div class="modal">
+    <div class="modal-title" id="modalTitle">Send invite</div>
+    <div class="modal-sub" id="modalSub">Set or confirm the email address for this user, then send them a setup link.</div>
+
+    <div class="alert alert-warning" id="modalWarning">EmailJS isn't configured yet. Copy the link below and send it manually.</div>
+    <div class="alert alert-error"   id="modalError"></div>
+    <div class="alert alert-success" id="modalSuccess"></div>
+
+    <div class="form-group">
+      <label>Sending to</label>
+      <input type="text" id="modalName" disabled style="background:#eee;color:#666;">
+    </div>
+    <div class="form-group">
+      <label for="modalEmail">Email address</label>
+      <input type="email" id="modalEmail" placeholder="e.g. alisha@allnations.org.uk">
+    </div>
+
+    <div id="linkSection" style="display:none;">
+      <label>Setup link (copy & paste if not using EmailJS)</label>
+      <div class="link-box" id="linkBox"></div>
+      <button class="copy-btn" id="copyBtn">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none"><rect x="9" y="9" width="13" height="13" rx="2" stroke="currentColor" stroke-width="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" stroke="currentColor" stroke-width="2"/></svg>
+        Copy link
+      </button>
+    </div>
+
+    <div class="modal-btns">
+      <button class="btn btn-cancel" id="modalCancel">Cancel</button>
+      <button class="btn btn-primary" id="modalSend">Generate &amp; send invite</button>
+    </div>
+  </div>
+</div>
+
+<script src="auth.js"></script>
+<script>
+(async () => {
+  // ── Auth guard ─────────────────────────────────────
+  const session = getSession();
+  if (!session)              { window.location.href = 'login.html'; return; }
+  if (session.role !== 'admin') { window.location.href = 'dashboard.html'; return; }
+
+  document.getElementById('logoutBtn').addEventListener('click', () => {
+    logout();
+    window.location.href = 'login.html';
+  });
+
+  // mailto fallback — opens the admin's email app with the invite pre-filled
+  function openMailtoFallback(toEmail, toName, setupLink) {
+    const subject = encodeURIComponent("You're invited — set up your Notion account");
+    const body = encodeURIComponent(
+      `Hi ${toName},\n\nWe've set up a personal onboarding dashboard for you on our Notion learning platform.\n\nClick the link below to set your password and get started:\n\n${setupLink}\n\nThis link is unique to you — once you've set your password it won't work again.\n\nAll Nations Church`
+    );
+    window.location.href = `mailto:${toEmail}?subject=${subject}&body=${body}`;
+  }
+
+  // Check if EmailJS is configured
+  const emailjsConfigured = EMAILJS_PUBLIC_KEY !== 'YOUR_PUBLIC_KEY';
+  if (emailjsConfigured) {
+    document.getElementById('emailjsNotice').classList.add('hidden');
+  }
+
+  // ── Render all users ───────────────────────────────
+  renderPage();
+
+  function renderPage() {
+    const users   = USERS_REGISTRY.filter(u => u.username !== 'admin');
+    const accounts = getAccounts();
+
+    let activeCount = 0;
+    let progressSum = 0, progressCount = 0;
+
+    const rowsEl = document.getElementById('userRows');
+    rowsEl.innerHTML = '';
+
+    for (const u of users) {
+      const account  = accounts[u.username] || { registered: false, inviteSent: false };
+      const emails   = getEmails();
+      const email    = emails[u.username] || u.email || '';
+      const summary  = getProgressSummary(u.username);
+      const initials = u.displayName.split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase();
+
+      if (account.registered) {
+        activeCount++;
+        progressSum += summary.pct;
+        progressCount++;
+      }
+
+      // Status
+      let statusHtml;
+      if (account.registered) {
+        statusHtml = `<span class="status-chip chip-active"><span class="status-dot dot-active"></span>Active</span>`;
+      } else if (account.inviteSent) {
+        statusHtml = `<span class="status-chip chip-invited"><span class="status-dot dot-invited"></span>Invited</span>`;
+      } else {
+        statusHtml = `<span class="status-chip chip-pending"><span class="status-dot dot-pending"></span>Not invited</span>`;
+      }
+
+      // Progress
+      const hasProgress = account.registered;
+      const progressHtml = hasProgress
+        ? `<div class="mini-progress">
+             <div class="mini-bar-track"><div class="mini-bar-fill" style="width:${summary.pct}%"></div></div>
+             <span class="mini-pct">${summary.pct}% (${summary.done}/${summary.total})</span>
+           </div>`
+        : `<span style="font-size:12px;color:var(--text-muted);">—</span>`;
+
+      // Invite button
+      const inviteLabel = account.inviteSent ? 'Resend invite' : 'Send invite';
+      const inviteClass = account.inviteSent ? 'btn-invite sent' : 'btn-invite';
+
+      const row = document.createElement('div');
+      row.className = 'user-row';
+      row.innerHTML = `
+        <div class="user-info">
+          <div class="user-avatar">${initials}</div>
+          <div>
+            <div class="user-name">${u.displayName}</div>
+            <div class="user-uname">${u.username}</div>
+          </div>
+        </div>
+        <div class="email-cell">
+          <span class="email-display" title="${email}">${email || '—'}</span>
+          <button class="btn-icon" data-edit-email="${u.username}" title="Edit email">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          </button>
+        </div>
+        <div>${statusHtml}</div>
+        <div>${progressHtml}</div>
+        <div>
+          <button class="${inviteClass}" data-invite="${u.username}">${inviteLabel}</button>
+        </div>
+      `;
+      rowsEl.appendChild(row);
+    }
+
+    // Summary numbers
+    document.getElementById('statTotal').textContent   = users.length;
+    document.getElementById('statActive').textContent  = activeCount;
+    document.getElementById('statAvgPct').textContent  = progressCount
+      ? Math.round(progressSum / progressCount) + '%'
+      : '—';
+
+    // Attach listeners
+    rowsEl.querySelectorAll('[data-invite]').forEach(btn => {
+      btn.addEventListener('click', () => openInviteModal(btn.dataset.invite));
+    });
+    rowsEl.querySelectorAll('[data-edit-email]').forEach(btn => {
+      btn.addEventListener('click', () => openEmailEdit(btn.dataset.editEmail));
+    });
+  }
+
+  // ── Invite modal ───────────────────────────────────
+  let modalUsername = null;
+
+  function openInviteModal(username) {
+    modalUsername = username;
+    const user   = getUserInfo(username);
+    const emails = getEmails();
+    const email  = emails[username] || user.email || '';
+
+    document.getElementById('modalTitle').textContent = `Send invite to ${user.displayName}`;
+    document.getElementById('modalName').value        = user.displayName;
+    document.getElementById('modalEmail').value       = email;
+    document.getElementById('linkSection').style.display = 'none';
+    document.getElementById('linkBox').textContent    = '';
+    document.getElementById('modalWarning').classList.toggle('show', !emailjsConfigured);
+    document.getElementById('modalError').classList.remove('show');
+    document.getElementById('modalSuccess').classList.remove('show');
+    document.getElementById('modalSend').disabled    = false;
+    document.getElementById('modalSend').textContent = 'Generate & send invite';
+    document.getElementById('inviteModal').classList.add('show');
+  }
+
+  function openEmailEdit(username) {
+    openInviteModal(username);
+    document.getElementById('modalSend').textContent = 'Save email & generate link';
+  }
+
+  document.getElementById('modalCancel').addEventListener('click', closeModal);
+  document.getElementById('inviteModal').addEventListener('click', (e) => {
+    if (e.target === e.currentTarget) closeModal();
+  });
+
+  function closeModal() {
+    document.getElementById('inviteModal').classList.remove('show');
+    modalUsername = null;
+  }
+
+  document.getElementById('copyBtn').addEventListener('click', () => {
+    const link = document.getElementById('linkBox').textContent;
+    navigator.clipboard.writeText(link).then(() => {
+      document.getElementById('copyBtn').textContent = '✓ Copied!';
+      setTimeout(() => { document.getElementById('copyBtn').innerHTML = `<svg width="12" height="12" viewBox="0 0 24 24" fill="none"><rect x="9" y="9" width="13" height="13" rx="2" stroke="currentColor" stroke-width="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" stroke="currentColor" stroke-width="2"/></svg> Copy link`; }, 2000);
+    });
+  });
+
+  document.getElementById('modalSend').addEventListener('click', async () => {
+    const email = document.getElementById('modalEmail').value.trim();
+    if (!email || !email.includes('@')) {
+      document.getElementById('modalError').textContent = 'Please enter a valid email address.';
+      document.getElementById('modalError').classList.add('show');
+      return;
+    }
+    document.getElementById('modalError').classList.remove('show');
+
+    // Save email
+    const emails = getEmails();
+    emails[modalUsername] = email;
+    saveEmails(emails);
+
+    // Generate invite token
+    const token = generateInviteToken(modalUsername);
+    const baseUrl = window.location.href.replace(/\/[^\/]*$/, '/login.html');
+    const setupLink = `${baseUrl}#setup?username=${modalUsername}&token=${token}`;
+
+    // Show the link
+    document.getElementById('linkBox').textContent       = setupLink;
+    document.getElementById('linkSection').style.display = 'block';
+
+    const user = getUserInfo(modalUsername);
+
+    if (emailjsConfigured) {
+      document.getElementById('modalSend').disabled    = true;
+      document.getElementById('modalSend').textContent = 'Sending…';
+      const result = await sendInviteEmail(modalUsername, email, user.displayName, setupLink);
+      document.getElementById('modalSend').disabled    = false;
+      document.getElementById('modalSend').textContent = 'Resend invite';
+      if (result.ok) {
+        document.getElementById('modalSuccess').textContent = `Invite sent to ${email}!`;
+        document.getElementById('modalSuccess').classList.add('show');
+      } else {
+        // API call failed — open mailto fallback so the invite can still go out
+        openMailtoFallback(email, user.displayName, setupLink);
+        document.getElementById('modalSuccess').textContent = 'Your email app has opened with the invite ready to send — just hit send!';
+        document.getElementById('modalSuccess').classList.add('show');
+      }
+    } else {
+      document.getElementById('modalSuccess').textContent = 'Link generated. Copy it above and send it to the user manually.';
+      document.getElementById('modalSuccess').classList.add('show');
+      document.getElementById('modalSend').textContent = 'Regenerate link';
+    }
+
+    // Refresh the table
+    renderPage();
+  });
+
+})();
+</script>
+</body>
+</html>
