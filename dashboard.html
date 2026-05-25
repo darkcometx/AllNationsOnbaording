@@ -287,6 +287,105 @@
       margin-bottom: 32px;
     }
     .return-link:hover { color: var(--text-primary); }
+
+    /* ── Help button ── */
+    .help-fab {
+      position: fixed;
+      bottom: 28px;
+      right: 28px;
+      z-index: 200;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      border-radius: 99px;
+      padding: 12px 20px;
+      font-family: inherit;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 4px 16px rgba(203,89,40,0.35);
+      transition: background var(--t-fast), transform var(--t-fast), box-shadow var(--t-fast);
+    }
+    .help-fab:hover {
+      background: var(--accent-hover);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(203,89,40,0.4);
+    }
+
+    /* ── Help modal ── */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.4);
+      z-index: 300;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      backdrop-filter: blur(2px);
+    }
+    .modal-overlay.show { display: flex; }
+    .modal {
+      background: var(--surface);
+      border-radius: var(--radius-lg);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+      padding: 32px;
+      width: 100%;
+      max-width: 460px;
+    }
+    .modal-title { font-size: 18px; font-weight: 700; margin-bottom: 6px; }
+    .modal-sub   { font-size: 13px; color: var(--text-secondary); margin-bottom: 24px; line-height: 1.5; }
+    .modal label { display: block; font-size: 13px; font-weight: 500; margin-bottom: 6px; }
+    .modal textarea {
+      width: 100%;
+      min-height: 120px;
+      padding: 10px 12px;
+      font-family: inherit;
+      font-size: 14px;
+      color: var(--text-primary);
+      background: var(--bg);
+      border: 1.5px solid var(--border-dark);
+      border-radius: var(--radius-sm);
+      outline: none;
+      resize: vertical;
+      transition: border-color var(--t-fast), box-shadow var(--t-fast);
+      margin-bottom: 16px;
+    }
+    .modal textarea:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(203,89,40,0.12);
+    }
+    .modal-btns  { display: flex; gap: 10px; justify-content: flex-end; }
+    .btn-cancel  {
+      padding: 10px 18px; border-radius: var(--radius-sm);
+      font-family: inherit; font-size: 13px; font-weight: 500;
+      background: var(--bg); color: var(--text-secondary);
+      border: 1.5px solid var(--border-dark); cursor: pointer;
+      transition: background var(--t-fast);
+    }
+    .btn-cancel:hover { background: var(--border); }
+    .btn-send {
+      padding: 10px 20px; border-radius: var(--radius-sm);
+      font-family: inherit; font-size: 13px; font-weight: 600;
+      background: var(--accent); color: #fff;
+      border: none; cursor: pointer;
+      transition: background var(--t-fast);
+    }
+    .btn-send:hover    { background: var(--accent-hover); }
+    .btn-send:disabled { opacity: 0.6; cursor: not-allowed; }
+    .modal-alert {
+      padding: 10px 14px;
+      border-radius: var(--radius-sm);
+      font-size: 13px;
+      margin-bottom: 16px;
+      display: none;
+    }
+    .modal-alert.show { display: block; }
+    .alert-error   { background: #fef2f2; color: #b91c1c; border: 1px solid #fecaca; }
+    .alert-success { background: #f0fdf4; color: #15803d; border: 1px solid #bbf7d0; }
   </style>
 </head>
 <body>
@@ -346,6 +445,32 @@
   <div id="checklistRoot"></div>
 
 </main>
+
+<!-- ── Help button ── -->
+<button class="help-fab" id="helpFab">
+  <svg width="15" height="15" viewBox="0 0 24 24" fill="none">
+    <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z" stroke="currentColor" stroke-width="2"/>
+    <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+    <circle cx="12" cy="17" r="1" fill="currentColor"/>
+  </svg>
+  Ask a question
+</button>
+
+<!-- ── Help modal ── -->
+<div class="modal-overlay" id="helpModal">
+  <div class="modal">
+    <div class="modal-title">Ask a question</div>
+    <div class="modal-sub">Stuck on something? Send a message and Endo will get back to you.</div>
+    <div class="modal-alert alert-error"   id="helpError"></div>
+    <div class="modal-alert alert-success" id="helpSuccess"></div>
+    <label for="helpMessage">Your message</label>
+    <textarea id="helpMessage" placeholder="Describe what you're stuck on or what you'd like help with…"></textarea>
+    <div class="modal-btns">
+      <button class="btn-cancel" id="helpCancel">Cancel</button>
+      <button class="btn-send"   id="helpSend">Send message</button>
+    </div>
+  </div>
+</div>
 
 <script src="auth.js"></script>
 <script>
@@ -466,6 +591,56 @@
       document.getElementById('congratsBanner').classList.remove('show');
     }
   }
+  // ── Help modal ────────────────────────────────────
+  const helpModal   = document.getElementById('helpModal');
+  const helpMessage = document.getElementById('helpMessage');
+  const helpError   = document.getElementById('helpError');
+  const helpSuccess = document.getElementById('helpSuccess');
+
+  document.getElementById('helpFab').addEventListener('click', () => {
+    helpMessage.value = '';
+    helpError.classList.remove('show');
+    helpSuccess.classList.remove('show');
+    document.getElementById('helpSend').textContent = 'Send message';
+    document.getElementById('helpSend').disabled = false;
+    helpModal.classList.add('show');
+    setTimeout(() => helpMessage.focus(), 50);
+  });
+
+  document.getElementById('helpCancel').addEventListener('click', () => {
+    helpModal.classList.remove('show');
+  });
+
+  helpModal.addEventListener('click', (e) => {
+    if (e.target === helpModal) helpModal.classList.remove('show');
+  });
+
+  document.getElementById('helpSend').addEventListener('click', async () => {
+    const msg = helpMessage.value.trim();
+    helpError.classList.remove('show');
+    if (!msg) {
+      helpError.textContent = 'Please write a message before sending.';
+      helpError.classList.add('show');
+      return;
+    }
+    const btn = document.getElementById('helpSend');
+    btn.disabled = true;
+    btn.textContent = 'Sending…';
+    const result = await sendHelpEmail(displayName, username, msg);
+    if (result.ok) {
+      helpSuccess.textContent = 'Message sent! Endo will get back to you soon.';
+      helpSuccess.classList.add('show');
+      btn.textContent = 'Sent ✓';
+      helpMessage.value = '';
+      setTimeout(() => helpModal.classList.remove('show'), 2000);
+    } else {
+      helpError.textContent = `Couldn't send the message (${result.reason}). Try again or contact Endo directly.`;
+      helpError.classList.add('show');
+      btn.disabled = false;
+      btn.textContent = 'Send message';
+    }
+  });
+
 })();
 </script>
 </body>

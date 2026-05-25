@@ -10,9 +10,10 @@
 // 3. Create an Email Template — use these variables in the template:
 //    {{to_name}}, {{to_email}}, {{setup_link}}, {{from_name}}
 // 4. Copy your Service ID, Template ID, and Public Key below
-const EMAILJS_SERVICE_ID  = 'service_jdd55tl';
-const EMAILJS_TEMPLATE_ID = 'template_ty625gj';
-const EMAILJS_PUBLIC_KEY  = 'IWY7487T1w6K6inxW';
+const EMAILJS_SERVICE_ID    = 'service_jdd55tl';
+const EMAILJS_TEMPLATE_ID   = 'template_ty625gj';
+const EMAILJS_HELP_TEMPLATE = 'template_05qs6xh';
+const EMAILJS_PUBLIC_KEY    = 'IWY7487T1w6K6inxW';
 
 // ── Users Registry ───────────────────────────────────
 // All accounts. username = first.last (lowercase)
@@ -258,6 +259,37 @@ async function sendInviteEmail(username, toEmail, toName, setupLink) {
     return { ok: true };
   } catch (err) {
     console.error('EmailJS fetch error', err);
+    return { ok: false, reason: err.message || 'send_failed' };
+  }
+}
+
+// ── Help / question email ────────────────────────────
+
+async function sendHelpEmail(displayName, username, message) {
+  if (EMAILJS_PUBLIC_KEY === 'YOUR_PUBLIC_KEY') {
+    return { ok: false, reason: 'emailjs_not_configured' };
+  }
+  try {
+    const response = await fetch('https://api.emailjs.com/api/v1.0/email/send', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        service_id:  EMAILJS_SERVICE_ID,
+        template_id: EMAILJS_HELP_TEMPLATE,
+        user_id:     EMAILJS_PUBLIC_KEY,
+        template_params: {
+          from_name: displayName,
+          username:  username,
+          message:   message,
+        },
+      }),
+    });
+    if (!response.ok) {
+      const text = await response.text();
+      return { ok: false, reason: text || `status_${response.status}` };
+    }
+    return { ok: true };
+  } catch (err) {
     return { ok: false, reason: err.message || 'send_failed' };
   }
 }
