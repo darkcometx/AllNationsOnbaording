@@ -73,16 +73,6 @@ function goTo(index) {
     to.style.pointerEvents = 'all';
     to.style.zIndex        = '2';
 
-    // Strip animations from content inside the slide so fill-mode:both
-    // delays don't keep elements stuck at opacity:0
-    to.querySelectorAll(
-      '.anim-1,.anim-2,.anim-3,.anim-4,.anim-5,.anim-6,.agenda-card,.uc-card'
-    ).forEach(el => {
-      el.style.animation = 'none';
-      el.style.opacity   = '1';
-      el.style.transform = 'none';
-    });
-
     to.classList.add('active');
     currentSlide = index;
     syncUI();
