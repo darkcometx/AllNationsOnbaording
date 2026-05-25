@@ -434,28 +434,43 @@
   document.getElementById('setupConfirm').addEventListener('keydown', (e) => { if (e.key === 'Enter') doSetup(); });
 
   async function doSetup() {
-    const view     = document.getElementById('viewSetup');
-    const username = view.dataset.username;
-    const token    = view.dataset.token;
-    const pw       = document.getElementById('setupPassword').value;
-    const confirm  = document.getElementById('setupConfirm').value;
-    showError('setupError', '');
-    if (pw.length < 8) { showError('setupError', 'Password must be at least 8 characters.'); return; }
-    if (pw !== confirm) { showError('setupError', 'Passwords don\'t match.'); return; }
-    setLoading('setup', true);
-    const result = await activateAccount(username, token, pw);
-    if (!result.ok) {
+    try {
+      const view     = document.getElementById('viewSetup');
+      const username = view.dataset.username;
+      const token    = view.dataset.token;
+      const pw       = document.getElementById('setupPassword').value;
+      const confirm  = document.getElementById('setupConfirm').value;
+
+      showError('setupError', '');
+
+      if (!username || !token) {
+        showError('setupError', 'Setup data missing — please use the link from your invite email.');
+        return;
+      }
+      if (pw.length < 8) { showError('setupError', 'Password must be at least 8 characters.'); return; }
+      if (pw !== confirm) { showError('setupError', 'Passwords don\'t match.'); return; }
+
+      setLoading('setup', true);
+      const result = await activateAccount(username, token, pw);
+      if (!result.ok) {
+        setLoading('setup', false);
+        showError('setupError', 'This link is no longer valid. Ask your admin to send a new invite.');
+        return;
+      }
+      // Auto-login
+      const loginResult = await attemptLogin(username, pw);
       setLoading('setup', false);
-      showView('viewInvalidToken');
-      return;
-    }
-    // Auto-login
-    const loginResult = await attemptLogin(username, pw);
-    setLoading('setup', false);
-    if (loginResult.ok) {
-      document.getElementById('setupSuccess').textContent = 'Account created! Redirecting...';
-      document.getElementById('setupSuccess').classList.add('show');
-      setTimeout(() => redirectAfterLogin(loginResult.user), 1000);
+      if (loginResult.ok) {
+        document.getElementById('setupSuccess').textContent = 'Account created! Redirecting...';
+        document.getElementById('setupSuccess').classList.add('show');
+        setTimeout(() => redirectAfterLogin(loginResult.user), 1000);
+      } else {
+        showError('setupError', 'Account created but auto-login failed. Please sign in manually.');
+      }
+    } catch (err) {
+      setLoading('setup', false);
+      showError('setupError', 'Something went wrong: ' + err.message);
+      console.error('doSetup error:', err);
     }
   }
 
