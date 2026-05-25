@@ -11,7 +11,7 @@
 //    {{to_name}}, {{to_email}}, {{setup_link}}, {{from_name}}
 // 4. Copy your Service ID, Template ID, and Public Key below
 const EMAILJS_SERVICE_ID  = 'service_jdd55tl';
-const EMAILJS_TEMPLATE_ID = 'template_vvg59vh';
+const EMAILJS_TEMPLATE_ID = 'template_ty625gj';
 const EMAILJS_PUBLIC_KEY  = 'IWY7487T1w6K6inxW';
 
 // ── Users Registry ───────────────────────────────────
@@ -19,9 +19,9 @@ const EMAILJS_PUBLIC_KEY  = 'IWY7487T1w6K6inxW';
 // email: to be set by admin in admin dashboard
 const USERS_REGISTRY = [
   { username: 'admin',          displayName: 'Admin',          email: '',                     role: 'admin' },
-  { username: 'alisha.bains',   displayName: 'Alisha Bains',   email: '',                     role: 'user'  },
+  { username: 'alisha.bains',   displayName: 'Alisha Bains',   email: 'alisha.bains@allnations.org.uk',                     role: 'user'  },
   { username: 'ifeanyi.dim',    displayName: 'Ifeanyi Dim',    email: '',                     role: 'user'  },
-  { username: 'endo.moyo',      displayName: 'Endo Moyo',      email: 'endo.moyo@gmail.com',  role: 'user'  },
+  { username: 'endo.moyo',      displayName: 'Endo Moyo',      email: 'endo.moyo@allnations.org.uk',  role: 'user'  },
   { username: 'nams.moyo',      displayName: 'Nams Moyo',      email: '',                     role: 'user'  },
   { username: 'andrew.mumo',    displayName: 'Andrew Mumo',    email: '',                     role: 'user'  },
   { username: 'sarah.pavey',    displayName: 'Sarah Pavey',    email: '',                     role: 'user'  },
