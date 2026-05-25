@@ -603,10 +603,8 @@
         document.getElementById('modalSuccess').textContent = `Invite sent to ${email}!`;
         document.getElementById('modalSuccess').classList.add('show');
       } else {
-        // API call failed — open mailto fallback so the invite can still go out
-        openMailtoFallback(email, user.displayName, setupLink);
-        document.getElementById('modalSuccess').textContent = 'Your email app has opened with the invite ready to send — just hit send!';
-        document.getElementById('modalSuccess').classList.add('show');
+        document.getElementById('modalError').textContent = `Email failed: ${result.reason}. Copy the link above and send it manually, or check your EmailJS domain whitelist.`;
+        document.getElementById('modalError').classList.add('show');
       }
     } else {
       document.getElementById('modalSuccess').textContent = 'Link generated. Copy it above and send it to the user manually.';
