@@ -80,7 +80,22 @@
     .card-title    { font-size: 20px; font-weight: 700; line-height: 1.2; }
     .card-subtitle { font-size: 13px; color: var(--text-secondary); }
 
-    /* Strip Clerk's outer card so it sits flush inside ours */
+    /* Strip Clerk's outer card and force all internals to be fluid */
+    #sign-in,
+    #sign-in .cl-rootBox,
+    #sign-in .cl-cardBox,
+    #sign-in .cl-card,
+    #sign-in .cl-main,
+    #sign-in .cl-form,
+    #sign-in .cl-formFieldRow,
+    #sign-in .cl-formField,
+    #sign-in .cl-footer,
+    #sign-in .cl-footerAction {
+      width: 100% !important;
+      max-width: 100% !important;
+      min-width: 0 !important;
+      box-sizing: border-box !important;
+    }
     #sign-in .cl-card,
     #sign-in .cl-cardBox {
       box-shadow: none !important;
