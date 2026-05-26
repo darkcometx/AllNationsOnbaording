@@ -193,6 +193,7 @@ window.addEventListener('load', async function () {
     const signInContainer = document.getElementById('sign-in');
     signInContainer.innerHTML = '';
     Clerk.mountSignIn(signInContainer, {
+      forceRedirectUrl: window.location.href,
       appearance: {
         variables: {
           colorPrimary:    '#CB5928',
