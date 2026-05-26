@@ -7,6 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap">
+  <script src="https://cdn.jsdelivr.net/npm/@clerk/clerk-js@5/dist/clerk.browser.js"></script>
   <style>
     :root {
       --bg:            #F7F7F5;
@@ -21,12 +22,10 @@
       --accent-soft:   rgba(203, 89, 40, 0.08);
       --shadow-xs:     0 1px 2px rgba(0,0,0,0.05);
       --shadow-sm:     0 1px 4px rgba(0,0,0,0.07), 0 1px 2px rgba(0,0,0,0.04);
-      --shadow-md:     0 4px 16px rgba(0,0,0,0.08), 0 1px 4px rgba(0,0,0,0.04);
       --radius-sm:     6px;
       --radius-md:     10px;
       --radius-lg:     16px;
       --t-fast:        0.15s cubic-bezier(0.4, 0, 0.2, 1);
-      --t-base:        0.3s  cubic-bezier(0.4, 0, 0.2, 1);
     }
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
     html { font-size: 16px; }
@@ -69,10 +68,27 @@
 
     /* ── Page ── */
     .page { max-width: 900px; margin: 0 auto; padding: 40px 28px 80px; }
-
-    /* ── Page header ── */
     .page-title { font-size: 24px; font-weight: 700; margin-bottom: 4px; }
     .page-sub   { font-size: 14px; color: var(--text-secondary); margin-bottom: 32px; }
+
+    /* ── Clerk notice ── */
+    .clerk-notice {
+      background: var(--accent-soft);
+      border: 1px solid rgba(203,89,40,0.2);
+      border-radius: var(--radius-md);
+      padding: 14px 18px;
+      font-size: 13px;
+      line-height: 1.6;
+      margin-bottom: 28px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .clerk-notice a {
+      color: var(--accent);
+      font-weight: 600;
+      text-decoration: underline;
+    }
 
     /* ── Summary cards ── */
     .summary-grid {
@@ -88,7 +104,7 @@
       padding: 20px 20px 16px;
       box-shadow: var(--shadow-xs);
     }
-    .stat-num  { font-size: 32px; font-weight: 800; color: var(--text-primary); line-height: 1; margin-bottom: 4px; }
+    .stat-num   { font-size: 32px; font-weight: 800; line-height: 1; margin-bottom: 4px; }
     .stat-num.accent { color: var(--accent); }
     .stat-label { font-size: 13px; color: var(--text-secondary); }
 
@@ -111,7 +127,7 @@
     }
     .user-row {
       display: grid;
-      grid-template-columns: 1fr 180px 160px 140px 120px;
+      grid-template-columns: 1fr 100px 140px;
       align-items: center;
       gap: 12px;
       padding: 14px 20px;
@@ -130,50 +146,14 @@
     }
     .user-row:not(.header-row):hover { background: #fafafa; }
 
-    /* User info cell */
-    .user-info { display: flex; align-items: center; gap: 10px; }
-    .user-avatar {
-      width: 32px; height: 32px;
-      border-radius: 50%;
-      background: var(--accent-soft);
-      color: var(--accent);
-      font-size: 12px; font-weight: 700;
-      display: flex; align-items: center; justify-content: center;
-      flex-shrink: 0;
+    .user-id {
+      font-size: 12px;
+      font-family: monospace;
+      color: var(--text-secondary);
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }
-    .user-name  { font-size: 14px; font-weight: 600; }
-    .user-uname { font-size: 11px; color: var(--text-muted); }
-
-    /* Email cell */
-    .email-cell { display: flex; align-items: center; gap: 6px; }
-    .email-display { font-size: 12px; color: var(--text-secondary); flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-    .btn-icon {
-      width: 26px; height: 26px;
-      border-radius: var(--radius-sm);
-      border: 1px solid var(--border-dark);
-      background: var(--surface);
-      cursor: pointer;
-      display: flex; align-items: center; justify-content: center;
-      flex-shrink: 0;
-      transition: background var(--t-fast), border-color var(--t-fast);
-      font-family: inherit;
-    }
-    .btn-icon:hover { background: var(--bg); border-color: var(--text-muted); }
-
-    /* Status chip */
-    .status-chip {
-      display: inline-flex; align-items: center; gap: 5px;
-      font-size: 11px; font-weight: 600;
-      padding: 3px 9px;
-      border-radius: 99px;
-    }
-    .status-dot { width: 6px; height: 6px; border-radius: 50%; }
-    .chip-active    { background: #f0fdf4; color: #15803d; }
-    .chip-invited   { background: #fef9ec; color: #92400e; }
-    .chip-pending   { background: var(--bg); color: var(--text-muted); border: 1px solid var(--border-dark); }
-    .dot-active  { background: #22c55e; }
-    .dot-invited { background: #f59e0b; }
-    .dot-pending { background: var(--border-dark); }
 
     /* Progress mini bar */
     .mini-progress { display: flex; flex-direction: column; gap: 4px; }
@@ -181,107 +161,15 @@
     .mini-bar-fill  { height: 100%; border-radius: 3px; background: var(--accent); transition: width 0.4s; }
     .mini-pct { font-size: 11px; font-weight: 600; color: var(--text-secondary); }
 
-    /* Invite button */
-    .btn-invite {
-      font-size: 12px; font-weight: 600;
-      padding: 5px 12px;
-      border-radius: var(--radius-sm);
-      border: 1.5px solid var(--accent);
-      background: transparent;
-      color: var(--accent);
-      cursor: pointer;
-      font-family: inherit;
-      transition: background var(--t-fast), color var(--t-fast);
-      white-space: nowrap;
-    }
-    .btn-invite:hover { background: var(--accent); color: #fff; }
-    .btn-invite:disabled { opacity: 0.5; cursor: not-allowed; }
-    .btn-invite.sent { border-color: #22c55e; color: #22c55e; }
-    .btn-invite.sent:hover { background: #22c55e; color: #fff; }
-
-    /* ── Email modal ── */
-    .modal-overlay {
-      display: none; position: fixed; inset: 0; z-index: 500;
-      background: rgba(0,0,0,0.3);
-      align-items: center; justify-content: center;
-      backdrop-filter: blur(4px);
-    }
-    .modal-overlay.show { display: flex; }
-    .modal {
-      background: var(--surface);
-      border-radius: var(--radius-lg);
-      box-shadow: var(--shadow-md);
-      padding: 32px;
-      width: 100%; max-width: 420px;
-      margin: 16px;
-    }
-    .modal-title { font-size: 18px; font-weight: 700; margin-bottom: 6px; }
-    .modal-sub   { font-size: 13px; color: var(--text-secondary); margin-bottom: 20px; }
-    .form-group  { margin-bottom: 14px; }
-    label { display: block; font-size: 13px; font-weight: 500; margin-bottom: 5px; }
-    input[type="text"], input[type="email"] {
-      width: 100%; height: 40px; padding: 0 12px;
-      font-family: inherit; font-size: 14px;
-      color: var(--text-primary);
-      background: var(--bg);
-      border: 1.5px solid var(--border-dark);
-      border-radius: var(--radius-sm);
-      outline: none;
-      transition: border-color var(--t-fast), box-shadow var(--t-fast);
-    }
-    input:focus {
-      border-color: var(--accent);
-      box-shadow: 0 0 0 3px rgba(203,89,40,0.12);
-    }
-    .modal-btns { display: flex; gap: 10px; margin-top: 20px; }
-    .btn { height: 40px; padding: 0 18px; border-radius: var(--radius-sm); font-family: inherit; font-size: 14px; font-weight: 600; cursor: pointer; border: none; transition: background var(--t-fast), opacity var(--t-fast); }
-    .btn-primary { background: var(--text-primary); color: #fff; flex: 1; }
-    .btn-primary:hover { background: #333; }
-    .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; }
-    .btn-cancel { background: var(--bg); color: var(--text-secondary); border: 1.5px solid var(--border-dark); }
-    .btn-cancel:hover { background: var(--border); }
-    .alert { padding: 10px 14px; border-radius: var(--radius-sm); font-size: 13px; margin-top: 12px; display: none; }
-    .alert.show { display: block; }
-    .alert-error   { background: #fef2f2; color: #b91c1c; border: 1px solid #fecaca; }
-    .alert-success { background: #f0fdf4; color: #15803d; border: 1px solid #bbf7d0; }
-    .alert-warning { background: #fef9ec; color: #92400e; border: 1px solid #fde68a; }
-
-    /* Link box */
-    .link-box {
-      background: var(--bg);
-      border: 1px solid var(--border-dark);
-      border-radius: var(--radius-sm);
-      padding: 10px 12px;
-      font-size: 12px;
-      font-family: monospace;
-      color: var(--text-secondary);
-      word-break: break-all;
-      margin-top: 12px;
-    }
-    .copy-btn {
-      font-size: 12px; font-weight: 600;
-      color: var(--accent);
-      background: none; border: none;
-      cursor: pointer; font-family: inherit;
-      margin-top: 6px;
-      display: inline-flex; align-items: center; gap: 4px;
-    }
-
-    /* EmailJS setup notice */
-    .setup-notice {
-      background: var(--accent-soft);
-      border: 1px solid rgba(203,89,40,0.2);
-      border-radius: var(--radius-md);
-      padding: 16px 20px;
-      margin-bottom: 28px;
+    /* ── Empty state ── */
+    .empty-state {
+      padding: 48px 20px;
+      text-align: center;
+      color: var(--text-muted);
       font-size: 13px;
-      line-height: 1.6;
     }
-    .setup-notice strong { font-weight: 600; }
-    .setup-notice a { color: var(--accent); text-decoration: underline; }
-    .setup-notice.hidden { display: none; }
 
-    /* Return link */
+    /* ── Return link ── */
     .return-link {
       display: inline-flex; align-items: center; gap: 6px;
       font-size: 13px; color: var(--text-secondary);
@@ -293,7 +181,8 @@
 
     @media (max-width: 700px) {
       .summary-grid { grid-template-columns: 1fr 1fr; }
-      .user-row { grid-template-columns: 1fr; gap: 8px; }
+      .user-row { grid-template-columns: 1fr 120px; }
+      .user-row .user-id { display: none; }
       .user-row.header-row { display: none; }
     }
   </style>
@@ -324,372 +213,103 @@
   </a>
 
   <div class="page-title">Team overview</div>
-  <div class="page-sub">Manage invites and track each person's Notion Academy progress.</div>
+  <div class="page-sub">Track each person's Notion Academy progress.</div>
 
-  <!-- EmailJS setup notice (hidden once configured) -->
-  <div class="setup-notice" id="emailjsNotice">
-    <strong>⚙️ EmailJS not yet configured.</strong> To send invite emails directly from this page, you need to set up a free EmailJS account.
-    <a href="https://www.emailjs.com" target="_blank">Create a free account at emailjs.com</a> → connect your Gmail → create a template using variables <code>{{to_name}}</code>, <code>{{to_email}}</code>, <code>{{setup_link}}</code>, <code>{{from_name}}</code> → then open <strong>auth.js</strong> and paste in your Service ID, Template ID, and Public Key.
-    Until then, you can copy invite links manually from the modal.
+  <!-- Clerk notice -->
+  <div class="clerk-notice">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" flex-shrink="0"><circle cx="12" cy="12" r="10" stroke="#CB5928" stroke-width="1.8"/><path d="M12 8v4m0 4h.01" stroke="#CB5928" stroke-width="2" stroke-linecap="round"/></svg>
+    <span>To invite users, reset passwords, or manage accounts, go to your <a href="https://dashboard.clerk.com" target="_blank" rel="noopener">Clerk dashboard</a>. Progress is tracked here once users sign in.</span>
   </div>
 
   <!-- Summary cards -->
-  <div class="summary-grid" id="summaryGrid">
+  <div class="summary-grid">
     <div class="stat-card">
       <div class="stat-num" id="statTotal">—</div>
-      <div class="stat-label">Total users</div>
+      <div class="stat-label">Users with progress</div>
     </div>
     <div class="stat-card">
-      <div class="stat-num accent" id="statActive">—</div>
-      <div class="stat-label">Accounts active</div>
+      <div class="stat-num accent" id="statComplete">—</div>
+      <div class="stat-label">Fully complete</div>
     </div>
     <div class="stat-card">
       <div class="stat-num" id="statAvgPct">—</div>
-      <div class="stat-label">Avg. progress (this device)</div>
+      <div class="stat-label">Average progress</div>
     </div>
   </div>
 
-  <!-- User list -->
+  <!-- Progress table -->
   <div class="section-header">
     <span class="section-title">All users</span>
-    <span class="section-hint">Progress shown for users who have logged in on this machine</span>
+    <span class="section-hint">Showing everyone who has signed in and saved progress</span>
   </div>
 
   <div class="user-table">
-    <!-- Header row -->
     <div class="user-row header-row">
-      <div>User</div>
-      <div>Email</div>
-      <div>Status</div>
+      <div>Clerk user ID</div>
+      <div>% done</div>
       <div>Progress</div>
-      <div>Invite</div>
     </div>
-    <!-- Rows injected by JS -->
     <div id="userRows"></div>
   </div>
 
 </main>
 
-<!-- ── Email / Invite Modal ── -->
-<div class="modal-overlay" id="inviteModal">
-  <div class="modal">
-    <div class="modal-title" id="modalTitle">Send invite</div>
-    <div class="modal-sub" id="modalSub">Set or confirm the email address for this user, then send them a setup link.</div>
-
-    <div class="alert alert-warning" id="modalWarning">EmailJS isn't configured yet. Copy the link below and send it manually.</div>
-    <div class="alert alert-error"   id="modalError"></div>
-    <div class="alert alert-success" id="modalSuccess"></div>
-
-    <div class="form-group">
-      <label>Sending to</label>
-      <input type="text" id="modalName" disabled style="background:#eee;color:#666;">
-    </div>
-    <div class="form-group">
-      <label for="modalEmail">Email address</label>
-      <input type="email" id="modalEmail" placeholder="e.g. alisha@allnations.org.uk">
-    </div>
-
-    <div id="linkSection" style="display:none;">
-      <label>Setup link (copy & paste if not using EmailJS)</label>
-      <div class="link-box" id="linkBox"></div>
-      <button class="copy-btn" id="copyBtn">
-        <svg width="12" height="12" viewBox="0 0 24 24" fill="none"><rect x="9" y="9" width="13" height="13" rx="2" stroke="currentColor" stroke-width="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" stroke="currentColor" stroke-width="2"/></svg>
-        Copy link
-      </button>
-    </div>
-
-    <div class="modal-btns">
-      <button class="btn btn-cancel" id="modalCancel">Cancel</button>
-      <button class="btn btn-primary" id="modalSend">Generate &amp; send invite</button>
-    </div>
-  </div>
-</div>
-
-<!-- ── Set Password Modal ── -->
-<div class="modal-overlay" id="setPasswordModal">
-  <div class="modal">
-    <div class="modal-title" id="setPwTitle">Set password</div>
-    <div class="modal-sub">Set a temporary password for this user. Tell them what it is so they can sign in.</div>
-    <div class="alert alert-error"   id="setPwError"></div>
-    <div class="alert alert-success" id="setPwSuccess"></div>
-    <div class="form-group">
-      <label>User</label>
-      <input type="text" id="setPwName" disabled style="background:#eee;color:#666;">
-    </div>
-    <div class="form-group">
-      <label for="setPwInput">New password</label>
-      <input type="text" id="setPwInput" placeholder="e.g. Nations2025" autocomplete="off">
-    </div>
-    <div class="modal-btns">
-      <button class="btn btn-cancel" id="setPwCancel">Cancel</button>
-      <button class="btn btn-primary" id="setPwConfirm">Set password</button>
-    </div>
-  </div>
-</div>
-
 <script src="auth.js"></script>
 <script>
 (async () => {
-  // ── Auth guard ─────────────────────────────────────
-  const session = getSession();
-  if (!session)              { window.location.href = 'login.html'; return; }
-  if (session.role !== 'admin') { window.location.href = 'dashboard.html'; return; }
+  // ── Clerk init + auth guard ────────────────────────
+  const clerk = new Clerk(CLERK_PUBLISHABLE_KEY);
+  await clerk.load();
+  window.clerk = clerk;
 
-  document.getElementById('logoutBtn').addEventListener('click', () => {
-    logout();
+  if (!clerk.user) { window.location.href = 'login.html'; return; }
+  if (clerk.user.publicMetadata?.role !== 'admin') { window.location.href = 'dashboard.html'; return; }
+
+  document.getElementById('logoutBtn').addEventListener('click', async () => {
+    await clerk.signOut();
     window.location.href = 'login.html';
   });
 
-  // mailto fallback — opens the admin's email app with the invite pre-filled
-  function openMailtoFallback(toEmail, toName, setupLink) {
-    const subject = encodeURIComponent("You're invited — set up your Notion account");
-    const body = encodeURIComponent(
-      `Hi ${toName},\n\nWe've set up a personal onboarding dashboard for you on our Notion learning platform.\n\nClick the link below to set your password and get started:\n\n${setupLink}\n\nThis link is unique to you — once you've set your password it won't work again.\n\nAll Nations Church`
-    );
-    window.location.href = `mailto:${toEmail}?subject=${subject}&body=${body}`;
+  // ── Load and render ────────────────────────────────
+  const users = await getAdminUsers();
+  const rowsEl = document.getElementById('userRows');
+
+  if (users.length === 0) {
+    rowsEl.innerHTML = '<div class="empty-state">No progress recorded yet. Users will appear here once they sign in and start the checklist.</div>';
+    document.getElementById('statTotal').textContent    = '0';
+    document.getElementById('statComplete').textContent = '0';
+    document.getElementById('statAvgPct').textContent   = '—';
+    return;
   }
 
-  // Check if EmailJS is configured
-  const emailjsConfigured = EMAILJS_PUBLIC_KEY !== 'YOUR_PUBLIC_KEY';
-  if (emailjsConfigured) {
-    document.getElementById('emailjsNotice').classList.add('hidden');
-  }
+  let completeCount = 0;
+  let pctSum = 0;
 
-  // ── Render all users ───────────────────────────────
-  renderPage();
+  for (const u of users) {
+    if (u.pct === 100) completeCount++;
+    pctSum += u.pct;
 
-  function renderPage() {
-    const users   = USERS_REGISTRY.filter(u => u.username !== 'admin');
-    const accounts = getAccounts();
-
-    let activeCount = 0;
-    let progressSum = 0, progressCount = 0;
-
-    const rowsEl = document.getElementById('userRows');
-    rowsEl.innerHTML = '';
-
-    for (const u of users) {
-      const account  = accounts[u.username] || { registered: false, inviteSent: false };
-      const emails   = getEmails();
-      const email    = emails[u.username] || u.email || '';
-      const summary  = getProgressSummary(u.username);
-      const initials = u.displayName.split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase();
-
-      if (account.registered) {
-        activeCount++;
-        progressSum += summary.pct;
-        progressCount++;
-      }
-
-      // Status
-      let statusHtml;
-      if (account.registered) {
-        statusHtml = `<span class="status-chip chip-active"><span class="status-dot dot-active"></span>Active</span>`;
-      } else if (account.inviteSent) {
-        statusHtml = `<span class="status-chip chip-invited"><span class="status-dot dot-invited"></span>Invited</span>`;
-      } else {
-        statusHtml = `<span class="status-chip chip-pending"><span class="status-dot dot-pending"></span>Not invited</span>`;
-      }
-
-      // Progress
-      const hasProgress = account.registered;
-      const progressHtml = hasProgress
-        ? `<div class="mini-progress">
-             <div class="mini-bar-track"><div class="mini-bar-fill" style="width:${summary.pct}%"></div></div>
-             <span class="mini-pct">${summary.pct}% (${summary.done}/${summary.total})</span>
-           </div>`
-        : `<span style="font-size:12px;color:var(--text-muted);">—</span>`;
-
-      // Invite button
-      const inviteLabel = account.inviteSent ? 'Resend invite' : 'Send invite';
-      const inviteClass = account.inviteSent ? 'btn-invite sent' : 'btn-invite';
-
-      const row = document.createElement('div');
-      row.className = 'user-row';
-      row.innerHTML = `
-        <div class="user-info">
-          <div class="user-avatar">${initials}</div>
-          <div>
-            <div class="user-name">${u.displayName}</div>
-            <div class="user-uname">${u.username}</div>
-          </div>
+    const row = document.createElement('div');
+    row.className = 'user-row';
+    row.innerHTML = `
+      <div class="user-id" title="${u.userId}">${u.userId}</div>
+      <div style="font-size:13px;font-weight:700;color:${u.pct === 100 ? '#15803d' : 'var(--text-primary)'}">
+        ${u.pct}%
+      </div>
+      <div class="mini-progress">
+        <div class="mini-bar-track">
+          <div class="mini-bar-fill" style="width:${u.pct}%"></div>
         </div>
-        <div class="email-cell">
-          <span class="email-display" title="${email}">${email || '—'}</span>
-          <button class="btn-icon" data-edit-email="${u.username}" title="Edit email">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-          </button>
-        </div>
-        <div>${statusHtml}</div>
-        <div>${progressHtml}</div>
-        <div style="display:flex;gap:6px;flex-wrap:wrap;">
-          <button class="${inviteClass}" data-invite="${u.username}">${inviteLabel}</button>
-          <button class="btn-invite" style="background:var(--bg);color:var(--text-secondary);border:1.5px solid var(--border-dark);" data-setpw="${u.username}">Set password</button>
-        </div>
-      `;
-      rowsEl.appendChild(row);
-    }
-
-    // Summary numbers
-    document.getElementById('statTotal').textContent   = users.length;
-    document.getElementById('statActive').textContent  = activeCount;
-    document.getElementById('statAvgPct').textContent  = progressCount
-      ? Math.round(progressSum / progressCount) + '%'
-      : '—';
-
-    // Attach listeners
-    rowsEl.querySelectorAll('[data-invite]').forEach(btn => {
-      btn.addEventListener('click', () => openInviteModal(btn.dataset.invite));
-    });
-    rowsEl.querySelectorAll('[data-edit-email]').forEach(btn => {
-      btn.addEventListener('click', () => openEmailEdit(btn.dataset.editEmail));
-    });
-    rowsEl.querySelectorAll('[data-setpw]').forEach(btn => {
-      btn.addEventListener('click', () => openSetPasswordModal(btn.dataset.setpw));
-    });
+        <span class="mini-pct">${u.done} / ${u.total} completed</span>
+      </div>
+    `;
+    rowsEl.appendChild(row);
   }
 
-  // ── Invite modal ───────────────────────────────────
-  let modalUsername = null;
-
-  function openInviteModal(username) {
-    modalUsername = username;
-    const user   = getUserInfo(username);
-    const emails = getEmails();
-    const email  = emails[username] || user.email || '';
-
-    document.getElementById('modalTitle').textContent = `Send invite to ${user.displayName}`;
-    document.getElementById('modalName').value        = user.displayName;
-    document.getElementById('modalEmail').value       = email;
-    document.getElementById('linkSection').style.display = 'none';
-    document.getElementById('linkBox').textContent    = '';
-    document.getElementById('modalWarning').classList.toggle('show', !emailjsConfigured);
-    document.getElementById('modalError').classList.remove('show');
-    document.getElementById('modalSuccess').classList.remove('show');
-    document.getElementById('modalSend').disabled    = false;
-    document.getElementById('modalSend').textContent = 'Generate & send invite';
-    document.getElementById('inviteModal').classList.add('show');
-  }
-
-  function openEmailEdit(username) {
-    openInviteModal(username);
-    document.getElementById('modalSend').textContent = 'Save email & generate link';
-  }
-
-  document.getElementById('modalCancel').addEventListener('click', closeModal);
-  document.getElementById('inviteModal').addEventListener('click', (e) => {
-    if (e.target === e.currentTarget) closeModal();
-  });
-
-  function closeModal() {
-    document.getElementById('inviteModal').classList.remove('show');
-    modalUsername = null;
-  }
-
-  document.getElementById('copyBtn').addEventListener('click', () => {
-    const link = document.getElementById('linkBox').textContent;
-    navigator.clipboard.writeText(link).then(() => {
-      document.getElementById('copyBtn').textContent = '✓ Copied!';
-      setTimeout(() => { document.getElementById('copyBtn').innerHTML = `<svg width="12" height="12" viewBox="0 0 24 24" fill="none"><rect x="9" y="9" width="13" height="13" rx="2" stroke="currentColor" stroke-width="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" stroke="currentColor" stroke-width="2"/></svg> Copy link`; }, 2000);
-    });
-  });
-
-  document.getElementById('modalSend').addEventListener('click', async () => {
-    const email = document.getElementById('modalEmail').value.trim();
-    if (!email || !email.includes('@')) {
-      document.getElementById('modalError').textContent = 'Please enter a valid email address.';
-      document.getElementById('modalError').classList.add('show');
-      return;
-    }
-    document.getElementById('modalError').classList.remove('show');
-
-    // Save email
-    const emails = getEmails();
-    emails[modalUsername] = email;
-    saveEmails(emails);
-
-    // Generate invite token
-    const token = generateInviteToken(modalUsername);
-    const baseUrl = window.location.href.replace(/\/[^\/]*$/, '/login.html');
-    const setupLink = `${baseUrl}#setup?username=${modalUsername}&token=${token}`;
-
-    // Show the link
-    document.getElementById('linkBox').textContent       = setupLink;
-    document.getElementById('linkSection').style.display = 'block';
-
-    const user = getUserInfo(modalUsername);
-
-    if (emailjsConfigured) {
-      document.getElementById('modalSend').disabled    = true;
-      document.getElementById('modalSend').textContent = 'Sending…';
-      const result = await sendInviteEmail(modalUsername, email, user.displayName, setupLink);
-      document.getElementById('modalSend').disabled    = false;
-      document.getElementById('modalSend').textContent = 'Resend invite';
-      if (result.ok) {
-        document.getElementById('modalSuccess').textContent = `Invite sent to ${email}!`;
-        document.getElementById('modalSuccess').classList.add('show');
-      } else {
-        document.getElementById('modalError').textContent = `Email failed: ${result.reason}. Copy the link above and send it manually, or check your EmailJS domain whitelist.`;
-        document.getElementById('modalError').classList.add('show');
-      }
-    } else {
-      document.getElementById('modalSuccess').textContent = 'Link generated. Copy it above and send it to the user manually.';
-      document.getElementById('modalSuccess').classList.add('show');
-      document.getElementById('modalSend').textContent = 'Regenerate link';
-    }
-
-    // Refresh the table
-    renderPage();
-  });
-
-  // ── Set Password modal ─────────────────────────────
-  let setPwUsername = null;
-
-  function openSetPasswordModal(username) {
-    setPwUsername = username;
-    const user = getUserInfo(username);
-    document.getElementById('setPwTitle').textContent = `Set password for ${user.displayName}`;
-    document.getElementById('setPwName').value        = user.displayName;
-    document.getElementById('setPwInput').value       = '';
-    document.getElementById('setPwError').classList.remove('show');
-    document.getElementById('setPwSuccess').classList.remove('show');
-    document.getElementById('setPasswordModal').classList.add('show');
-  }
-
-  document.getElementById('setPwCancel').addEventListener('click', () => {
-    document.getElementById('setPasswordModal').classList.remove('show');
-  });
-
-  document.getElementById('setPwConfirm').addEventListener('click', async () => {
-    const pw = document.getElementById('setPwInput').value.trim();
-    const errEl = document.getElementById('setPwError');
-    const okEl  = document.getElementById('setPwSuccess');
-    errEl.classList.remove('show');
-    okEl.classList.remove('show');
-
-    if (pw.length < 6) {
-      errEl.textContent = 'Password must be at least 6 characters.';
-      errEl.classList.add('show');
-      return;
-    }
-
-    const hash = await hashPassword(pw);
-    const accounts = getAccounts();
-    if (!accounts[setPwUsername]) accounts[setPwUsername] = { inviteSent: false };
-    accounts[setPwUsername] = {
-      ...accounts[setPwUsername],
-      passwordHash: hash,
-      registered:   true,
-      inviteToken:  null,
-    };
-    saveAccounts(accounts);
-
-    const user = getUserInfo(setPwUsername);
-    okEl.textContent = `Done! ${user.displayName} can now sign in with username "${setPwUsername}" and the password you set.`;
-    okEl.classList.add('show');
-    document.getElementById('setPwConfirm').textContent = 'Update password';
-    renderPage();
-  });
+  document.getElementById('statTotal').textContent    = users.length;
+  document.getElementById('statComplete').textContent = completeCount;
+  document.getElementById('statAvgPct').textContent   =
+    Math.round(pctSum / users.length) + '%';
 
 })();
 </script>

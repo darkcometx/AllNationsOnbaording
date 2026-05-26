@@ -1,14 +1,22 @@
 {
-  "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "allnationsonbaording",
-  "compatibility_date": "2026-05-23",
-  "observability": {
-    "enabled": true
-  },
-  "assets": {
-    "directory": "."
-  },
-  "compatibility_flags": [
-    "nodejs_compat"
-  ]
+	"name": "allnationsonbaording",
+	"main": "worker.js",
+	"compatibility_date": "2026-05-23",
+	"compatibility_flags": ["nodejs_compat"],
+	"observability": { "enabled": true },
+	"assets": {
+		"directory": ".",
+		"binding": "ASSETS"
+	},
+
+	// ── D1 database ─────────────────────────────────────────
+	// Database was created with: npx wrangler d1 create allnations-onboarding
+	// Schema applied with: npx wrangler d1 execute allnations-onboarding --file=schema.sql --remote
+	"d1_databases": [
+		{
+			"binding": "DB",
+			"database_name": "allnations-onboarding",
+			"database_id": "6b74a1f2-a5f9-4827-9aef-a62e24d750b8"
+		}
+	]
 }

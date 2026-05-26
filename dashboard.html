@@ -7,6 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap">
+  <script src="https://cdn.jsdelivr.net/npm/@clerk/clerk-js@5/dist/clerk.browser.js"></script>
   <style>
     :root {
       --bg:            #F7F7F5;
@@ -475,12 +476,16 @@
 <script src="auth.js"></script>
 <script>
 (async () => {
-  // ── Auth guard ─────────────────────────────────────
-  const session = getSession();
-  if (!session) { window.location.href = 'login.html'; return; }
-  if (session.role === 'admin') { window.location.href = 'admin.html'; return; }
+  // ── Clerk init + auth guard ────────────────────────
+  const clerk = new Clerk(CLERK_PUBLISHABLE_KEY);
+  await clerk.load();
+  window.clerk = clerk;
 
-  const { username, displayName } = session;
+  if (!clerk.user) { window.location.href = 'login.html'; return; }
+  if (clerk.user.publicMetadata?.role === 'admin') { window.location.href = 'admin.html'; return; }
+
+  const userId      = clerk.user.id;
+  const displayName = clerk.user.fullName || clerk.user.primaryEmailAddress?.emailAddress || 'You';
 
   // ── Set up header ──────────────────────────────────
   document.getElementById('userDisplayName').textContent = displayName;
@@ -488,13 +493,13 @@
   document.getElementById('userAvatar').textContent = initials;
   document.title = `${displayName} — Notion Onboarding`;
 
-  document.getElementById('logoutBtn').addEventListener('click', () => {
-    logout();
+  document.getElementById('logoutBtn').addEventListener('click', async () => {
+    await clerk.signOut();
     window.location.href = 'login.html';
   });
 
   // ── Load & render checklist ────────────────────────
-  let progress = getProgress(username);
+  let progress = await getProgress(userId);
 
   renderAll();
 
@@ -513,7 +518,6 @@
       const section = document.createElement('div');
       section.className = 'path-section';
 
-      // Header
       const header = document.createElement('div');
       header.className = 'path-header';
       header.innerHTML = `
@@ -524,7 +528,6 @@
       `;
       section.appendChild(header);
 
-      // Items
       const list = document.createElement('div');
       list.className = 'checklist';
 
@@ -558,9 +561,8 @@
         `;
 
         div.addEventListener('click', () => {
-          const nowChecked = !progress[pathKey][item.id];
-          progress[pathKey][item.id] = nowChecked;
-          saveProgress(username, progress);
+          progress[pathKey][item.id] = !progress[pathKey][item.id];
+          saveProgress(userId, progress);
           renderAll();
         });
 
@@ -568,8 +570,6 @@
       }
 
       section.appendChild(list);
-
-      // Divider (except after last section)
       root.appendChild(section);
       if (pathKey !== 'advanced') {
         const divider = document.createElement('div');
@@ -578,67 +578,41 @@
       }
     }
 
-    // Update overall progress
     const pct = totalItems ? Math.round((totalDone / totalItems) * 100) : 0;
     document.getElementById('overallPct').textContent  = pct + '%';
     document.getElementById('overallFill').style.width = pct + '%';
     document.getElementById('overallSub').textContent  = `${totalDone} of ${totalItems} completed`;
-
-    // Show congrats banner if all done
-    if (pct === 100) {
-      document.getElementById('congratsBanner').classList.add('show');
-    } else {
-      document.getElementById('congratsBanner').classList.remove('show');
-    }
+    document.getElementById('congratsBanner').classList.toggle('show', pct === 100);
   }
-  // ── Help modal ────────────────────────────────────
+
+  // ── Help modal ─────────────────────────────────────
+  // EmailJS removed — opens the user's email client with message pre-filled.
   const helpModal   = document.getElementById('helpModal');
   const helpMessage = document.getElementById('helpMessage');
   const helpError   = document.getElementById('helpError');
-  const helpSuccess = document.getElementById('helpSuccess');
 
   document.getElementById('helpFab').addEventListener('click', () => {
     helpMessage.value = '';
     helpError.classList.remove('show');
-    helpSuccess.classList.remove('show');
-    document.getElementById('helpSend').textContent = 'Send message';
-    document.getElementById('helpSend').disabled = false;
+    document.getElementById('helpSend').textContent = 'Open email';
     helpModal.classList.add('show');
     setTimeout(() => helpMessage.focus(), 50);
   });
 
-  document.getElementById('helpCancel').addEventListener('click', () => {
-    helpModal.classList.remove('show');
-  });
+  document.getElementById('helpCancel').addEventListener('click', () => helpModal.classList.remove('show'));
+  helpModal.addEventListener('click', e => { if (e.target === helpModal) helpModal.classList.remove('show'); });
 
-  helpModal.addEventListener('click', (e) => {
-    if (e.target === helpModal) helpModal.classList.remove('show');
-  });
-
-  document.getElementById('helpSend').addEventListener('click', async () => {
+  document.getElementById('helpSend').addEventListener('click', () => {
     const msg = helpMessage.value.trim();
-    helpError.classList.remove('show');
     if (!msg) {
-      helpError.textContent = 'Please write a message before sending.';
+      helpError.textContent = 'Please write a message first.';
       helpError.classList.add('show');
       return;
     }
-    const btn = document.getElementById('helpSend');
-    btn.disabled = true;
-    btn.textContent = 'Sending…';
-    const result = await sendHelpEmail(displayName, username, msg);
-    if (result.ok) {
-      helpSuccess.textContent = 'Message sent! Endo will get back to you soon.';
-      helpSuccess.classList.add('show');
-      btn.textContent = 'Sent ✓';
-      helpMessage.value = '';
-      setTimeout(() => helpModal.classList.remove('show'), 2000);
-    } else {
-      helpError.textContent = `Couldn't send the message (${result.reason}). Try again or contact Endo directly.`;
-      helpError.classList.add('show');
-      btn.disabled = false;
-      btn.textContent = 'Send message';
-    }
+    const subject = encodeURIComponent(`Notion Onboarding — question from ${displayName}`);
+    const body    = encodeURIComponent(msg);
+    window.open(`mailto:${HELP_EMAIL}?subject=${subject}&body=${body}`);
+    helpModal.classList.remove('show');
   });
 
 })();

@@ -7,23 +7,17 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap">
-  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@clerk/clerk-js@5/dist/clerk.browser.js"></script>
   <style>
     :root {
       --bg:           #F7F7F5;
       --surface:      #FFFFFF;
       --border:       #E9E9E7;
-      --border-dark:  #D5D5D3;
       --text-primary: #111111;
       --text-secondary:#666666;
       --text-muted:   #999999;
       --accent:       #CB5928;
-      --accent-hover: #B34E22;
-      --accent-soft:  rgba(203, 89, 40, 0.08);
-      --shadow-sm:    0 1px 4px rgba(0,0,0,0.07), 0 1px 2px rgba(0,0,0,0.04);
       --shadow-md:    0 4px 16px rgba(0,0,0,0.08), 0 1px 4px rgba(0,0,0,0.04);
-      --radius-sm:    6px;
-      --radius-md:    10px;
       --radius-lg:    16px;
       --t-fast:       0.15s cubic-bezier(0.4, 0, 0.2, 1);
     }
@@ -41,24 +35,22 @@
       -webkit-font-smoothing: antialiased;
     }
 
-    /* ── Card ── */
     .card {
       background: var(--surface);
       border: 1px solid var(--border);
       border-radius: var(--radius-lg);
       box-shadow: var(--shadow-md);
-      padding: 40px 40px 36px;
+      padding: 36px 40px 32px;
       width: 100%;
-      max-width: 420px;
+      max-width: 460px;
     }
 
-    /* ── Header ── */
     .card-header {
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 12px;
-      margin-bottom: 32px;
+      gap: 10px;
+      margin-bottom: 28px;
       text-align: center;
     }
     .logo-wrap {
@@ -77,147 +69,18 @@
       font-weight: 700;
       color: var(--text-primary);
     }
-    .card-title {
-      font-size: 22px;
-      font-weight: 700;
-      color: var(--text-primary);
-      line-height: 1.2;
-    }
-    .card-subtitle {
-      font-size: 13px;
-      color: var(--text-secondary);
+    .card-title    { font-size: 20px; font-weight: 700; line-height: 1.2; }
+    .card-subtitle { font-size: 13px; color: var(--text-secondary); }
+
+    /* Strip Clerk's outer card so it sits flush inside ours */
+    #sign-in .cl-card,
+    #sign-in .cl-cardBox {
+      box-shadow: none !important;
+      border: none !important;
+      padding: 0 !important;
+      background: transparent !important;
     }
 
-    /* ── User icon ── */
-    .user-icon {
-      width: 64px;
-      height: 64px;
-      background: var(--accent-soft);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: 0 auto 4px;
-    }
-
-    /* ── Form ── */
-    .form-group { margin-bottom: 16px; }
-    label {
-      display: block;
-      font-size: 13px;
-      font-weight: 500;
-      color: var(--text-primary);
-      margin-bottom: 6px;
-    }
-    input[type="text"],
-    input[type="password"] {
-      width: 100%;
-      height: 42px;
-      padding: 0 12px;
-      font-family: inherit;
-      font-size: 14px;
-      color: var(--text-primary);
-      background: var(--bg);
-      border: 1.5px solid var(--border-dark);
-      border-radius: var(--radius-sm);
-      outline: none;
-      transition: border-color var(--t-fast), box-shadow var(--t-fast);
-    }
-    input:focus {
-      border-color: var(--accent);
-      box-shadow: 0 0 0 3px rgba(203,89,40,0.12);
-    }
-    input::placeholder { color: var(--text-muted); }
-
-    /* ── Select ── */
-    select {
-      width: 100%;
-      height: 42px;
-      padding: 0 12px;
-      font-family: inherit;
-      font-size: 14px;
-      color: var(--text-primary);
-      background: var(--bg);
-      border: 1.5px solid var(--border-dark);
-      border-radius: var(--radius-sm);
-      outline: none;
-      cursor: pointer;
-      transition: border-color var(--t-fast), box-shadow var(--t-fast);
-      appearance: none;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23666' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
-      background-repeat: no-repeat;
-      background-position: right 12px center;
-    }
-    select:focus {
-      border-color: var(--accent);
-      box-shadow: 0 0 0 3px rgba(203,89,40,0.12);
-    }
-
-    /* ── Password strength ── */
-    .strength-bar {
-      height: 4px;
-      border-radius: 2px;
-      background: var(--border);
-      margin-top: 8px;
-      overflow: hidden;
-    }
-    .strength-fill {
-      height: 100%;
-      border-radius: 2px;
-      width: 0%;
-      transition: width 0.3s, background-color 0.3s;
-    }
-    .strength-label {
-      font-size: 11px;
-      color: var(--text-muted);
-      margin-top: 4px;
-    }
-
-    /* ── Btn ── */
-    .btn {
-      width: 100%;
-      height: 44px;
-      border-radius: var(--radius-sm);
-      font-family: inherit;
-      font-size: 14px;
-      font-weight: 600;
-      cursor: pointer;
-      border: none;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      transition: background var(--t-fast), opacity var(--t-fast), transform var(--t-fast);
-    }
-    .btn:active { transform: scale(0.98); }
-    .btn-primary {
-      background: var(--text-primary);
-      color: #fff;
-    }
-    .btn-primary:hover { background: #333; }
-    .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
-    .btn-ghost {
-      background: transparent;
-      color: var(--text-secondary);
-      border: 1.5px solid var(--border-dark);
-      margin-top: 10px;
-    }
-    .btn-ghost:hover { background: var(--bg); color: var(--text-primary); }
-
-    /* ── Alert ── */
-    .alert {
-      padding: 10px 14px;
-      border-radius: var(--radius-sm);
-      font-size: 13px;
-      margin-bottom: 16px;
-      display: none;
-    }
-    .alert.show { display: block; }
-    .alert-error { background: #fef2f2; color: #b91c1c; border: 1px solid #fecaca; }
-    .alert-success { background: #f0fdf4; color: #15803d; border: 1px solid #bbf7d0; }
-    .alert-info { background: var(--accent-soft); color: var(--accent); border: 1px solid rgba(203,89,40,0.2); }
-
-    /* ── Back link ── */
     .back-link {
       display: flex;
       align-items: center;
@@ -227,333 +90,73 @@
       margin-top: 20px;
       text-decoration: none;
       transition: color var(--t-fast);
+      justify-content: center;
     }
     .back-link:hover { color: var(--text-primary); }
 
-    /* ── View switcher ── */
-    .view { display: none; }
-    .view.active { display: block; }
-
-    /* ── Spinner ── */
-    .spinner {
-      width: 16px; height: 16px;
-      border: 2px solid rgba(255,255,255,0.4);
-      border-top-color: #fff;
-      border-radius: 50%;
-      animation: spin 0.6s linear infinite;
-      display: none;
-    }
-    @keyframes spin { to { transform: rotate(360deg); } }
-
-    /* ── Setup mode banner ── */
-    .setup-banner {
-      background: var(--accent-soft);
-      border: 1px solid rgba(203,89,40,0.2);
-      border-radius: var(--radius-sm);
-      padding: 10px 14px;
+    .loading {
+      text-align: center;
+      padding: 32px 0;
       font-size: 13px;
-      color: var(--accent);
-      margin-bottom: 20px;
-      line-height: 1.5;
-    }
-    .hint {
-      font-size: 12px;
       color: var(--text-muted);
-      margin-top: 4px;
     }
   </style>
 </head>
 <body>
 
-<!-- ── LOGIN VIEW ── -->
-<div class="view active" id="viewLogin">
-  <div class="card">
-    <div class="card-header">
-      <div class="logo-wrap">
-        <img src="anlogo.png" class="logo-img" alt="All Nations">
-        <span class="logo-text">All Nations Church</span>
-      </div>
-      <div class="user-icon">
-        <svg width="32" height="32" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-          <path stroke="#CB5928" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5.316 19.438A4 4 0 0 1 9 17h6a4 4 0 0 1 3.684 2.438M16 9.5a4 4 0 1 1-8 0 4 4 0 0 1 8 0m6 2.5c0 5.523-4.477 10-10 10S2 17.523 2 12 6.477 2 12 2s10 4.477 10 10"/>
-        </svg>
-      </div>
-      <div>
-        <div class="card-title">Sign in</div>
-        <div class="card-subtitle">Notion Onboarding Dashboard</div>
-      </div>
+<div class="card">
+  <div class="card-header">
+    <div class="logo-wrap">
+      <img src="anlogo.png" class="logo-img" alt="All Nations">
+      <span class="logo-text">All Nations Church</span>
     </div>
-
-    <div class="alert alert-error" id="loginError"></div>
-
-    <div class="form-group">
-      <label for="loginUsername">Username</label>
-      <input type="text" id="loginUsername" placeholder="firstname.lastname  e.g. endo.moyo" autocomplete="username" spellcheck="false" autocapitalize="none">
+    <div>
+      <div class="card-title">Sign in</div>
+      <div class="card-subtitle">Notion Onboarding Dashboard</div>
     </div>
-
-    <div class="form-group">
-      <label for="loginPassword">Password</label>
-      <input type="password" id="loginPassword" placeholder="Enter your password" autocomplete="current-password">
-      <p class="hint" id="notRegisteredHint" style="display:none;">You haven't set up your account yet. <a href="#" id="requestSetupLink" style="color:var(--accent);text-decoration:underline;">Request a setup link</a></p>
-    </div>
-
-    <button class="btn btn-primary" id="loginBtn">
-      <span class="spinner" id="loginSpinner"></span>
-      <span id="loginBtnText">Sign in</span>
-    </button>
-
-    <a href="index.html" class="back-link">
-      <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M9 2L4 7l5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      Back to the presentation
-    </a>
   </div>
-</div>
 
-<!-- ── FIRST-TIME SETUP VIEW (via invite link) ── -->
-<div class="view" id="viewSetup">
-  <div class="card">
-    <div class="card-header">
-      <div class="logo-wrap">
-        <img src="anlogo.png" class="logo-img" alt="All Nations">
-        <span class="logo-text">All Nations Church</span>
-      </div>
-      <div>
-        <div class="card-title">Set up your account</div>
-        <div class="card-subtitle">Create a password to access your onboarding dashboard</div>
-      </div>
-    </div>
+  <div id="sign-in"><div class="loading">Loading…</div></div>
 
-    <div class="setup-banner" id="setupWelcomeBanner">
-      Welcome! You're setting up your account for the first time.
-    </div>
-
-    <div class="alert alert-error" id="setupError"></div>
-    <div class="alert alert-success" id="setupSuccess"></div>
-
-    <div class="form-group">
-      <label>Setting up account for</label>
-      <input type="text" id="setupDisplayName" disabled style="background:#eee;color:#666;">
-    </div>
-
-    <div class="form-group">
-      <label for="setupPassword">Choose a password</label>
-      <input type="password" id="setupPassword" placeholder="At least 8 characters" autocomplete="new-password">
-      <div class="strength-bar"><div class="strength-fill" id="strengthFill"></div></div>
-      <div class="strength-label" id="strengthLabel"></div>
-    </div>
-
-    <div class="form-group">
-      <label for="setupConfirm">Confirm password</label>
-      <input type="password" id="setupConfirm" placeholder="Repeat your password" autocomplete="new-password">
-    </div>
-
-    <button class="btn btn-primary" id="setupBtn">
-      <span class="spinner" id="setupSpinner"></span>
-      <span id="setupBtnText">Create account & sign in</span>
-    </button>
-  </div>
-</div>
-
-<!-- ── INVALID TOKEN VIEW ── -->
-<div class="view" id="viewInvalidToken">
-  <div class="card">
-    <div class="card-header">
-      <div class="card-title" style="color:#b91c1c;">Link expired or invalid</div>
-      <div class="card-subtitle">This setup link has already been used or is no longer valid.</div>
-    </div>
-    <p style="font-size:13px;color:var(--text-secondary);margin-bottom:20px;text-align:center;">If you've already set up your account, you can sign in normally. If not, ask your admin to send a new invite.</p>
-    <button class="btn btn-primary" onclick="showView('viewLogin')">Go to sign in</button>
-  </div>
+  <a href="index.html" class="back-link">
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M9 2L4 7l5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    Back to the presentation
+  </a>
 </div>
 
 <script src="auth.js"></script>
 <script>
 (async () => {
-  const usernameInput = document.getElementById('loginUsername');
+  const clerk = new Clerk(CLERK_PUBLISHABLE_KEY);
+  await clerk.load();
+  window.clerk = clerk;
 
-  // ── Check for existing session ──────────────────────
-  const session = getSession();
-  if (session) {
-    redirectAfterLogin(session);
+  if (clerk.user) {
+    redirectAfterLogin();
     return;
   }
 
-  // ── Login: hint on username input ─────────────────
-  usernameInput.addEventListener('input', () => {
-    const username = usernameInput.value.trim().toLowerCase();
-    const u = getUserInfo(username);
-    const hint = document.getElementById('notRegisteredHint');
-    hint.style.display = (u && !u.account.registered) ? 'block' : 'none';
-    document.getElementById('loginError').classList.remove('show');
+  clerk.mountSignIn(document.getElementById('sign-in'), {
+    afterSignInUrl:  window.location.href,
+    afterSignUpUrl:  window.location.href,
+    appearance: {
+      variables: {
+        colorPrimary:    '#CB5928',
+        colorBackground: '#FFFFFF',
+        colorText:       '#111111',
+        borderRadius:    '8px',
+        fontFamily:      'Inter, system-ui, sans-serif',
+        fontSize:        '14px',
+      }
+    }
   });
 
-  // ── Request setup link ─────────────────────────────
-  document.getElementById('requestSetupLink').addEventListener('click', (e) => {
-    e.preventDefault();
-    const username = usernameInput.value.trim().toLowerCase();
-    if (!username) return;
-    const user = getUserInfo(username);
-    if (!user?.email) {
-      showError('loginError', 'No email address is set for your account. Please ask your admin to set your email first.');
-      return;
-    }
-    showError('loginError', 'Contact your admin to send you a setup invite. Your email (' + user.email + ') is on file.');
-  });
-
-  // ── Login submit ───────────────────────────────────
-  document.getElementById('loginBtn').addEventListener('click', doLogin);
-  document.getElementById('loginPassword').addEventListener('keydown', (e) => { if (e.key === 'Enter') doLogin(); });
-  usernameInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') document.getElementById('loginPassword').focus(); });
-
-  async function doLogin() {
-    const username = usernameInput.value.trim().toLowerCase();
-    const password = document.getElementById('loginPassword').value;
-    const err = document.getElementById('loginError');
-    err.classList.remove('show');
-    if (!username) { showError('loginError', 'Please enter your username.'); return; }
-    if (!password) { showError('loginError', 'Please enter your password.'); return; }
-    const knownUser = getUserInfo(username);
-    if (!knownUser) { showError('loginError', 'Username not recognised. Try firstname.lastname — e.g. endo.moyo'); return; }
-    setLoading('login', true);
-    const result = await attemptLogin(username, password);
-    setLoading('login', false);
-    if (result.ok) {
-      redirectAfterLogin(result.user);
-    } else if (result.reason === 'not_registered') {
-      showError('loginError', 'Your account hasn\'t been set up yet. Use the setup link from your invite email, or ask your admin.');
-    } else {
-      showError('loginError', 'Incorrect password. Please try again.');
-    }
-  }
-
-  // ── Setup submit — attached unconditionally so it works from invite links ──
-  const setupPwInput = document.getElementById('setupPassword');
-  setupPwInput.addEventListener('input', updateStrength);
-
-  document.getElementById('setupBtn').addEventListener('click', doSetup);
-  document.getElementById('setupConfirm').addEventListener('keydown', (e) => { if (e.key === 'Enter') doSetup(); });
-
-  async function doSetup() {
-    try {
-      const view     = document.getElementById('viewSetup');
-      const username = view.dataset.username;
-      const token    = view.dataset.token;
-      const pw       = document.getElementById('setupPassword').value;
-      const confirm  = document.getElementById('setupConfirm').value;
-
-      showError('setupError', '');
-
-      if (!username || !token) {
-        showError('setupError', 'Setup data missing — please use the link from your invite email.');
-        return;
-      }
-      if (pw.length < 8) { showError('setupError', 'Password must be at least 8 characters.'); return; }
-      if (pw !== confirm) { showError('setupError', 'Passwords don\'t match.'); return; }
-
-      setLoading('setup', true);
-      const result = await activateAccount(username, token, pw);
-      if (!result.ok) {
-        setLoading('setup', false);
-        showError('setupError', 'This link is no longer valid. Ask your admin to send a new invite.');
-        return;
-      }
-      // Auto-login
-      const loginResult = await attemptLogin(username, pw);
-      setLoading('setup', false);
-      if (loginResult.ok) {
-        document.getElementById('setupSuccess').textContent = 'Account created! Redirecting...';
-        document.getElementById('setupSuccess').classList.add('show');
-        setTimeout(() => redirectAfterLogin(loginResult.user), 1000);
-      } else {
-        showError('setupError', 'Account created but auto-login failed. Please sign in manually.');
-      }
-    } catch (err) {
-      setLoading('setup', false);
-      showError('setupError', 'Something went wrong: ' + err.message);
-      console.error('doSetup error:', err);
-    }
-  }
-
-  // ── Check for invite token in URL hash ─────────────
-  // Format: login.html#setup?username=alisha.bains&token=abc123
-  const hash = window.location.hash;
-  if (hash.startsWith('#setup?')) {
-    const params = new URLSearchParams(hash.slice('#setup?'.length));
-    const username = params.get('username');
-    const token    = params.get('token');
-    if (username && token) {
-      const storedToken = getInviteToken(username);
-      if (!storedToken || storedToken !== token) {
-        showView('viewInvalidToken');
-        return;
-      }
-      // Valid token — show setup
-      const user = getUserInfo(username);
-      document.getElementById('setupDisplayName').value = user?.displayName || username;
-      document.getElementById('viewSetup').dataset.username = username;
-      document.getElementById('viewSetup').dataset.token    = token;
-      showView('viewSetup');
-      return;
-    }
-  }
-
-  // Default: show login
-  showView('viewLogin');
-
-  // ── Helpers ────────────────────────────────────────
-  function redirectAfterLogin(user) {
-    if (user.role === 'admin') {
-      window.location.href = 'admin.html';
-    } else {
-      window.location.href = 'dashboard.html';
-    }
-  }
-
-  function showView(id) {
-    document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
-    document.getElementById(id).classList.add('active');
-  }
-
-  function showError(id, msg) {
-    const el = document.getElementById(id);
-    if (!msg) { el.classList.remove('show'); return; }
-    el.textContent = msg;
-    el.classList.add('show');
-  }
-
-  function setLoading(type, on) {
-    const spinner = document.getElementById(type + 'Spinner');
-    const btnText = document.getElementById(type + 'BtnText');
-    const btn = document.getElementById(type + 'Btn');
-    spinner.style.display = on ? 'block' : 'none';
-    btnText.textContent   = on ? (type === 'login' ? 'Signing in…' : 'Creating account…') : (type === 'login' ? 'Sign in' : 'Create account & sign in');
-    btn.disabled          = on;
-  }
-
-  function updateStrength() {
-    const pw = setupPwInput.value;
-    const fill  = document.getElementById('strengthFill');
-    const label = document.getElementById('strengthLabel');
-    let score = 0;
-    if (pw.length >= 8)  score++;
-    if (pw.length >= 12) score++;
-    if (/[A-Z]/.test(pw) && /[a-z]/.test(pw)) score++;
-    if (/\d/.test(pw))   score++;
-    if (/[^A-Za-z0-9]/.test(pw)) score++;
-    const levels = [
-      { pct: 0, color: 'var(--border)', text: '' },
-      { pct: 20, color: '#ef4444', text: 'Too short' },
-      { pct: 40, color: '#f97316', text: 'Weak' },
-      { pct: 60, color: '#eab308', text: 'Fair' },
-      { pct: 80, color: '#22c55e', text: 'Good' },
-      { pct: 100, color: '#16a34a', text: 'Strong' },
-    ];
-    const lvl = levels[Math.min(score, levels.length - 1)];
-    fill.style.width           = lvl.pct + '%';
-    fill.style.backgroundColor = lvl.color;
-    label.textContent          = lvl.text;
+  function redirectAfterLogin() {
+    const role = clerk.user?.publicMetadata?.role;
+    window.location.href = role === 'admin' ? 'admin.html' : 'dashboard.html';
   }
 })();
 </script>
+
 </body>
 </html>
