@@ -56,8 +56,8 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 10px;
-      margin-bottom: 28px;
+      gap: 0;
+      margin-bottom: 16px;
       text-align: center;
     }
     .logo-wrap {
@@ -67,20 +67,24 @@
       gap: 6px;
     }
     .logo-img {
-      width: 40px;
-      height: 40px;
+      width: 48px;
+      height: 48px;
       border-radius: 50%;
       object-fit: contain;
+      object-position: center;
       background: #000;
-      padding: 6px;
+      padding: 8px;
+      box-sizing: border-box;
+      display: block;
     }
     .logo-text {
       font-size: 14px;
       font-weight: 700;
       color: var(--text-primary);
     }
+    .card-title-group { margin-top: 12px; text-align: center; }
     .card-title    { font-size: 20px; font-weight: 700; line-height: 1.2; }
-    .card-subtitle { font-size: 13px; color: var(--text-secondary); }
+    .card-subtitle { font-size: 13px; color: var(--text-secondary); margin-top: 4px; }
 
     /* Strip Clerk's outer card and force all internals to be fluid */
     #sign-in,
@@ -135,7 +139,7 @@
       <img src="anlogo.png" class="logo-img" alt="All Nations">
       <span class="logo-text">All Nations Church</span>
     </div>
-    <div>
+    <div class="card-title-group">
       <div class="card-title">Sign in</div>
       <div class="card-subtitle">Notion Onboarding Dashboard</div>
     </div>
@@ -194,6 +198,8 @@ window.addEventListener('load', async function () {
         elements: {
           headerTitle:    { display: 'none' },
           headerSubtitle: { display: 'none' },
+          rootBox:        { width: '100%', minWidth: '0', maxWidth: '100%' },
+          cardBox:        { width: '100%', minWidth: '0' },
         },
       }
     });
