@@ -13,7 +13,7 @@
 // ── Clerk publishable key ─────────────────────────────
 // Get from: https://dashboard.clerk.com → API Keys
 // This key is public-facing — it's safe to be in frontend code.
-const CLERK_PUBLISHABLE_KEY = 'pk_test_cmVuZXdpbmctc2hhcmstOTEuY2xlcmsuYWNjb3VudHMuZGV2JA';
+const CLERK_PUBLISHABLE_KEY = 'pk_live_Y2xlcmsubm90aW9ub25ib2FyZGluZy5jYyQ';
 
 // ── Help contact ──────────────────────────────────────
 const HELP_EMAIL = 'endo.moyo@gmail.com';
